@@ -1,26 +1,28 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "cake",
-			"script": "Default",
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"problemMatcher": [
-				"$msCompile"
-			],
-			"label": "Cake: Run Default"
-		},
-		{
-			"type": "cake",
-			"script": "Build",
-			"group": "build",
-			"problemMatcher": [
-				"$msCompile"
-			],
-			"label": "Cake: Run Build"
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "process",
+            "command": ["dotnet"],
+            "args": ["cake", "--target=Default", "--configuration=Debug"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$msCompile"
+            ],
+            "label": "Cake: Default"
+        },
+        {
+            "type": "process",
+            "command": ["dotnet"],
+            "args": ["cake", "--target=BuildTest", "--configuration=Debug"],
+            "group": "build",
+            "problemMatcher": [
+                "$msCompile"
+            ],
+            "label": "Cake: Build and test"
+        }
+    ]
 }

@@ -5,11 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": "Run (linux)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "Cake: Run Build",
-            "program": "${workspaceFolder}/src/MyConsole/bin/Debug/netcoreapp3.1/MyConsole.dll",
+            "preLaunchTask": "Cake: Build and test",
+            "program": "${workspaceFolder}/src/GamePatcher.UI.Gtk/bin/Debug/netcoreapp3.1/linux-x64/GamePatcher.UI.Gtk.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
