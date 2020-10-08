@@ -4,7 +4,8 @@
         "src": [
           {
             "files": [
-              "MyLibrary/MyLibrary.csproj"
+              "GamePatcher/GamePatcher.csproj",
+              "GamePatcher.UI/GamePatcher.UI.csproj"
             ],
             "src": "../src"
           }

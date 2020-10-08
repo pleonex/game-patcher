@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="Yarhl" />
+    <ProjectReference Include="../ThirdParty/Lemon/src/Lemon/Lemon.csproj" />
+    <ProjectReference Include="../ThirdParty/xdelta-sharp/xdelta/xdelta.csproj" />
   </ItemGroup>
 
 </Project>

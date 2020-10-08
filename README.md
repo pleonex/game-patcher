@@ -1,7 +1,13 @@
-# Example .NET Project
+# Game patcher
 
-This project showcases how to use the PleOps Cake pipeline with an example .NET
-project.
+Generic patcher for video-games. It provides a cross-platform library and a base
+UI.
+
+## Platforms
+
+Games from the following platforms are supported:
+
+- Nintendo 3DS
 
 ## Build
 

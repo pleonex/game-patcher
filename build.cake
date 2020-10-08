@@ -1,13 +1,14 @@
-// #load "./../src/PleOps.Cake/targets.cake"
 #load "nuget:?package=PleOps.Cake&prerelease"
 
 Task("Define-Project")
     .Description("Fill specific project information")
     .Does<BuildInfo>(info =>
 {
-    info.AddLibraryProjects("MyLibrary");
-    info.AddApplicationProjects("MyConsole");
-    info.AddTestProjects("MyTests");
+    info.WarningsAsErrors = false;
+    info.AddLibraryProjects("GamePatcher");
+    info.AddLibraryProjects("GamePatcher.UI");
+    info.AddApplicationProjects("GamePatcher.UI.Gtk");
+    info.AddTestProjects("GamePatcher.Tests");
 });
 
 Task("Default")
