@@ -9,7 +9,7 @@
 - name: 📃 Specifications
 - name: 🚧 Overview
   href: ./specs/overview.md
-- name: 🚧 Project license patch (.plp)
-  href: ./specs/plp.md
-- name: 🚧 Project patch manifest (.ppm)
-  href: ./specs/ppm.md
+- name: 🚧 Product mod catalog (.pmc)
+  href: ./specs/catalog.md
+- name: 🚧 Mod manifest (.omi)
+  href: ./specs/manifest.md

@@ -1,3 +1,0 @@
-# Project patch manifest
-
-TODO...

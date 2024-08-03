@@ -1,3 +1,0 @@
-# Project license patch
-
-TODO...
