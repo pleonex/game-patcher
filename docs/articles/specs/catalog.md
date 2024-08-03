@@ -141,7 +141,24 @@ mods:
 
 # Signature prevents malware distribution by verifying this file was not modified and comes from a trusted source
 signature:
+  # apps contains the root certificate and must verify this one is trusted against the CA
+  certificate: >
+    MIIC/jCCAeYCAQEwDQYJKoZIhvcNAQELBQAwRTELMAkGA1UEBhMCQVUxEzARBgNV
+    BAgMClNvbWUtU3RhdGUxITAfBgNVBAoMGEludGVybmV0IFdpZGdpdHMgUHR5IEx0
+    ZDAeFw0yNDA4MDMxMzEyNTRaFw0zNDA4MDExMzEyNTRaMEUxCzAJBgNVBAYTAkFV
+    MRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRz
+    IFB0eSBMdGQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCYPCxdHAg7
+    D00dAAKic0+sz7XZ0kKFxNovmwd5G33pCZR9hu2mSZu26Cjf8txp1Q3yYAgL0wmn
+    dggPUvimm/Kb17wCvzfhEt4IZG9NcgnzLXSsw1YDNfhRxqaSTcJmuWf6K/3SbOMW
+    pHFCXi4oa2ozBZ7JeH7cmYv4zVxPCrQORHLvgdnjSnOIOGaNhP7Pcg2von5SF3+c
+    6ZEeTeZ5OEKPqcM3meYusVxIiVmebimwkLN0fPU9Jg0viL0PYgZBhH3hNa2Wh7Xz
+    JkUWpxCMcNkybTfeMbpYvOD42DiMKZklD6jna3NaHhlhM8fptv9x4MAD2nTDZZdx
+    hbWpPKwMew7jAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAGkakqIrF3sngClTM/xq
+    NG1iwYzR8IJS5T1P+BpofyE159yJ3Zr3PsUseb9enTKEZzUfaAuejwoENrOusFA+
+    IB19JEEs4+mUTr65HZr7+73p2lOy8Ic2dWofNVqddjBW/Zlg3sQ8cnFbraI6PGDw
+    bBfefmC8qHQk3TzDM0r1Uc80FaVNDGzrFk0RQGjlILK+LoyanNk27fKY1BA6ghTz
+    Lq63VBSTyjPXLstqONhsnFkaEYOjspOPa8qRD5y6QmwEAtuhzTfwSaeSeUGjccpT
+    32eYafMfA5PoK+1R4smmRYpyKfeMiO+c0clJn2VbK9egZGk0/0PY+RF/fXIVGKESj2s=
   algorithm: "rsa-sha256"
-  certificate: "" # apps contains the root certificate and must verify this one is trusted
-  value: ""
+  value: "AEH4BdkrFM3WIP9ZB1ZtOKtYEzv+UgGtyAfH3PfOMoH84S5wmOaM5wPHJKvyZ7k5ecT27ceQt88hWVN3aIp5M9eKAHZaKP5fXpdSJffry9NGhdv+wk1Mldn0IkoDq9FRbqZqQ2PrGQebDMtxpC8BUZ2tAg6DWGbZhSDP4UKR1hFWRhI+"
 ```

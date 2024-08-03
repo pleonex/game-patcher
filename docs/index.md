@@ -1,4 +1,4 @@
-# .NET project template
+# Game patcher
 
 Generic patcher for video-games. It provides a cross-platform library and a base
 UI.

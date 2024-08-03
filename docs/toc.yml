@@ -1,9 +1,6 @@
 - name: Guides
   href: articles/
 
-- name: API
-  href: api/
-
 - name: Changelog
   href: articles/changelog.md
 
