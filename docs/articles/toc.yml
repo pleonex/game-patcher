@@ -1,0 +1,15 @@
+- name: ✨ Getting started
+- name: 🚧 Introduction
+  href: ../index.md
+- name: 🚧 Getting started guide
+  href: ./getting-started/tutorial.md
+- name: 🚧 Framework architecture
+  href: ./getting-started/architecture.md
+
+- name: 📃 Specifications
+- name: 🚧 Overview
+  href: ./specs/overview.md
+- name: 🚧 Project license patch (.plp)
+  href: ./specs/plp.md
+- name: 🚧 Project patch manifest (.ppm)
+  href: ./specs/ppm.md

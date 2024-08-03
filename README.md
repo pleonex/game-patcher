@@ -7,7 +7,7 @@ UI.
 
 Games from the following platforms are supported:
 
-- Nintendo 3DS
+- 🚧 WIP: Nintendo DS
 
 ## Build
 
