@@ -2,12 +2,6 @@
   "version": 1,
   "isRoot": true,
   "tools": {
-    "cake.tool": {
-      "version": "0.38.4",
-      "commands": [
-        "dotnet-cake"
-      ]
-    },
     "docfx": {
       "version": "2.75.2",
       "commands": [

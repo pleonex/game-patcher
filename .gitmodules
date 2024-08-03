@@ -1,6 +1,0 @@
-[submodule "src/ThirdParty/Lemon"]
-	path = src/ThirdParty/Lemon
-	url = https://github.com/SceneGate/Lemon
-[submodule "src/ThirdParty/xdelta-sharp"]
-	path = src/ThirdParty/xdelta-sharp
-	url = https://github.com/pleonex/xdelta-sharp
