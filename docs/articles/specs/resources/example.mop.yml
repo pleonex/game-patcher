@@ -1,9 +1,10 @@
 project:
   name: "Pokémon Conquest Spanish fan-translation"
-  type: translation
+  type: "translation"
   description:
-    en: Spanish fan-translation of the Nintendo DS game "Pokémon Conquest"
-    es_ES:
+    en: >
+      Spanish fan-translation of the Nintendo DS game "Pokémon Conquest"
+    es_ES: >
       Traducción al español de España del juego de Nintendo DS "Pokémon
       Conquest"
   links:
@@ -51,7 +52,7 @@ products:
           name: "信長の野望DS (Nobunaga no Yabō DS)"
     buy_info:
       - store: "Physical"
-        discontinued: true
+        discontinued: "true"
         link:
         comments:
 

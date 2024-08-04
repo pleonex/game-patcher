@@ -68,6 +68,6 @@ the filename `manifest.json`. The package should have the extension `.mpk`
 For readability, the example is in YAML format. The structure representation is
 compatible with JSON.
 
-[Download link](./resources/example.modproj.yml)
+[Download link](./resources/example.mop.yml)
 
-[!code-yaml[](./resources/example.modproj.yml)]
+[!code-yaml[](./resources/example.mop.yml)]

@@ -16,6 +16,10 @@ considered (e.g., distribute video patches in a separate installer).
 
 ## Format
 
+> [!NOTE]  
+> Probably we would drop the idea of a custom binary format and use a plain ZIP
+> file with `.omi` extension.
+
 The content is a custom binary format of a compressed container. The file name
 should have the extension `.omi`.
 
