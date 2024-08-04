@@ -1,0 +1,204 @@
+project:
+  name: "Pokémon Conquest Spanish fan-translation"
+  type: translation
+  description:
+    en: Spanish fan-translation of the Nintendo DS game "Pokémon Conquest"
+    es_ES:
+      Traducción al español de España del juego de Nintendo DS "Pokémon
+      Conquest"
+  links:
+    - name: "TraduSquare project"
+      href: "https://tradusquare.es/proyectos/pokemon-conquest/"
+    - name: "Project's blog"
+      href: "https://"
+    - name: "Modding tools"
+      href: "https://github.com/pleonex/AmbitionConquest"
+  status: "in_progress"
+  # Different to modproj, the team and credits for this specific mod only
+  team: "Pokémon Conquest Spanish Team"
+  credits: >
+    * Ingeniería inversa: pleonex  
+    * Traductores: ...
+  logo:
+    icon: "https://..." # also content://
+    large:
+  additional_information:
+
+mod:
+  id: "spanish_v1.0"
+  version: "1.0.0"
+  name: "Traducción al español"
+  authors: > # feel free to copy also the credits
+    Pokémon Conquest Spanish Team
+  description: >
+    Primera versión de la traducción. Incluye todos los textos, imágenes y
+    fuentes. Incluye soporte de los misiones descargables con servidor WFC
+    propio. El único elemento sin traduccir es el vídeo de presentación.
+  target_language: "es_ES" # empty for hacks
+  compatibility:
+    - product_id: "PSL_EU_VPYP01_00"
+      name: "Cartridge dump Europe"
+      platform: "nds"
+      format: "dsi-rom"
+      verification:
+        method: "dsi-dec-rsa"
+        hash: "lB8RA+0gvnHT50wmPQp3j7VRG9VnVoqDYp7jmVhYf/FmthzG+D2yr0iNcob1FHenKqWyTcKAOAJgDjDN8dBg1flvZW8M5ovG6c49/Yuqsepd1qaNvxOm1LuAgWsj4WqG7XuPGx5h6MPRFp01nIr4Ko7Y5utWO/HVtTu4R6E/DCo="
+    - product_id: "PSL_E_VPYT01_00"
+      name: "Cartridge dump USA"
+      platform: "nds"
+      format: "dsi-rom"
+      verification:
+        method: "file-sha256"
+        hash: "Zc47YEF9Y61gxQvVMBzdkcI1GE7/tbz/Lahn71P4Qu8="
+    - product_id: "PSL_EU_VPYP01_01"
+      name: "Spanish translation beta patch v0.1"
+      platform: "nds"
+      format: "dsi-rom"
+      verification:
+        method: "ds-gameid"
+        hash: "PSL_EU_VPYP01_01"
+  feature_groups:
+    # Groups of features the user can choose when applying the mod
+    # Also parameters to personalize the mod, used in the resources.
+    - id: "translation"
+      name: "Traducción"
+      description: "Traducción al español"
+      is_optional: false
+      parameters:
+
+    - id: "dwc"
+      name: "Conexión inalámbrica"
+      description: "Configuración del servidor de descarga de DLCs"
+      is_optional: true
+      parameters:
+        - id: "DISABLE_HTTPS"
+          description: "Usa el protocolo no seguro HTTP en lugar de HTTPS."
+          default: "1"
+          type: "bool"
+        - id: "NAS_SERVER"
+          description: >
+            Servidor de descargas.
+            Si se deja por defecto hay que configurar un servidor propio de DNS.
+          default: "https://nas.nintendowifi.net"
+          type: "string"
+        - id: "HTTP_PORT"
+          description: "Puerto de conexión del protocolo HTTP"
+          default: "80"
+          type: "number"
+  # List of supported output formats / packaging methods for the mod.
+  # Some mods may be incompatible with some systems, e.g. LayeredFS on 3DS
+  deployment:
+    - name: "dsi-rom"
+      parameters:
+        regenerate_hashes: "true"
+
+resources:
+  # XDelta patch for a file inside the ROM for multi-region
+  - id: "d7860147-0ea9-4201-ae6c-ccb3c5ea11a0"
+    installation_method: "xdelta"
+    content:
+      href: "content://patches/spanish.xdelta.zip"
+      format: "xdelta-zip"
+      hash_algorithm: "sha256"
+      hash_value: "5dbrSZngg8H9hw9OcHV3sMOnb62ORcY8CtkIdvfQZPc="
+    compatibility:
+      - product_id: "PSL_EU_VPYP01_00"
+      - product_id: "PSL_E_VPYT01_00"
+      - product_id: "PSL_EU_VPYP01_01"
+    feature_group:
+      - name: "translation"
+        order: "1"
+        is_optional: "false"
+    installation_parameters:
+      xdelta:
+        target: "dsi://root/data/message.dat"
+        original_hash: "yQ3LglAj9AjMJ+6afs3n9DExnqEiEm6KmJSLyrUWDrM="
+        modified_hash: "HMKxWxQ6AAm7MYJv1iIq//J1abTvumcvuEs5k1U6CM0="
+
+  # XDelta patch for one version only
+  - id: "556fb6c7-5d58-4671-8c6e-c6c8a8e7e415"
+    installation_method: "xdelta"
+    content:
+      href: "content://patches/spanish_arm9_eu.xdelta"
+      format: "xdelta"
+      hash_algorithm: "sha256"
+      hash_value: "0F3koaII1otRA8wEp8UJMmrK/S7tZbqwZOJukDpQWUM="
+    compatibility:
+      - product_id: "PSL_EU_VPYP01_00"
+    feature_group:
+      - name: "translation"
+        order: "2"
+        is_optional: "false"
+    installation_parameters:
+      xdelta:
+        target: "dsi://root/system/arm9"
+        original_hash: "KgdHkvgZ7s+D31MZkdHByrm3LEa7XtnC95ojztfowbk="
+        modified_hash: "x7aqyF3I5TwD8W5APv2eklhg05JGcvpxkDwUfRWCi8c="
+
+  # Platform-specific modifications
+  - id: "b48ee696-ab42-424e-a405-e777b2c2826c"
+    installation_method: "ds-romheader"
+    content:
+      href: "content://patches/rom-info.yml"
+      format: "yaml"
+      hash_algorithm: "sha256"
+      hash_value: "rUlyOvXAqMXsW7b24BQ8jf+EQW0tU+WAZim46Itephs="
+    compatibility:
+      - product_id: "PSL_EU_VPYP01_00"
+      - product_id: "PSL_E_VPYT01_00"
+      - product_id: "PSL_EU_VPYP01_01"
+    feature_group:
+      - name: "translation"
+        order: "3"
+        is_optional: "true" # optional inside a mandatory group
+    installation_parameters:
+
+  # Optional feature: assembly patch with parameters
+  - id: "1cf2f399-bb1f-477a-989c-bb4811987586"
+    installation_method: "armips"
+    content:
+      href: "content://patches/dwc.asm"
+      format: "armips-asm"
+      hash_algorithm: "sha256"
+      hash_value: "DjT99mleurdSqQMbCq/Vr/TVFwF5GTg97S1LkNZJ0bE="
+    compatibility:
+      - product_id: "PSL_EU_VPYP01_00"
+      - product_id: "PSL_E_VPYT01_00"
+    feature_group:
+      - name: "dwc"
+        order: "1"
+        is_optional: "false" # mandatory inside the optional feature
+    installation_parameters:
+      armips:
+        target: "dsi://root/system/overlays9/overlay_3"
+        # Parameters we will pass to the armips program when applying the patch.
+        parameters:
+          - name: "DWC_DISABLE_HTTPS"
+            value: "${options.dwc.disable_https}"
+          - name: "DWC_NAS_SERVER"
+            value: "${options.dwc.nas_server}"
+          - name: "DWC_HTTP_PORT"
+            value: "${options.dwc.http_port}"
+
+# Signature prevents malware distribution by verifying this file was not modified and comes from a trusted source
+signature:
+  # apps contains the root certificate and must verify this one is trusted against the CA
+  certificate: >
+    MIIC/jCCAeYCAQEwDQYJKoZIhvcNAQELBQAwRTELMAkGA1UEBhMCQVUxEzARBgNV
+    BAgMClNvbWUtU3RhdGUxITAfBgNVBAoMGEludGVybmV0IFdpZGdpdHMgUHR5IEx0
+    ZDAeFw0yNDA4MDMxMzEyNTRaFw0zNDA4MDExMzEyNTRaMEUxCzAJBgNVBAYTAkFV
+    MRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRz
+    IFB0eSBMdGQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCYPCxdHAg7
+    D00dAAKic0+sz7XZ0kKFxNovmwd5G33pCZR9hu2mSZu26Cjf8txp1Q3yYAgL0wmn
+    dggPUvimm/Kb17wCvzfhEt4IZG9NcgnzLXSsw1YDNfhRxqaSTcJmuWf6K/3SbOMW
+    pHFCXi4oa2ozBZ7JeH7cmYv4zVxPCrQORHLvgdnjSnOIOGaNhP7Pcg2von5SF3+c
+    6ZEeTeZ5OEKPqcM3meYusVxIiVmebimwkLN0fPU9Jg0viL0PYgZBhH3hNa2Wh7Xz
+    JkUWpxCMcNkybTfeMbpYvOD42DiMKZklD6jna3NaHhlhM8fptv9x4MAD2nTDZZdx
+    hbWpPKwMew7jAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAGkakqIrF3sngClTM/xq
+    NG1iwYzR8IJS5T1P+BpofyE159yJ3Zr3PsUseb9enTKEZzUfaAuejwoENrOusFA+
+    IB19JEEs4+mUTr65HZr7+73p2lOy8Ic2dWofNVqddjBW/Zlg3sQ8cnFbraI6PGDw
+    bBfefmC8qHQk3TzDM0r1Uc80FaVNDGzrFk0RQGjlILK+LoyanNk27fKY1BA6ghTz
+    Lq63VBSTyjPXLstqONhsnFkaEYOjspOPa8qRD5y6QmwEAtuhzTfwSaeSeUGjccpT
+    32eYafMfA5PoK+1R4smmRYpyKfeMiO+c0clJn2VbK9egZGk0/0PY+RF/fXIVGKESj2s=
+  algorithm: "rsa-sha256"
+  value: "AEH4BdkrFM3WIP9ZB1ZtOKtYEzv+UgGtyAfH3PfOMoH84S5wmOaM5wPHJKvyZ7k5ecT27ceQt88hWVN3aIp5M9eKAHZaKP5fXpdSJffry9NGhdv+wk1Mldn0IkoDq9FRbqZqQ2PrGQebDMtxpC8BUZ2tAg6DWGbZhSDP4UKR1hFWRhI+"

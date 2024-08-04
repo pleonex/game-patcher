@@ -9,11 +9,11 @@ manifest share a unique goal, e.g. a translation or a specific hack.
 Software listing mods (mod stores) may use this format to store or download an
 offline copy of the information of individual projects.
 
+## Format
+
 The file format is a serialized JSON in
 [minimized format](#minimized-json-format). The file name should have the
 extension `.modproj` or `.mop`.
-
-## Format
 
 The format is divided in the following sections:
 
@@ -68,148 +68,4 @@ the filename `manifest.json`. The package should have the extension `.mpk`
 For readability, the example is in YAML format. The structure representation is
 compatible with JSON.
 
-```yaml
-project:
-  name: "Pokémon Conquest Spanish fan-translation"
-  type: translation
-  description:
-    en: Spanish fan-translation of the Nintendo DS game "Pokémon Conquest"
-    es_ES:
-      Traducción al español de España del juego de Nintendo DS "Pokémon
-      Conquest"
-  links:
-    - name: "TraduSquare project"
-      href: "https://tradusquare.es/proyectos/pokemon-conquest/"
-    - name: "Project's blog"
-      href: "https://"
-    - name: "Modding tools"
-      href: "https://github.com/pleonex/AmbitionConquest"
-  status: "in_progress"
-  team: "Pokémon Conquest Spanish Team" # team is optional, credits is mandatory
-  credits: >
-    * Ingeniería inversa: pleonex  
-    * Traductores: ...
-  logo: "https://..." # also content:// for mod packages
-  additional_information:
-
-products:
-  - id: "PSL_EU_VPYP01_00"
-    name: "Pokémon Conquest"
-    company: "Tecmo Koei"
-    publisher: "Nintendo"
-    release_date: "27.07.2012"
-    region: "europe"
-    genre:
-      - "tactical_rpg"
-    platform: "nds"
-    description:
-      es_ES: >
-        Pokémon Conquest para Nintendo DS es un spin-off de la saga Pokémon que
-        ofrece una nueva modalidad de juego. Se desarrolla en un mundo feudal
-        japonés llamado Ransei donde también habitan los Pokémon.
-    linked_products:
-      regions:
-        - id: "PSL_VPYJ2P_00"
-          name: "ポケモン＋ノブナガの野望 (Pokémon + Nobunaga's Ambition)"
-          region: "japan"
-        - id: "PSL_E_VPYT01_00"
-          name: "Pokémon Conquest"
-          region: "usa"
-      saga:
-        - id: "NOBUNAGA DS_ANBJC8_01"
-          name: "信長の野望DS (Nobunaga no Yabō DS)"
-    buy_info:
-      - store: "Physical"
-        discontinued: true
-        link:
-        comments:
-
-  - id: "PSL_E_VPYT01_00"
-    name: "Pokémon Conquest"
-    company: "Tecmo Koei"
-    publisher: "Nintendo"
-    release_date: "18.06.2012"
-    region: "usa"
-    genre:
-      - "tactical_rpg"
-    platform: "nds"
-    description:
-    linked_products:
-      regions:
-        - id: "PSL_VPYJ2P_00"
-          name: "ポケモン＋ノブナガの野望 (Pokémon + Nobunaga's Ambition)"
-          region: "japan"
-        - id: "PSL_EU_VPYP01_00"
-          name: "Pokémon Conquest"
-          region: "europe"
-      saga:
-        - id: "NOBUNAGA DS_ANBJC8_01"
-          name: "信長の野望DS (Nobunaga no Yabō DS)"
-    buy_info:
-
-mods:
-  - id: "spanish_v1.0"
-    version: "1.0.0"
-    name: "Traducción al español"
-    description: >
-      Primera versión de la traducción. Incluye todos los textos, imágenes y
-      fuentes. Incluye soporte de los misiones descargables con servidor WFC
-      propio. El único elemento sin traduccir es el vídeo de presentación.
-    compatibility:
-      - product_id: "PSL_EU_VPYP01_00"
-        variant_name: "Original dump region Europe"
-        verification_method: "dsi-dec-rsa"
-        hash: "lB8RA+0gvnHT50wmPQp3j7VRG9VnVoqDYp7jmVhYf/FmthzG+D2yr0iNcob1FHenKqWyTcKAOAJgDjDN8dBg1flvZW8M5ovG6c49/Yuqsepd1qaNvxOm1LuAgWsj4WqG7XuPGx5h6MPRFp01nIr4Ko7Y5utWO/HVtTu4R6E/DCo="
-      - product_id: "PSL_E_VPYT01_00"
-        variant_name: "Original dump region USA"
-        verification_method: "file-sha256"
-        hash: "Zc47YEF9Y61gxQvVMBzdkcI1GE7/tbz/Lahn71P4Qu8="
-      - product_id: "PSL_EU_VPYP01_01"
-        variant_name: "Spanish beta patch v0.1"
-        verification_method: "ds-gameid"
-        hash: "PSL_EU_VPYP01_01"
-    target_language: "es_ES"
-    mod_content:
-      href: "content://spanish_v1.0.omi" # also https://
-      format: "omi-v1"
-      hash_algorithm: "sha256"
-      hash_value: "5dbrSZngg8H9hw9OcHV3sMOnb62ORcY8CtkIdvfQZPc="
-    valid_until: "01-01-2024" # from this date the patcher refuses to apply it. Used for betas / prevent leaks.
-    encryption:
-      # Key that encrypts the mod file and the file encryption algorithm.
-      # This key is the same for everyone but it's encrypted here with the user-key
-      # Files encrypted in the backend storage with the key.
-      content_key:
-        algorithm: "aes256-cbc"
-        key: "mk5qdYn7RDN2DoyZTm+HGfKvIh9HLwsc3iiv91y7PWDHho9ndRpbaMpUN4gRN2yTK4W6ptJghKqAlqScKOv+VA=="
-      # This key changes on each download of this catalog file, it's per user.
-      # It's generated from a passphrase only the user knows. The key check verifies the validity of the key,
-      # by decrypting its content which should match this mods ID.
-      user_key:
-        generation_algorithm: "sha256"
-        key_check: "zGBhE1X6bXPtUL1n9Yh81AVDqdlAFx6FeUeMbanPYGz3C01WMyHGHniAKZYcZGFA/9B08i+AE23CrROH1nkkwg=="
-        hint: "Your account password in TraduSquare"
-
-# Signature prevents malware distribution by verifying this file was not modified and comes from a trusted source
-signature:
-  # apps contains the root certificate and must verify this one is trusted against the CA
-  certificate: >
-    MIIC/jCCAeYCAQEwDQYJKoZIhvcNAQELBQAwRTELMAkGA1UEBhMCQVUxEzARBgNV
-    BAgMClNvbWUtU3RhdGUxITAfBgNVBAoMGEludGVybmV0IFdpZGdpdHMgUHR5IEx0
-    ZDAeFw0yNDA4MDMxMzEyNTRaFw0zNDA4MDExMzEyNTRaMEUxCzAJBgNVBAYTAkFV
-    MRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRz
-    IFB0eSBMdGQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCYPCxdHAg7
-    D00dAAKic0+sz7XZ0kKFxNovmwd5G33pCZR9hu2mSZu26Cjf8txp1Q3yYAgL0wmn
-    dggPUvimm/Kb17wCvzfhEt4IZG9NcgnzLXSsw1YDNfhRxqaSTcJmuWf6K/3SbOMW
-    pHFCXi4oa2ozBZ7JeH7cmYv4zVxPCrQORHLvgdnjSnOIOGaNhP7Pcg2von5SF3+c
-    6ZEeTeZ5OEKPqcM3meYusVxIiVmebimwkLN0fPU9Jg0viL0PYgZBhH3hNa2Wh7Xz
-    JkUWpxCMcNkybTfeMbpYvOD42DiMKZklD6jna3NaHhlhM8fptv9x4MAD2nTDZZdx
-    hbWpPKwMew7jAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAGkakqIrF3sngClTM/xq
-    NG1iwYzR8IJS5T1P+BpofyE159yJ3Zr3PsUseb9enTKEZzUfaAuejwoENrOusFA+
-    IB19JEEs4+mUTr65HZr7+73p2lOy8Ic2dWofNVqddjBW/Zlg3sQ8cnFbraI6PGDw
-    bBfefmC8qHQk3TzDM0r1Uc80FaVNDGzrFk0RQGjlILK+LoyanNk27fKY1BA6ghTz
-    Lq63VBSTyjPXLstqONhsnFkaEYOjspOPa8qRD5y6QmwEAtuhzTfwSaeSeUGjccpT
-    32eYafMfA5PoK+1R4smmRYpyKfeMiO+c0clJn2VbK9egZGk0/0PY+RF/fXIVGKESj2s=
-  algorithm: "rsa-sha256"
-  value: "AEH4BdkrFM3WIP9ZB1ZtOKtYEzv+UgGtyAfH3PfOMoH84S5wmOaM5wPHJKvyZ7k5ecT27ceQt88hWVN3aIp5M9eKAHZaKP5fXpdSJffry9NGhdv+wk1Mldn0IkoDq9FRbqZqQ2PrGQebDMtxpC8BUZ2tAg6DWGbZhSDP4UKR1hFWRhI+"
-```
+[!code-yaml](./example.modproj.yml)
