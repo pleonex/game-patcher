@@ -23,6 +23,10 @@ project:
     icon: "https://..." # also content:// for mod packages
     large:
   additional_information:
+  update:
+    # Get the latest version of this file to check for updates
+    method: "http"
+    uri: "https://raw.githubusercontent.com/pleonex/MyPatches/latest/pokemon_conquest_spanish.mdp"
 
 products:
   - id: "PSL_EU_VPYP01_00"
