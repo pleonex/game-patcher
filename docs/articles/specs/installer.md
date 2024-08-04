@@ -79,4 +79,6 @@ TODO...
 For readability, the example is in YAML format. The structure representation is
 compatible with JSON.
 
-[!code-yaml](./example.omi.yml)
+[Download link](./resources/example.omi.yml)
+
+[!code-yaml[](./resources/example.omi.yml)]

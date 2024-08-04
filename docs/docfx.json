@@ -1,24 +1,5 @@
 {
-  "metadata": [
-    {
-      "src": [
-        {
-          "files": [
-          ],
-          "src": "../src"
-        }
-      ],
-      "dest": "api",
-      "includePrivateMembers": false,
-      "disableGitFeatures": false,
-      "disableDefaultFilter": false,
-      "noRestore": false,
-      "namespaceLayout": "flattened",
-      "memberLayout": "samePage",
-      "EnumSortOrder": "alphabetic",
-      "allowCompilationErrors": false
-    }
-  ],
+  "metadata": [ ],
   "build": {
     "content": [
       {
@@ -27,7 +8,7 @@
           "api/index.md"
         ]
       },
-      { "files": "**/*.{md,yml}", "src": "articles", "dest": "docs" },
+      { "files": ["**/*.md", "**/toc.yml"], "src": "articles", "dest": "docs" },
       { "files": [ "toc.yml", "*.md" ] }
     ],
     "resource": [

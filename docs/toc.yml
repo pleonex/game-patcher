@@ -1,5 +1,8 @@
-- name: Guides
-  href: articles/
+# - name: Dev guides
+#   href: articles/dev/
+
+- name: Format specs
+  href: articles/specs/
 
 - name: Changelog
   href: articles/changelog.md
