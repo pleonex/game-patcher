@@ -105,8 +105,8 @@ mods:
           method: "ds-gameid"
           hash: "PSL_EU_VPYP01_01"
     mod_content:
-      href: "content://spanish_v1.0.omi" # also https://
-      format: "omi-v1"
+      href: "content://spanish_v1.0.mix" # also https://
+      format: "mix-v1"
       hash_algorithm: "sha256"
       hash_value: "5dbrSZngg8H9hw9OcHV3sMOnb62ORcY8CtkIdvfQZPc="
     valid_until: "01-01-2024" # from this date the patcher refuses to apply it. Used for betas / prevent leaks.

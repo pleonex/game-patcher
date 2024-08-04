@@ -1,8 +1,8 @@
-# Open mod installer
+# Mod Installer eXtensible
 
-The _open mod installer_ is a format used to distribute a specific mod of a
-product, such as a video-game. It contains instructions on how to apply the mod.
-The format is extensible and compatible for many platforms via _platform
+The _mod installer extensible_ is a format used to distribute a specific mod of
+a product, such as a video-game. It contains instructions on how to apply the
+mod. The format is extensible and compatible for many platforms via _platform
 extensions_.
 
 The installer is not intended to distribute binary or text diffs. It describes
@@ -18,14 +18,14 @@ considered (e.g., distribute video patches in a separate installer).
 
 > [!NOTE]  
 > Probably we would drop the idea of a custom binary format and use a plain ZIP
-> file with `.omi` extension.
+> file with `.mix` extension.
 
 The content is a custom binary format of a compressed container. The file name
-should have the extension `.omi`.
+should have the extension `.mix`.
 
 | Offset | Format  | Description           |
 | ------ | ------- | --------------------- |
-| 0x00   | char[4] | Magic stamp: `OMI1`   |
+| 0x00   | char[4] | Magic stamp: `MIX1`   |
 | 0x04   | long    | Total file length     |
 | 0x0C   | long    | Container data offset |
 
@@ -83,6 +83,6 @@ TODO...
 For readability, the example is in YAML format. The structure representation is
 compatible with JSON.
 
-[Download link](./resources/example.omi.yml)
+[Download link](./resources/example.mix.yml)
 
-[!code-yaml[](./resources/example.omi.yml)]
+[!code-yaml[](./resources/example.mix.yml)]

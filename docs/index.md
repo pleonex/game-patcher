@@ -1,6 +1,6 @@
-# Open Mod Installer
+# Multi-platform Open eXtensible Mod Installer
 
-Open multi-platform framework for video-game mods.
+Multi-platform framework for distributing mods of video-games.
 
 > [!CAUTION]  
 > This project is still in a very early phase. It doesn't have any deliverables

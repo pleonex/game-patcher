@@ -13,7 +13,7 @@ offline copy of the information of individual projects.
 
 The file format is a serialized JSON in
 [minimized format](#minimized-json-format). The file name should have the
-extension `.modproj` or `.mop`.
+extension `.modproj` or `.mdp`.
 
 The format is divided in the following sections:
 
@@ -68,6 +68,6 @@ the filename `manifest.json`. The package should have the extension `.mpk`
 For readability, the example is in YAML format. The structure representation is
 compatible with JSON.
 
-[Download link](./resources/example.mop.yml)
+[Download link](./resources/example.mdp.yml)
 
-[!code-yaml[](./resources/example.mop.yml)]
+[!code-yaml[](./resources/example.mdp.yml)]

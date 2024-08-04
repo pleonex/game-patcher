@@ -1,7 +1,7 @@
 - name: 📃 Specifications
 - name: 🚧 Overview
   href: ./overview.md
-- name: 🚧 Modding project manifest (.mop)
+- name: 🚧 Modding project manifest (.mdp)
   href: ./manifest.md
-- name: 🚧 Open mod installer (.omi)
+- name: 🚧 Mod installer extensible (.mix)
   href: ./installer.md
