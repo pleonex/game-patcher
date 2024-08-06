@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fluent="using:FluentAvalonia.UI.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PleOps.GamePatcher.Poc.Pages.Main.MainView">
+    
+    <fluent:NavigationView Name="mainNavigationView"
+                           Classes="LargeAppNav"
+                           IsSettingsVisible="False">
+        <fluent:NavigationView.MenuItems>
+            <fluent:NavigationViewItem Classes="LargeAppNav"
+                                       Content="Home"
+                                       Tag=".Pages.Main.HomeView"
+                                       IconSource="Home" />
+        </fluent:NavigationView.MenuItems>
+        
+        <fluent:Frame Name="mainNavigationFrame" />
+    </fluent:NavigationView>
+</UserControl>

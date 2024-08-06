@@ -1,0 +1,15 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PleOps.GamePatcher.Poc.App"
+             xmlns:fluent="using:FluentAvalonia.Styling"
+             xmlns:local="using:PleOps.GamePatcher.Poc">
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+  
+    <Application.Styles>
+        <fluent:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
+        <StyleInclude Source="avares://PleOps.GamePatcher.Poc/Styling/ControlsStyle.axaml" />
+    </Application.Styles>
+</Application>
