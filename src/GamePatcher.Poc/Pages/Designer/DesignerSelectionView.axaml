@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fluent="using:FluentAvalonia.UI.Controls"
+             xmlns:local="using:PleOps.GamePatcher.Poc.Pages.Designer"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PleOps.GamePatcher.Poc.Pages.Designer.DesignerSelectionView"
+             x:DataType="local:DesignerSelectionViewModel">
+
+  <Design.DataContext>
+    <local:DesignerSelectionViewModel />
+  </Design.DataContext>
+  
+  <StackPanel Margin="20 20" Spacing="10">
+
+    <fluent:SettingsExpander Header="Open"
+                             IconSource="Open"
+                             Description="Open an existing modding project (.mdp) or mod installer (.mix)"
+                             IsClickEnabled="True"
+                             ActionIconSource="ChevronRight"
+                             IsEnabled="false" />
+    
+    <fluent:SettingsExpander Header="Create modding project"
+                             IconSource="FolderLink"
+                             Description="Create a new manifest of a modding project (.mdp)"
+                             IsClickEnabled="True"
+                             ActionIconSource="ChevronRight"
+                             Command="{Binding Navigator.NavigateToModdingProjectEditorCommand}"/>
+    
+    <fluent:SettingsExpander Header="Create mod installer"
+                             IconSource="ZipFolder"
+                             Description="Create a new installer for mods (.mix)"
+                             IsClickEnabled="True"
+                             ActionIconSource="ChevronRight"
+                             Command="{Binding Navigator.NavigateToModInstallerEditorCommand}" />
+  </StackPanel>
+  
+</UserControl>

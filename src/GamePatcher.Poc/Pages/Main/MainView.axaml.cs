@@ -1,17 +1,28 @@
 ﻿namespace PleOps.GamePatcher.Poc.Pages.Main;
 
-using System;
 using Avalonia.Controls;
 using FluentAvalonia.UI.Controls;
 
 public partial class MainView : UserControl
 {
+    private readonly MainViewModel viewModel;
+
     public MainView()
     {
         InitializeComponent();
-        
+        AppNavigator.Instance.Initialize(mainNavigationFrame);
+
+        viewModel = new MainViewModel();
+        DataContext = viewModel;
+
+        mainNavigationView.BackRequested += OnNavigateBackButtonPressed;
         mainNavigationView.SelectionChanged += OnMainNavigationItemChange;
         mainNavigationView.SelectedItem = mainNavigationView.MenuItems[0];
+    }
+
+    private void OnNavigateBackButtonPressed(object? sender, NavigationViewBackRequestedEventArgs e)
+    {
+        viewModel.NavigateBack();
     }
 
     private void OnMainNavigationItemChange(object? sender, NavigationViewSelectionChangedEventArgs e)
@@ -20,10 +31,6 @@ public partial class MainView : UserControl
             return;
         }
 
-        string viewTypeName = typeof(App).Namespace + nvi.Tag;
-        Type viewType = Type.GetType(viewTypeName)
-                        ?? throw new InvalidOperationException($"Cannot find view Type: {viewTypeName}");
-
-        _ = mainNavigationFrame.Navigate(viewType);
+        viewModel.NavigateToPage(nvi.Tag as string);
     }
 }

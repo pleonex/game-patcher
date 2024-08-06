@@ -3,19 +3,60 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fluent="using:FluentAvalonia.UI.Controls"
+             xmlns:local="using:PleOps.GamePatcher.Poc.Pages.Main"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="PleOps.GamePatcher.Poc.Pages.Main.MainView">
-    
+             x:Class="PleOps.GamePatcher.Poc.Pages.Main.MainView"
+             x:DataType="local:MainViewModel">
+
+  <Design.DataContext>
+    <local:MainViewModel />
+  </Design.DataContext>
+  
     <fluent:NavigationView Name="mainNavigationView"
                            Classes="LargeAppNav"
+                           IsBackButtonVisible="True"
+                           IsBackEnabled="{Binding CanNavigateBack}"
                            IsSettingsVisible="False">
+      
         <fluent:NavigationView.MenuItems>
             <fluent:NavigationViewItem Classes="LargeAppNav"
-                                       Content="Home"
-                                       Tag=".Pages.Main.HomeView"
-                                       IconSource="Home" />
+                                       Content="Library"
+                                       Tag="Library"
+                                       IconSource="Library" />
+          <fluent:NavigationViewItem Classes="LargeAppNav"
+                                       Content="Designer"
+                                       Tag="Designer"
+                                       IconSource="TargetEdit" />
         </fluent:NavigationView.MenuItems>
+
+      <fluent:NavigationView.Header>
+         <ItemsControl ItemsSource="{Binding NavigationSegments}">
+           
+           <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel Spacing="4" Orientation="Horizontal" />
+             </ItemsPanelTemplate>
+           </ItemsControl.ItemsPanel>
+
+           <ItemsControl.ItemTemplate>
+             <DataTemplate>
+               <StackPanel Orientation="Horizontal" Spacing="4">
+                 <fluent:SymbolIcon Symbol="ChevronRight"
+                                    FontSize="18"
+                                    VerticalAlignment="Center"/>
+                 
+                 <Border Padding="4">
+                   <TextBlock Text="{Binding .}"
+                              VerticalAlignment="Center" />
+                 </Border>
+
+               </StackPanel>
+             </DataTemplate>
+           </ItemsControl.ItemTemplate>
+          </ItemsControl>
         
-        <fluent:Frame Name="mainNavigationFrame" />
+      </fluent:NavigationView.Header>
+      
+      <fluent:Frame Name="mainNavigationFrame" Margin="8" />
     </fluent:NavigationView>
 </UserControl>

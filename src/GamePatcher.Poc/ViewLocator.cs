@@ -3,9 +3,10 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using FluentAvalonia.UI.Controls;
 using PleOps.GamePatcher.Poc.Pages;
 
-public class ViewLocator : IDataTemplate
+public class ViewLocator : IDataTemplate, INavigationPageFactory
 {
     public Control? Build(object? data)
     {
@@ -30,5 +31,27 @@ public class ViewLocator : IDataTemplate
     public bool Match(object? data)
     {
         return data is ViewModelBase;
+    }
+
+    public Control GetPage(Type srcType)
+    {
+        return null!;
+    }
+
+    public Control GetPageFromObject(object target)
+    {
+        Type srcType = target.GetType();
+        string assemblyName = srcType.Assembly.FullName!;
+        string typeName = srcType.FullName!.Replace("ViewModel", "View");
+        string qualifiedName = $"{typeName}, {assemblyName}";
+        var type = Type.GetType(qualifiedName);
+
+        if (type != null) {
+            Control control = (Control)Activator.CreateInstance(type)!;
+            control.DataContext = target;
+            return control;
+        } else {
+            throw new InvalidOperationException("Not found: " + qualifiedName);
+        }
     }
 }
