@@ -56,7 +56,7 @@ mod:
       format: "dsi-rom"
       verification:
         method: "ds-gameid"
-        hash: "PSL_EU_VPYP01_01"
+        hash: "VPYP-01-01"
   feature_groups:
     # Groups of features the user can choose when applying the mod
     # Also parameters to personalize the mod, used in the resources.

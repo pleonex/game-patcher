@@ -1,10 +1,7 @@
 project:
   name: "Pokémon Conquest Spanish fan-translation"
   type: "translation"
-  description:
-    en: >
-      Spanish fan-translation of the Nintendo DS game "Pokémon Conquest"
-    es_ES: >
+  description: >
       Traducción al español de España del juego de Nintendo DS "Pokémon
       Conquest"
   links:
@@ -18,6 +15,7 @@ project:
   team: "Pokémon Conquest Spanish Team" # team is optional, credits is mandatory
   credits: >
     * Ingeniería inversa: pleonex  
+
     * Traductores: ...
   logo:
     icon: "https://..." # also content:// for mod packages
@@ -38,8 +36,7 @@ products:
     genre:
       - "tactical_rpg"
     platform: "nds"
-    description:
-      es_ES: >
+    description: >
         Pokémon Conquest para Nintendo DS es un spin-off de la saga Pokémon que
         ofrece una nueva modalidad de juego. Se desarrolla en un mundo feudal
         japonés llamado Ransei donde también habitan los Pokémon.
@@ -107,7 +104,7 @@ mods:
         name: "Spanish translation beta patch v0.1"
         verification:
           method: "ds-gameid"
-          hash: "PSL_EU_VPYP01_01"
+          hash: "VPYP-01-01"
     mod_content:
       href: "content://spanish_v1.0.mix" # also https://
       format: "mix-v1"
