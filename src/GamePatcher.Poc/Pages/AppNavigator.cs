@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FluentAvalonia.UI.Controls;
+using PleOps.GamePatcher.Poc.ModdingProject;
 using PleOps.GamePatcher.Poc.Pages.Designer;
 using PleOps.GamePatcher.Poc.Pages.Library;
 
@@ -66,35 +67,41 @@ internal partial class AppNavigator : ObservableObject
     [RelayCommand]
     public void NavigateToLibrary()
     {
-        NavigateTo<LibraryViewModel>(true);
+        NavigateTo(new LibraryViewModel(), true);
     }
 
     [RelayCommand]
     public void NavigateToDesignerSelection()
     {
-        NavigateTo<DesignerSelectionViewModel>(true);
+        NavigateTo(new DesignerSelectionViewModel(), true);
     }
 
     [RelayCommand]
-    public void NavigateToModdingProjectEditor()
+    public void NavigateToNewModdingProjectEditor()
     {
-        NavigateTo<ModdingProjectEditorViewModel>(false);
+        var manifest = new ModdingProjectManifest();
+        NavigateToModdingProjectEditor(manifest);
+    }
+
+    public void NavigateToModdingProjectEditor(ModdingProjectManifest manifest)
+    {
+        var viewModel = new ModdingProjectEditorViewModel(manifest);
+        NavigateTo(viewModel, false);
     }
 
     [RelayCommand]
     public void NavigateToModInstallerEditor()
     {
-        NavigateTo<ModInstallerEditorViewModel>(false);
+        NavigateTo(new ModInstallerEditorViewModel(), false);
     }
 
-    private void NavigateTo<T>(bool rootNavigation)
-        where T: IStackViewModel, new()
+    private void NavigateTo<T>(T viewModel, bool rootNavigation)
+        where T: IStackViewModel
     {
         if (frame is null) {
             throw new InvalidOperationException("You forgot the initialize");
         }
 
-        T viewModel = new T(); // TODO: use DI
         PageTitle = viewModel.ViewName;
 
         frame.NavigateFromObject(viewModel);

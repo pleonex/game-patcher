@@ -2,15 +2,108 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fluent="using:FluentAvalonia.UI.Controls"
              xmlns:local="using:PleOps.GamePatcher.Poc.Pages.Designer"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="PleOps.GamePatcher.Poc.Pages.Designer.ModdingProjectEditorView"
              x:DataType="local:ModdingProjectEditorViewModel">
 
   <Design.DataContext>
-    <local:ModdingProjectEditorViewModel />
+    <local:ModdingProjectEditorViewModelDesigner />
   </Design.DataContext>
 
-  Welcome to the modding project editor
+  <Grid ColumnDefinitions="*,24,*"
+        RowDefinitions="*,Auto"
+        Margin="16">
+
+    <StackPanel Grid.Column="0">
+      <TextBlock Text="Name:" Margin="4 0 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+      <TextBox Text="{Binding Manifest.Project.Name}" />
+
+      <TextBlock Text="Description:" Margin="4 16 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+      <TextBox Text="{Binding Manifest.Project.Description}"
+               Height="140"
+               AcceptsReturn="True"
+               TextWrapping="Wrap"/>
+
+      <TextBlock Text="Type:" Margin="4 16 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+      <TextBox Text="{Binding Manifest.Project.Type}" />
+
+      <TextBlock Text="Logo:" Margin="4 16 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+      <Grid RowDefinitions="Auto,100" ColumnDefinitions="Auto,*">
+        <ComboBox Grid.Row="0" Grid.Column="0" SelectedIndex="0">
+          <ComboBoxItem Content="Icon" />
+          <ComboBoxItem Content="Large" />
+        </ComboBox>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="8 0 0 0" />
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                Margin="0 8 0 0"
+                BorderThickness="1"
+                BorderBrush="{StaticResource CardStrokeColorDefaultBrush}"
+                CornerRadius="8"
+                Background="{StaticResource CardBackgroundFillColorDefaultBrush}"
+                HorizontalAlignment="Stretch"
+                MaxHeight="100">
+          <Image />
+        </Border>
+      </Grid>
+    </StackPanel>
+
+    <StackPanel Grid.Column="2">
+      <TextBlock Text="Team:" Margin="4 0 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+      <TextBox Text="{Binding Manifest.Project.Team}" />
+
+      <TextBlock Text="Credits:" Margin="4 16 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+      <TextBox Text="{Binding Manifest.Project.Credits}"
+               Height="140"
+               AcceptsReturn="True"
+               TextWrapping="Wrap"/>
+
+      <TextBlock Text="Status:" Margin="4 16 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+      <TextBox Text="{Binding Manifest.Project.Status}" />
+
+      <TextBlock Text="Links:" Margin="4 16 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+      <Grid ColumnDefinitions="*,Auto">
+        <ListBox Grid.Column="0"
+                 ItemsSource="{Binding Manifest.Project.Links}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <HyperlinkButton Content="{Binding Name}" NavigateUri="{Binding Href}" />
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Column="1" Spacing="8">
+          <Button>
+            <fluent:SymbolIcon Symbol="Add" />
+          </Button>
+          <Button>
+            <fluent:SymbolIcon Symbol="Edit" />
+          </Button>
+          <Button>
+            <fluent:SymbolIcon Symbol="Delete" />
+          </Button>
+        </StackPanel>
+      </Grid>
+    </StackPanel>
+
+    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+          Margin="0 16 0 0"
+          RowDefinitions="Auto,Auto"
+          ColumnDefinitions="*,Auto">
+      
+      <Label Grid.Row="0" Grid.Column="0"
+             Content="Update:"
+             FontSize="14"
+             FontWeight="SemiBold"
+             Margin="4 0 0 12" />
+      <TextBox Grid.Row="1" Grid.Column="0"
+               Text="{Binding Manifest.Project.Update.Uri}" />
+      <TextBox Grid.Row="1" Grid.Column="1" 
+                Margin="8 0 0 0"
+                Text="{Binding Manifest.Project.Update.Method}" />
+    </Grid>
+    
+  </Grid>
 
 </UserControl>

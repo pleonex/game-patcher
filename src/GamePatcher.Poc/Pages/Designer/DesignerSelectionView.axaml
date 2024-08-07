@@ -26,7 +26,7 @@
                              Description="Create a new manifest of a modding project (.mdp)"
                              IsClickEnabled="True"
                              ActionIconSource="ChevronRight"
-                             Command="{Binding Navigator.NavigateToModdingProjectEditorCommand}"/>
+                             Command="{Binding Navigator.NavigateToNewModdingProjectEditorCommand}"/>
     
     <fluent:SettingsExpander Header="Create mod installer"
                              IconSource="ZipFolder"
