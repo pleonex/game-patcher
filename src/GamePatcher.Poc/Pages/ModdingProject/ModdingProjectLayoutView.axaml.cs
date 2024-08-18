@@ -1,10 +1,7 @@
 ﻿namespace PleOps.GamePatcher.Poc.Pages.ModdingProject;
 
-using System;
 using Avalonia.Controls;
 using FluentAvalonia.UI.Controls;
-using PleOps.GamePatcher.Poc.Pages.Designer;
-using PleOps.GamePatcher.Poc.Pages.Main;
 
 public partial class ModdingProjectLayoutView : UserControl
 {
@@ -27,5 +24,13 @@ public partial class ModdingProjectLayoutView : UserControl
         if (nvi.Tag is "Project") {
             mdpFrame.NavigateFromObject(viewModel.Project);
         }
+    }
+}
+
+internal class ModdingProjectLayoutViewModelDesigner : ModdingProjectLayoutViewModel
+{
+    public ModdingProjectLayoutViewModelDesigner()
+        : base(DesignerDataProvider.GetExampleModdingProjectManifest())
+    {
     }
 }

@@ -18,8 +18,8 @@
                              IconSource="Open"
                              Description="Open an existing modding project (.mdp) or mod installer (.mix)"
                              IsClickEnabled="True"
-                             ActionIconSource="ChevronRight"
-                             IsEnabled="false" />
+                             Command="{Binding OpenFileCommand}"
+                             ActionIconSource="ChevronRight" />
     
     <fluent:SettingsExpander Header="Create modding project"
                              IconSource="FolderLink"

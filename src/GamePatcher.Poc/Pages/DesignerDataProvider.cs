@@ -1,4 +1,4 @@
-﻿namespace PleOps.GamePatcher.Poc.Pages.ModdingProject;
+﻿namespace PleOps.GamePatcher.Poc.Pages;
 
 using System;
 using System.IO;
@@ -7,14 +7,9 @@ using PleOps.GamePatcher.Poc.ModdingProject;
 using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Serialization;
 
-internal class ModdingProjectLayoutViewModelDesigner : ModdingProjectLayoutViewModel
+internal static class DesignerDataProvider
 {
-    public ModdingProjectLayoutViewModelDesigner()
-        : base(GetExampleManifest())
-    {
-    }
-
-    private static ModdingProjectManifest GetExampleManifest()
+    public static ModdingProjectManifest GetExampleModdingProjectManifest()
     {
         string resourcePath = typeof(Program).Namespace + ".Assets.example.mdp.yml";
         Assembly assembly = typeof(Program).Assembly;
