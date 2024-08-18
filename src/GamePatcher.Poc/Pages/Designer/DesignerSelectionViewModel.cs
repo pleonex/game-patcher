@@ -6,8 +6,6 @@ using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.Input;
 using PleOps.GamePatcher.Poc.ModdingProject;
 using PleOps.GamePatcher.Poc.Mvvm;
-using YamlDotNet.Serialization.NamingConventions;
-using YamlDotNet.Serialization;
 using Avalonia.Threading;
 
 internal partial class DesignerSelectionViewModel : ViewModelBase, IStackViewModel
@@ -35,13 +33,9 @@ internal partial class DesignerSelectionViewModel : ViewModelBase, IStackViewMod
         }
 
         using Stream fileStream = await selectedFile.OpenReadAsync();
-        using var reader = new StreamReader(fileStream);
-        string manifestContent = reader.ReadToEnd();
 
-        var manifest = new DeserializerBuilder()
-            .WithNamingConvention(UnderscoredNamingConvention.Instance)
-            .Build()
-            .Deserialize<ModdingProjectManifest>(manifestContent);
+        var deserializer = new ModdingProjectManifestSerializer();
+        ModdingProjectManifest manifest = deserializer.Deserialize(fileStream);
 
         await Dispatcher.UIThread.InvokeAsync(() =>
             navigator.NavigateToModdingProjectEditor(manifest));

@@ -1,6 +1,5 @@
 ﻿namespace PleOps.GamePatcher.Poc.ModdingProject;
 
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 public class ModdingProjectManifest

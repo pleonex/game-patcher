@@ -1,5 +1,6 @@
 ﻿namespace PleOps.GamePatcher.Poc.Pages.ModdingProject;
 
+using System;
 using Avalonia.Controls;
 using FluentAvalonia.UI.Controls;
 
@@ -11,7 +12,12 @@ public partial class ModdingProjectLayoutView : UserControl
 
         mdpFrame.NavigationPageFactory = new ViewLocator();
         mdpNavigation.SelectionChanged += OnNavigationItemChanged;
+    }
+
+    protected override void OnDataContextChanged(EventArgs e)
+    {
         mdpNavigation.SelectedItem = mdpNavigation.MenuItems[0];
+        base.OnDataContextChanged(e);
     }
 
     private void OnNavigationItemChanged(object? sender, NavigationViewSelectionChangedEventArgs e)
