@@ -8,6 +8,7 @@ using FluentAvalonia.UI.Controls;
 using PleOps.GamePatcher.Poc.ModdingProject;
 using PleOps.GamePatcher.Poc.Pages.Designer;
 using PleOps.GamePatcher.Poc.Pages.Library;
+using PleOps.GamePatcher.Poc.Pages.ModdingProject;
 
 internal partial class AppNavigator : ObservableObject
 {
@@ -85,7 +86,7 @@ internal partial class AppNavigator : ObservableObject
 
     public void NavigateToModdingProjectEditor(ModdingProjectManifest manifest)
     {
-        var viewModel = new ModdingProjectEditorViewModel(manifest);
+        var viewModel = new ModdingProjectLayoutViewModel(manifest);
         NavigateTo(viewModel, false);
     }
 

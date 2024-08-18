@@ -1,15 +1,15 @@
-﻿namespace PleOps.GamePatcher.Poc.Pages.Designer;
+﻿namespace PleOps.GamePatcher.Poc.Pages.ModdingProject;
 
 using System;
 using System.IO;
 using System.Reflection;
 using PleOps.GamePatcher.Poc.ModdingProject;
-using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using YamlDotNet.Serialization;
 
-internal class ModdingProjectEditorViewModelDesigner : ModdingProjectEditorViewModel
+internal class ModdingProjectLayoutViewModelDesigner : ModdingProjectLayoutViewModel
 {
-    public ModdingProjectEditorViewModelDesigner()
+    public ModdingProjectLayoutViewModelDesigner()
         : base(GetExampleManifest())
     {
     }
@@ -17,7 +17,7 @@ internal class ModdingProjectEditorViewModelDesigner : ModdingProjectEditorViewM
     private static ModdingProjectManifest GetExampleManifest()
     {
         string resourcePath = typeof(Program).Namespace + ".Assets.example.mdp.yml";
-        Assembly assembly = typeof(ModdingProjectEditorViewModelDesigner).Assembly;
+        Assembly assembly = typeof(Program).Assembly;
         using Stream exampleYaml = assembly.GetManifestResourceStream(resourcePath)
             ?? throw new InvalidOperationException("Cannot find example resource");
 

@@ -3,13 +3,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fluent="using:FluentAvalonia.UI.Controls"
-             xmlns:local="using:PleOps.GamePatcher.Poc.Pages.Designer"
+             xmlns:local="using:PleOps.GamePatcher.Poc.Pages.ModdingProject"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
-             x:Class="PleOps.GamePatcher.Poc.Pages.Designer.ModdingProjectEditorView"
-             x:DataType="local:ModdingProjectEditorViewModel">
+             x:Class="PleOps.GamePatcher.Poc.Pages.ModdingProject.ModdingProjectInfoEditorView"
+             x:DataType="local:ModdingProjectInfoEditorViewModel">
 
   <Design.DataContext>
-    <local:ModdingProjectEditorViewModelDesigner />
+    <local:ModdingProjectInfoEditorViewModelDesigner />
   </Design.DataContext>
 
   <Grid ColumnDefinitions="*,24,*"
@@ -18,16 +18,16 @@
 
     <StackPanel Grid.Column="0">
       <TextBlock Text="Name:" Margin="4 0 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
-      <TextBox Text="{Binding Manifest.Project.Name}" />
+      <TextBox Text="{Binding Project.Name}" />
 
       <TextBlock Text="Description:" Margin="4 16 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
-      <TextBox Text="{Binding Manifest.Project.Description}"
+      <TextBox Text="{Binding Project.Description}"
                Height="140"
                AcceptsReturn="True"
                TextWrapping="Wrap"/>
 
       <TextBlock Text="Type:" Margin="4 16 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
-      <TextBox Text="{Binding Manifest.Project.Type}" />
+      <TextBox Text="{Binding Project.Type}" />
 
       <TextBlock Text="Logo:" Margin="4 16 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
       <Grid RowDefinitions="Auto,100" ColumnDefinitions="Auto,*">
@@ -51,21 +51,21 @@
 
     <StackPanel Grid.Column="2">
       <TextBlock Text="Team:" Margin="4 0 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
-      <TextBox Text="{Binding Manifest.Project.Team}" />
+      <TextBox Text="{Binding Project.Team}" />
 
       <TextBlock Text="Credits:" Margin="4 16 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
-      <TextBox Text="{Binding Manifest.Project.Credits}"
+      <TextBox Text="{Binding Project.Credits}"
                Height="140"
                AcceptsReturn="True"
                TextWrapping="Wrap"/>
 
       <TextBlock Text="Status:" Margin="4 16 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
-      <TextBox Text="{Binding Manifest.Project.Status}" />
+      <TextBox Text="{Binding Project.Status}" />
 
       <TextBlock Text="Links:" Margin="4 16 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />
       <Grid ColumnDefinitions="*,Auto">
         <ListBox Grid.Column="0"
-                 ItemsSource="{Binding Manifest.Project.Links}">
+                 ItemsSource="{Binding Project.Links}">
           <ListBox.ItemTemplate>
             <DataTemplate>
               <HyperlinkButton Content="{Binding Name}" NavigateUri="{Binding Href}" />
@@ -98,10 +98,10 @@
              FontWeight="SemiBold"
              Margin="4 0 0 12" />
       <TextBox Grid.Row="1" Grid.Column="0"
-               Text="{Binding Manifest.Project.Update.Uri}" />
+               Text="{Binding Project.Update.Uri}" />
       <TextBox Grid.Row="1" Grid.Column="1" 
                 Margin="8 0 0 0"
-                Text="{Binding Manifest.Project.Update.Method}" />
+                Text="{Binding Project.Update.Method}" />
     </Grid>
     
   </Grid>

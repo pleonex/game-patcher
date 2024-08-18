@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fluent="using:FluentAvalonia.UI.Controls"
+             xmlns:local="using:PleOps.GamePatcher.Poc.Pages.ModdingProject"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="750"
+             x:Class="PleOps.GamePatcher.Poc.Pages.ModdingProject.ModdingProjectLayoutView">
+
+  <Design.DataContext>
+    <local:ModdingProjectLayoutViewModelDesigner />
+  </Design.DataContext>
+  
+  <fluent:NavigationView Name="mdpNavigation"
+                         IsBackButtonVisible="False"
+                         IsPaneOpen="True"
+                         IsPaneToggleButtonVisible="False"
+                         IsSettingsVisible="False"
+                         OpenPaneLength="250"
+                         PaneDisplayMode="Left">
+
+    <fluent:NavigationView.MenuItems>
+      <fluent:NavigationViewItem Content="Project" Tag="Project" IconSource="Tag" />
+
+      <fluent:NavigationViewItem Content="Products" IsExpanded="True" IconSource="Games">
+        
+        <fluent:NavigationViewItem.MenuItems>
+          <fluent:NavigationViewItem Content="PSL_EU_VPYP01_00" />
+        </fluent:NavigationViewItem.MenuItems>
+      </fluent:NavigationViewItem>
+
+      <fluent:NavigationViewItem Content="Mods" IsExpanded="True" IconSource="ZipFolder">
+        <fluent:NavigationViewItem.MenuItems>
+          <fluent:NavigationViewItem Content="spanish_v1.0" />
+        </fluent:NavigationViewItem.MenuItems>
+      </fluent:NavigationViewItem>
+    </fluent:NavigationView.MenuItems>
+
+    <fluent:Frame Name="mdpFrame" Margin="8" />
+
+  </fluent:NavigationView>
+  
+</UserControl>

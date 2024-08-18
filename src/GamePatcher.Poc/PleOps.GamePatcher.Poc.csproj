@@ -10,8 +10,7 @@
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**" />
-        <EmbeddedResource Include="../../docs/articles/specs/resources/example.mdp.yml"
-              Link="Assets/example.mdp.yml" />
+        <EmbeddedResource Include="../../docs/articles/specs/resources/example.mdp.yml" Link="Assets/example.mdp.yml" />
     </ItemGroup>
     
     <ItemGroup>
