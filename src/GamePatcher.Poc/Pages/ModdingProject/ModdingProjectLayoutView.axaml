@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fluent="using:FluentAvalonia.UI.Controls"
              xmlns:local="using:PleOps.GamePatcher.Poc.Pages.ModdingProject"
+             xmlns:mdp="using:PleOps.GamePatcher.Poc.ModdingProject"
              mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="750"
+             x:DataType="local:ModdingProjectLayoutViewModel"
              x:Class="PleOps.GamePatcher.Poc.Pages.ModdingProject.ModdingProjectLayoutView">
 
   <Design.DataContext>
@@ -20,19 +22,32 @@
                          PaneDisplayMode="Left">
 
     <fluent:NavigationView.MenuItems>
-      <fluent:NavigationViewItem Content="Project" Tag="Project" IconSource="Tag" />
+      <fluent:NavigationViewItem Content="Project"
+                                 Tag="Project"
+                                 IconSource="Tag" />
 
-      <fluent:NavigationViewItem Content="Products" IsExpanded="True" IconSource="Games">
-        
-        <fluent:NavigationViewItem.MenuItems>
-          <fluent:NavigationViewItem Content="PSL_EU_VPYP01_00" />
-        </fluent:NavigationViewItem.MenuItems>
+      <fluent:NavigationViewItem Content="Products"
+                                 Tag="Products"
+                                 IconSource="Games"
+                                 IsExpanded="True"
+                                 MenuItemsSource="{Binding Products}">
+        <fluent:NavigationViewItem.DataTemplates>
+          <DataTemplate DataType="mdp:Product">
+            <fluent:NavigationViewItem Content="{Binding Id}" Margin="-30" />
+          </DataTemplate>
+        </fluent:NavigationViewItem.DataTemplates>
       </fluent:NavigationViewItem>
 
-      <fluent:NavigationViewItem Content="Mods" IsExpanded="True" IconSource="ZipFolder">
-        <fluent:NavigationViewItem.MenuItems>
-          <fluent:NavigationViewItem Content="spanish_v1.0" />
-        </fluent:NavigationViewItem.MenuItems>
+      <fluent:NavigationViewItem Content="Mods"
+                                 Tag="Mods"
+                                 IconSource="ZipFolder"
+                                 IsExpanded="True"
+                                 MenuItemsSource="{Binding Mods}">
+        <fluent:NavigationViewItem.DataTemplates>
+          <DataTemplate DataType="mdp:ModInfo">
+            <fluent:NavigationViewItem Content="{Binding Id}" Margin="-30" />
+          </DataTemplate>
+        </fluent:NavigationViewItem.DataTemplates>
       </fluent:NavigationViewItem>
     </fluent:NavigationView.MenuItems>
 
