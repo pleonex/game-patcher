@@ -14,7 +14,6 @@
 
   <Border BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
           BorderThickness="3"
-          Width="500"
           Height="150"
           Padding="16"
           CornerRadius="8"

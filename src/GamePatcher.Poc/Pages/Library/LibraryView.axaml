@@ -2,7 +2,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:fluent="using:FluentAvalonia.UI.Controls"
+             xmlns:local="using:PleOps.GamePatcher.Poc.Pages.Library"
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="750"
+             x:DataType="local:LibraryViewModel"
              x:Class="PleOps.GamePatcher.Poc.Pages.Library.LibraryView">
-  Welcome to the library!
+
+  <Design.DataContext>
+    <local:LibraryViewModelDesigner />
+  </Design.DataContext>
+  
+  <TabControl >
+    <TabItem Header="Folder">
+      <ScrollViewer>
+        <StackPanel Orientation="Vertical">
+          <Expander Header="Home library"
+                    Margin="0 16 0 16"
+                    IsExpanded="True">
+            <ListBox ItemsSource="{Binding Catalog}"
+                     SelectionMode="Single" />
+          </Expander>
+      
+          <Expander Header="TraduSquare" />
+        </StackPanel>
+      </ScrollViewer>
+    </TabItem>
+
+    <TabItem Header="Console">
+      <ScrollViewer>
+        <StackPanel Orientation="Vertical">
+          <Expander Header="Nintendo DS"
+                    Margin="0 16 0 16"
+                    IsExpanded="True">
+            <ListBox ItemsSource="{Binding Catalog}"
+                     SelectionMode="Single" />
+          </Expander>
+
+          <Expander Header="Nintendo 3DS" />
+        </StackPanel>
+      </ScrollViewer>
+    </TabItem>
+  </TabControl>
+  
 </UserControl>
