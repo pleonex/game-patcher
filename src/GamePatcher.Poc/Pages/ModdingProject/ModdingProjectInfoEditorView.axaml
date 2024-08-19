@@ -13,8 +13,7 @@
   </Design.DataContext>
 
   <Grid ColumnDefinitions="*,24,*"
-        RowDefinitions="*,Auto"
-        Margin="16">
+        RowDefinitions="*,Auto">
 
     <StackPanel Grid.Column="0">
       <TextBlock Text="Name:" Margin="4 0 0 12" Theme="{StaticResource BodyStrongTextBlockStyle}" />

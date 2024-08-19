@@ -51,8 +51,26 @@
       </fluent:NavigationViewItem>
     </fluent:NavigationView.MenuItems>
 
-    <fluent:Frame Name="mdpFrame" Margin="8" />
+    <DockPanel>
+      <Border DockPanel.Dock="Bottom"
+              BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+              BorderThickness="0.1">
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="16 16 16 8"
+                    Spacing="8">
+          <Button Content="Discard"
+                  Width="150" />
 
+          <Button Content="Save"
+                  Width="150"
+                  Background="{DynamicResource AccentFillColorDefaultBrush}"
+                  Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
+        </StackPanel>
+      </Border>
+      
+      <fluent:Frame Name="mdpFrame" Margin="16" />
+    </DockPanel>
   </fluent:NavigationView>
   
 </UserControl>
