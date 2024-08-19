@@ -1,0 +1,111 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:local="using:PleOps.GamePatcher.Poc.Pages.Library"
+             mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="200"
+             x:DataType="local:LibraryProjectCardViewModel"
+             x:Class="PleOps.GamePatcher.Poc.Pages.Library.LibraryProjectCardView">
+
+  <Design.DataContext>
+    <local:LibraryProjectCardViewModelDesigner />
+  </Design.DataContext>
+
+  <Border BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+          BorderThickness="3"
+          Width="500"
+          Height="150"
+          Padding="16"
+          CornerRadius="8"
+          Background="{DynamicResource CardBackgroundFillColorDefaultBrush}">
+
+    <StackPanel Orientation="Vertical">
+      <Grid RowDefinitions="Auto,Auto"
+            ColumnDefinitions="64,12,*"
+            Height="64">
+
+        <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="4"
+                VerticalAlignment="Top"
+                MaxWidth="64"
+                Height="64"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource ControlElevationBorderBrush}">
+          <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Icon}"
+                 Stretch="Uniform"
+                 StretchDirection="Both" />
+        </Border>
+      
+        <TextBlock Grid.Row="0" Grid.Column="2"
+                   Text="{Binding ProjectInfo.Name}"
+                   ToolTip.Tip="{Binding ProjectInfo.Name}"
+                   Margin="0 0 0 12"
+                   Theme="{StaticResource BodyStrongTextBlockStyle}"
+                   MaxLines="1"
+                   TextTrimming="CharacterEllipsis"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="2"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Bottom"
+                    Spacing="8">
+          <Border Background="{DynamicResource AccentFillColorDefaultBrush}"
+                  CornerRadius="8"
+                  Padding="4">
+            <TextBlock Text="{Binding ProjectInfo.Type}"
+                       Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"/>
+          </Border>
+
+          <Border Background="GreenYellow"
+                  CornerRadius="8"
+                  Padding="4">
+            <TextBlock Text="{Binding ProjectInfo.Status}" />
+          </Border>
+
+          <ItemsControl ItemsSource="{Binding Platforms}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Spacing="4" Orientation="Horizontal" />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                  <Border Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                          CornerRadius="8"
+                          Padding="4">
+                    <TextBlock Text="{Binding .}" />
+                  </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+
+          <ItemsControl ItemsSource="{Binding Languages}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Spacing="4" Orientation="Horizontal" />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                        CornerRadius="8"
+                        Padding="4">
+                  <TextBlock Text="{Binding .}" />
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+
+      </Grid>
+
+      <TextBlock Text="{Binding ProjectInfo.Description}"
+                 Margin="0 16 0 0"
+                 MaxLines="2"
+                 TextWrapping="Wrap"
+                 TextTrimming="CharacterEllipsis" />
+    </StackPanel>
+  </Border>
+  
+</UserControl>
