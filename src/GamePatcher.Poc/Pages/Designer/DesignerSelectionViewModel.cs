@@ -18,7 +18,7 @@ internal partial class DesignerSelectionViewModel : ViewModelBase, IStackViewMod
         AskOpenFile = new AsyncInteraction<IStorageFile?>();
     }
 
-    public string ViewName => "Designer";
+    public string ViewName => "Builder";
 
     public AppNavigator Navigator => navigator;
 

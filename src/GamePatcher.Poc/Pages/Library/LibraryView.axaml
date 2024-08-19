@@ -12,36 +12,65 @@
     <local:LibraryViewModelDesigner />
   </Design.DataContext>
   
-  <TabControl >
-    <TabItem Header="Folder">
-      <ScrollViewer>
-        <StackPanel Orientation="Vertical">
-          <Expander Header="Home library"
-                    Margin="0 16 0 16"
-                    IsExpanded="True">
-            <ListBox ItemsSource="{Binding Catalog}"
-                     SelectionMode="Single" />
-          </Expander>
+  <StackPanel Orientation="Vertical" Margin="16">
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 16 0">
+      <AutoCompleteBox Grid.Column="1" Width="250" Watermark="Search" />
+      <DropDownButton Grid.Column="2"
+                      Content="Type"
+                      Margin="8 0 0 0">
+        <DropDownButton.Flyout>
+          <MenuFlyout Placement="BottomEdgeAlignedLeft">
+            <ListBox>
+              <CheckBox Content="Translation" />
+              <CheckBox Content="ROM Hack" />
+            </ListBox>
+          </MenuFlyout>
+        </DropDownButton.Flyout>
+      </DropDownButton>
+      <DropDownButton Grid.Column="3"
+                      Content="Status"
+                      Margin="8 0 0 0">
+        <DropDownButton.Flyout>
+          <MenuFlyout Placement="BottomEdgeAlignedLeft">
+            <ListBox>
+              <CheckBox Content="In progress" />
+              <CheckBox Content="Finished" />
+              <CheckBox Content="Cancelled" />
+            </ListBox>
+          </MenuFlyout>
+        </DropDownButton.Flyout>
+      </DropDownButton>
+    </StackPanel>
+
+    <TabControl Margin="0 -17 0 0">
+      <TabItem Header="Folder">
+          <ScrollViewer Margin="0 16 0 16">
+            <StackPanel Orientation="Vertical">
+              <Expander Header="Home library"
+                        IsExpanded="True">
+                <ListBox ItemsSource="{Binding Catalog}"
+                         SelectionMode="Single" />
+              </Expander>
       
-          <Expander Header="TraduSquare" />
-        </StackPanel>
-      </ScrollViewer>
-    </TabItem>
+              <Expander Header="TraduSquare" />
+            </StackPanel>
+          </ScrollViewer>
+      </TabItem>
 
-    <TabItem Header="Console">
-      <ScrollViewer>
-        <StackPanel Orientation="Vertical">
-          <Expander Header="Nintendo DS"
-                    Margin="0 16 0 16"
-                    IsExpanded="True">
-            <ListBox ItemsSource="{Binding Catalog}"
-                     SelectionMode="Single" />
-          </Expander>
-
-          <Expander Header="Nintendo 3DS" />
-        </StackPanel>
-      </ScrollViewer>
-    </TabItem>
-  </TabControl>
-  
+      <TabItem Header="Console">
+        <ScrollViewer Margin="0 16 0 16">
+          <StackPanel Orientation="Vertical">
+            <Expander Header="GameBoy Advance" />
+            <Expander Header="Nintendo DS"
+                      IsExpanded="True">
+              <ListBox ItemsSource="{Binding Catalog}"
+                       SelectionMode="Single" />
+            </Expander>
+            <Expander Header="Nintendo 3DS" />
+            <Expander Header="PSP" />
+          </StackPanel>
+        </ScrollViewer>
+      </TabItem>
+    </TabControl>
+  </StackPanel>
 </UserControl>

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fluent="using:FluentAvalonia.UI.Controls"
              xmlns:local="using:PleOps.GamePatcher.Poc.Pages.Main"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
              x:Class="PleOps.GamePatcher.Poc.Pages.Main.MainView"
              x:DataType="local:MainViewModel">
 
@@ -19,14 +19,18 @@
                            IsSettingsVisible="False">
       
         <fluent:NavigationView.MenuItems>
-            <fluent:NavigationViewItem Classes="LargeAppNav"
-                                       Content="Library"
-                                       Tag="Library"
-                                       IconSource="Library" />
           <fluent:NavigationViewItem Classes="LargeAppNav"
-                                       Content="Designer"
-                                       Tag="Designer"
-                                       IconSource="TargetEdit" />
+                                     Content="Library"
+                                     Tag="Library"
+                                     IconSource="Library" />
+          <fluent:NavigationViewItem Classes="LargeAppNav"
+                                     Content="Patcher"
+                                     Tag="Patcher"
+                                     IconSource="StarEmphasis" />
+          <fluent:NavigationViewItem Classes="LargeAppNav"
+                                     Content="Builder"
+                                     Tag="Designer"
+                                     IconSource="TargetEdit" />
         </fluent:NavigationView.MenuItems>
 
       <fluent:NavigationView.Header>
