@@ -72,6 +72,13 @@ internal partial class AppNavigator : ObservableObject
     }
 
     [RelayCommand]
+    public void NavigateToLibraryProject(ModdingProjectManifest project)
+    {
+        var productPage = new LibraryProjectPageViewModel(project);
+        NavigateTo(productPage, false);
+    }
+
+    [RelayCommand]
     public void NavigateToDesignerSelection()
     {
         NavigateTo(new DesignerSelectionViewModel(), true);

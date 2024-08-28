@@ -1,0 +1,124 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:ext="using:PleOps.GamePatcher.Poc.XamlExtensions"
+             xmlns:local="using:PleOps.GamePatcher.Poc.Pages.Library"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
+             x:DataType="local:LibraryProjectPageViewModel"
+             x:Class="PleOps.GamePatcher.Poc.Pages.Library.LibraryProjectPageView">
+
+  <Design.DataContext>
+    <local:LibraryProjectPageViewModelDesigner />
+  </Design.DataContext>
+
+  <DockPanel Margin="8">
+
+    <Border DockPanel.Dock="Left"
+            Margin="0 0 8 0"
+            Width="300"
+            IsVisible="{Binding $parent[DockPanel].Bounds.Width, Converter={x:Static ext:NumberConverters.IsGreaterThan}, ConverterParameter=1000}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            CornerRadius="4">
+
+      <StackPanel Orientation="Vertical">
+        <Border MaxWidth="128"
+                MaxHeight="128"
+                Margin="0 64 0 0"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                Background="White">
+          <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Icon}"
+                 Stretch="Uniform"
+                 StretchDirection="Both" />
+        </Border>
+
+        <TextBlock Text="{Binding ProjectInfo.Name}"
+                   Margin="16 32 0 0"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   Theme="{StaticResource SubtitleTextBlockStyle}"/>
+
+        <Button Content="Install"
+                Margin="0 48 0 0"
+                Width="150"
+                HorizontalAlignment="Center"
+                FontSize="16"
+                Background="{DynamicResource AccentFillColorDefaultBrush}"
+                Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"/>
+      </StackPanel>
+
+    </Border>
+
+    <ScrollViewer Grid.Column="2" Padding="8">
+      <StackPanel Orientation="Vertical">
+        <Border Padding="24"
+                Margin="0 0 0 8"
+                BorderThickness="1"
+                IsVisible="{Binding $parent[DockPanel].Bounds.Width, Converter={x:Static ext:NumberConverters.IsLessThan}, ConverterParameter=1000}"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                CornerRadius="4">
+
+          <Grid ColumnDefinitions="128,*,150">
+            <Border Grid.Column="0"
+                    MaxWidth="128"
+                    MaxHeight="128"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                    Background="White"
+                    CornerRadius="8">
+              <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Icon}"
+                     Stretch="Uniform"
+                     StretchDirection="Both" />
+            </Border>
+
+            <StackPanel Grid.Column="1"
+                        Margin="16 0 0 0"
+                        Orientation="Vertical">
+              <TextBlock Text="{Binding ProjectInfo.Name}"
+                         Theme="{StaticResource TitleTextBlockStyle}"
+                         MaxLines="1"
+                         TextTrimming="CharacterEllipsis"/>
+              <TextBlock Text="{Binding ProjectInfo.Team}"
+                         Theme="{StaticResource SubtitleTextBlockStyle}"
+                         Foreground="{StaticResource AccentTextFillColorPrimaryBrush}"
+                         MaxLines="1"
+                         TextTrimming="CharacterEllipsis"/>
+              <TextBlock Text="{Binding ProjectInfo.Description}"
+                         Margin="0 16 0 0"
+                         MaxLines="2"
+                         TextTrimming="CharacterEllipsis"
+                         TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Button Grid.Column="2"
+                    Content="Install"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    FontSize="16"
+                    Background="{DynamicResource AccentFillColorDefaultBrush}"
+                    Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"/>
+          </Grid>
+        </Border>
+
+        <Border CornerRadius="4 4 0 0"
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                Padding="5">
+          <TextBlock Text="Screenshots"
+                     Theme="{StaticResource SubtitleTextBlockStyle}"
+                     HorizontalAlignment="Center"/>
+        </Border>
+        <Border CornerRadius="0 0 4 4"
+                Background="{DynamicResource ControlFillColorInputActiveBrush}"
+                Padding="16">
+          <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Large}" />
+        </Border>
+      </StackPanel>
+    </ScrollViewer>
+  </DockPanel>
+
+</UserControl>

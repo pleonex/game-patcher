@@ -11,10 +11,13 @@ public partial class LibraryProjectCardViewModel : ViewModelBase
     {
         ArgumentNullException.ThrowIfNull(manifest);
 
+        Manifest = manifest;
         ProjectInfo = manifest.Project;
         Platforms = manifest.Products.Select(p => p.Platform).Distinct();
         Languages = manifest.Mods.Select(m => m.TargetLanguage).Distinct();
     }
+
+    public ModdingProjectManifest Manifest { get; }
 
     public Project ProjectInfo { get; }
 

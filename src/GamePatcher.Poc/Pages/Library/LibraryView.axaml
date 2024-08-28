@@ -11,7 +11,7 @@
   <Design.DataContext>
     <local:LibraryViewModelDesigner />
   </Design.DataContext>
-  
+
   <StackPanel Orientation="Vertical" Margin="16">
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 16 0">
       <AutoCompleteBox Grid.Column="1" Width="250" Watermark="Search" />
@@ -49,9 +49,10 @@
               <Expander Header="Home library"
                         IsExpanded="True">
                 <ListBox ItemsSource="{Binding Catalog}"
+                         DoubleTapped="CatalogDoubleTapped"
                          SelectionMode="Single" />
               </Expander>
-      
+
               <Expander Header="TraduSquare" />
             </StackPanel>
           </ScrollViewer>
@@ -64,6 +65,7 @@
             <Expander Header="Nintendo DS"
                       IsExpanded="True">
               <ListBox ItemsSource="{Binding Catalog}"
+                       DoubleTapped="CatalogDoubleTapped"
                        SelectionMode="Single" />
             </Expander>
             <Expander Header="Nintendo 3DS" />

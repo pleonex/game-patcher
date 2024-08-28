@@ -8,6 +8,13 @@ public partial class LibraryView : UserControl
     {
         InitializeComponent();
     }
+
+    private void CatalogDoubleTapped(object? sender, Avalonia.Input.TappedEventArgs e)
+    {
+        if (sender is ListBox listBox && listBox.SelectedItem is LibraryProjectCardViewModel selectedViewModel) {
+            AppNavigator.Instance.NavigateToLibraryProject(selectedViewModel.Manifest);
+        }
+    }
 }
 
 internal sealed class LibraryViewModelDesigner : LibraryViewModel
