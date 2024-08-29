@@ -14,9 +14,9 @@ project:
   status: "in_progress"
   team: "Pokémon Conquest Spanish Team" # team is optional, credits is mandatory
   credits: >
-    * Ingeniería inversa: pleonex  
+    * Reverse engineering: pleonex  
 
-    * Traductores: ...
+    * Translators: ...
   logo:
     icon: "https://art.gametdb.com/ds/coverS/EN/VPYP.png" # also content:// for mod packages
     large: "https://tradusquare.es/wp-content/uploads/Archivos-de-usuarios/pleonex/conquest/conquest_fondo0.webp"
@@ -88,6 +88,13 @@ mods:
       Primera versión de la traducción. Incluye todos los textos, imágenes y
       fuentes. Incluye soporte de los misiones descargables con servidor WFC
       propio. El único elemento sin traduccir es el vídeo de presentación.
+    screenshots:
+      - href: "https://tradusquare.es/wp-content/uploads/2023/10/images_girl.png"
+        title: "Main character selection"
+        alt_text: "Game screenshot showing the selection of a girl as main character"
+      - href: "https://tradusquare.es/wp-content/uploads/2023/10/teclado.png"
+        title: "Keyboard for names"
+        alt_text: "Game screenshot showing a keyboard with european characters"
     target_language: "es_ES" # empty for hacks
     compatibility:
       - product_id: "PSL_EU_VPYP01_00"

@@ -97,11 +97,21 @@ public class ModInfo
     public string Version { get; set; } = "";
     public string Name { get; set; } = "";
     public string Description { get; set; } = "";
+    public Screenshot[] Screenshots { get; set; } = [];
     public string TargetLanguage { get; set; } = "";
     public Compatibility[] Compatibility { get; set; } = [];
     public ModContent ModContent { get; set; } = new();
     public string ValidUntil { get; set; } = "";
     public Encryption Encryption { get; set; } = new();
+}
+
+public class Screenshot
+{
+    public string Href { get; set; } = "";
+
+    public string Title { get; set; } = "";
+
+    public string AltText { get; set; } = "";
 }
 
 public class ModContent

@@ -1,6 +1,9 @@
 ﻿namespace PleOps.GamePatcher.Poc.Pages.Library;
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using PleOps.GamePatcher.Poc.ModdingProject;
 
 internal partial class LibraryProjectPageViewModel : ViewModelBase, IStackViewModel
@@ -12,11 +15,17 @@ internal partial class LibraryProjectPageViewModel : ViewModelBase, IStackViewMo
         ArgumentNullException.ThrowIfNull(manifest);
         this.manifest = manifest;
 
-        ViewName = manifest.Project.Name;
+        ViewName = "Project info";
         ProjectInfo = manifest.Project;
+        Images = [manifest.Project.Logo.Large, .. manifest.Mods.SelectMany(m => m.Screenshots.Select(s => s.Href))];
+        Products = manifest.Products;
     }
 
     public string ViewName { get; }
 
     public Project ProjectInfo { get; }
+
+    public IReadOnlyCollection<string> Images { get; }
+
+    public IReadOnlyCollection<Product> Products { get; }
 }

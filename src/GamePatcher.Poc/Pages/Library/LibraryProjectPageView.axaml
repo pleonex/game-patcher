@@ -2,10 +2,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fluent="using:FluentAvalonia.UI.Controls"
              xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
              xmlns:ext="using:PleOps.GamePatcher.Poc.XamlExtensions"
              xmlns:local="using:PleOps.GamePatcher.Poc.Pages.Library"
-             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
+             mc:Ignorable="d" d:DesignWidth="1300" d:DesignHeight="1500"
              x:DataType="local:LibraryProjectPageViewModel"
              x:Class="PleOps.GamePatcher.Poc.Pages.Library.LibraryProjectPageView">
 
@@ -17,54 +18,112 @@
 
     <Border DockPanel.Dock="Left"
             Margin="0 0 8 0"
-            Width="300"
-            IsVisible="{Binding $parent[DockPanel].Bounds.Width, Converter={x:Static ext:NumberConverters.IsGreaterThan}, ConverterParameter=1000}"
+            Width="500"
+            IsVisible="{Binding $parent[DockPanel].Bounds.Width, Converter={x:Static ext:NumberConverters.IsGreaterThan}, ConverterParameter=1300}"
             BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-            CornerRadius="4">
+            CornerRadius="8">
 
-      <StackPanel Orientation="Vertical">
-        <Border MaxWidth="128"
-                MaxHeight="128"
-                Margin="0 64 0 0"
-                BorderThickness="1"
-                BorderBrush="{DynamicResource ControlElevationBorderBrush}"
-                Background="White">
-          <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Icon}"
-                 Stretch="Uniform"
-                 StretchDirection="Both" />
-        </Border>
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical" Margin="8" Spacing="8">
+          <fluent:InfoBar IsOpen="True"
+                          Severity="Informational"
+                          IsClosable="True"
+                          Title="New version available!"
+                          Message="Version v2.3">
+            <fluent:InfoBar.ActionButton>
+              <Button Content="Update" />
+            </fluent:InfoBar.ActionButton>
+          </fluent:InfoBar>
 
-        <TextBlock Text="{Binding ProjectInfo.Name}"
-                   Margin="16 32 0 0"
-                   HorizontalAlignment="Center"
-                   TextAlignment="Center"
-                   Theme="{StaticResource SubtitleTextBlockStyle}"/>
+          <fluent:InfoBar IsOpen="True"
+                          Severity="Success"
+                          IsClosable="True"
+                          Title="Manifest signature valid"/>
+        </StackPanel>
 
-        <Button Content="Install"
-                Margin="0 48 0 0"
-                Width="150"
-                HorizontalAlignment="Center"
-                FontSize="16"
-                Background="{DynamicResource AccentFillColorDefaultBrush}"
-                Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"/>
-      </StackPanel>
+        <StackPanel Orientation="Vertical">
+          <Border MaxWidth="128"
+                  MaxHeight="128"
+                  Margin="0 64 0 0"
+                  BorderThickness="1"
+                  BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                  Background="White">
+            <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Icon}"
+                   Stretch="Uniform"
+                   StretchDirection="Both" />
+          </Border>
+
+          <TextBlock Text="{Binding ProjectInfo.Name}"
+                     Margin="16 32 16 0"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Center"
+                     Theme="{StaticResource SubtitleTextBlockStyle}"
+                     MaxLines="2"
+                     TextTrimming="CharacterEllipsis" />
+
+          <TextBlock Text="{Binding ProjectInfo.Team}"
+                     Margin="16 12 16 0"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Center"
+                     Foreground="{StaticResource AccentTextFillColorPrimaryBrush}"
+                     Theme="{StaticResource BodyStrongTextBlockStyle}"
+                     MaxLines="1"
+                     TextTrimming="CharacterEllipsis" />
+
+          <Button Content="Install"
+                  Margin="0 48 0 0"
+                  Width="150"
+                  Padding="8"
+                  HorizontalAlignment="Center"
+                  FontSize="16"
+                  Background="{DynamicResource AccentFillColorDefaultBrush}"
+                  Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"/>
+
+          <StackPanel Orientation="Horizontal"
+                      HorizontalAlignment="Center"
+                      Spacing="16"
+                      Margin="64 48 64 0">
+
+            <TextBlock Text="{Binding ProjectInfo.Type}"
+                       Theme="{StaticResource SubtitleTextBlockStyle}" />
+
+            <Border BorderThickness="1"
+                    Height="30"
+                    Width="1"
+                    BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" />
+
+            <TextBlock Text="{Binding ProjectInfo.Status}"
+                       Theme="{StaticResource SubtitleTextBlockStyle}" />
+          </StackPanel>
+
+          <TextBlock Text="{Binding ProjectInfo.Description}"
+                     Margin="64 48 64 0"
+                     HorizontalAlignment="Center"
+                     TextAlignment="Center"
+                     MaxLines="3"
+                     TextTrimming="CharacterEllipsis"
+                     TextWrapping="Wrap" />
+
+        </StackPanel>
+      </DockPanel>
 
     </Border>
 
-    <ScrollViewer Grid.Column="2" Padding="8">
+    <ScrollViewer Grid.Column="2">
       <StackPanel Orientation="Vertical">
         <Border Padding="24"
                 Margin="0 0 0 8"
                 BorderThickness="1"
-                IsVisible="{Binding $parent[DockPanel].Bounds.Width, Converter={x:Static ext:NumberConverters.IsLessThan}, ConverterParameter=1000}"
+                IsVisible="{Binding $parent[DockPanel].Bounds.Width, Converter={x:Static ext:NumberConverters.IsLessThan}, ConverterParameter=1300}"
                 BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
                 Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                CornerRadius="4">
+                CornerRadius="8">
 
-          <Grid ColumnDefinitions="128,*,150">
+          <Grid ColumnDefinitions="128,*,180">
             <Border Grid.Column="0"
+                    VerticalAlignment="Top"
                     MaxWidth="128"
                     MaxHeight="128"
                     BorderThickness="1"
@@ -81,13 +140,40 @@
                         Orientation="Vertical">
               <TextBlock Text="{Binding ProjectInfo.Name}"
                          Theme="{StaticResource TitleTextBlockStyle}"
-                         MaxLines="1"
+                         MaxLines="2"
                          TextTrimming="CharacterEllipsis"/>
               <TextBlock Text="{Binding ProjectInfo.Team}"
                          Theme="{StaticResource SubtitleTextBlockStyle}"
                          Foreground="{StaticResource AccentTextFillColorPrimaryBrush}"
-                         MaxLines="1"
+                         MaxLines="2"
                          TextTrimming="CharacterEllipsis"/>
+
+              <StackPanel Orientation="Horizontal"
+                      Spacing="16"
+                      Margin="0 12 0 0">
+
+                <TextBlock Text="{Binding ProjectInfo.Type}"
+                           Theme="{StaticResource SubtitleTextBlockStyle}" />
+
+                <Border BorderThickness="1"
+                        Height="30"
+                        Width="1"
+                        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" />
+
+                <TextBlock Text="{Binding ProjectInfo.Status}"
+                           Theme="{StaticResource SubtitleTextBlockStyle}" />
+
+                <Border BorderThickness="1"
+                        Height="30"
+                        Width="1"
+                        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" />
+
+                <fluent:InfoBadge Classes="Success Icon" />
+                <TextBlock Text="Valid manifest"
+                           Margin="-8 0 0 0"
+                           Theme="{StaticResource SubtitleTextBlockStyle}"/>
+              </StackPanel>
+
               <TextBlock Text="{Binding ProjectInfo.Description}"
                          Margin="0 16 0 0"
                          MaxLines="2"
@@ -95,27 +181,153 @@
                          TextWrapping="Wrap" />
             </StackPanel>
 
-            <Button Grid.Column="2"
-                    Content="Install"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    FontSize="16"
-                    Background="{DynamicResource AccentFillColorDefaultBrush}"
-                    Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"/>
+            <StackPanel Grid.Column="2" Orientation="Vertical">
+              <Button Content="Install"
+                      HorizontalAlignment="Stretch"
+                      FontSize="16"
+                      Background="{DynamicResource AccentFillColorDefaultBrush}"
+                      Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"/>
+
+              <Button Margin="0 12 0 0"
+                      HorizontalAlignment="Stretch"
+                      ToolTip.Tip="New version v2.3"
+                      FontSize="16">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <fluent:FontIcon Glyph="&#xE946;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                  <TextBlock Text="Update available" />
+                </StackPanel>
+              </Button>
+            </StackPanel>
           </Grid>
         </Border>
 
-        <Border CornerRadius="4 4 0 0"
+        <Border CornerRadius="8 8 0 0"
                 Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
-                Padding="5">
+                Padding="12">
           <TextBlock Text="Screenshots"
                      Theme="{StaticResource SubtitleTextBlockStyle}"
                      HorizontalAlignment="Center"/>
         </Border>
         <Border CornerRadius="0 0 4 4"
                 Background="{DynamicResource ControlFillColorInputActiveBrush}"
+                Height="256"
                 Padding="16">
-          <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Large}" />
+          <Grid ColumnDefinitions="Auto,*,Auto">
+            <Carousel Grid.Column="1"
+                      Name="screenshotsCarousel"
+                      Margin="16 0"
+                      ItemsSource="{Binding Images}">
+              <Carousel.ItemTemplate>
+                <DataTemplate>
+                  <Image asyncImageLoader:ImageLoader.Source="{Binding .}" />
+                </DataTemplate>
+              </Carousel.ItemTemplate>
+              <Carousel.PageTransition >
+                <CompositePageTransition>
+                  <PageSlide Duration="0:00:01.500" Orientation="Horizontal" />
+                </CompositePageTransition>
+              </Carousel.PageTransition>
+            </Carousel>
+            <Button Grid.Column="0" Click="CarouselPreviousClick">&lt;</Button>
+            <Button Grid.Column="2" Click="CarouselNextClick">&gt;</Button>
+          </Grid>
+        </Border>
+
+        <Border CornerRadius="8 8 0 0"
+                Margin="0 8 0 0"
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                Padding="12">
+          <TextBlock Text="Description"
+                     Theme="{StaticResource SubtitleTextBlockStyle}"
+                     HorizontalAlignment="Center"/>
+        </Border>
+        <Border CornerRadius="0 0 4 4"
+                Background="{DynamicResource ControlFillColorInputActiveBrush}"
+                MaxHeight="512"
+                Padding="16">
+          <StackPanel Orientation="Vertical">
+            <TextBlock Text="{Binding ProjectInfo.Description}" />
+            <Border BorderThickness="1"
+                    Margin="0 0 0 16"
+                    Height="1"
+                    BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <TextBlock Text="{Binding ProjectInfo.AdditionalInformation}" />
+          </StackPanel>
+        </Border>
+
+        <Border CornerRadius="8 8 0 0"
+                Margin="0 8 0 0"
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                Padding="12">
+          <TextBlock Text="Credits"
+                     Theme="{StaticResource SubtitleTextBlockStyle}"
+                     HorizontalAlignment="Center"/>
+        </Border>
+        <Border CornerRadius="0 0 4 4"
+                Background="{DynamicResource ControlFillColorInputActiveBrush}"
+                MaxHeight="512"
+                Padding="16">
+          <TextBlock Text="{Binding ProjectInfo.Credits}" />
+        </Border>
+
+        <Border CornerRadius="8 8 0 0"
+                Margin="0 8 0 0"
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                Padding="12">
+          <TextBlock Text="Compatible products"
+                     Theme="{StaticResource SubtitleTextBlockStyle}"
+                     HorizontalAlignment="Center"/>
+        </Border>
+        <Border CornerRadius="0 0 4 4"
+                Background="{DynamicResource ControlFillColorInputActiveBrush}"
+                MaxHeight="512"
+                Padding="16">
+          <ItemsControl ItemsSource="{Binding Products}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Expander Margin="0 8" IsExpanded="True">
+                  <Expander.Header>
+                    <TextBlock>
+                      <Run Text="{Binding Name}" FontWeight="Bold" />
+                      <Run Text="(" />
+                      <Run Text="{Binding Id}" />
+                      <Run Text=")" />
+                    </TextBlock>
+                  </Expander.Header>
+                </Expander>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </Border>
+
+        <Border CornerRadius="8 8 0 0"
+                Margin="0 8 0 0"
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                Padding="12">
+          <TextBlock Text="Available mods"
+                     Theme="{StaticResource SubtitleTextBlockStyle}"
+                     HorizontalAlignment="Center"/>
+        </Border>
+        <Border CornerRadius="0 0 4 4"
+                Background="{DynamicResource ControlFillColorInputActiveBrush}"
+                MaxHeight="512"
+                Padding="16">
+          <!-- TODO -->
+        </Border>
+
+        <Border CornerRadius="8 8 0 0"
+                Margin="0 8 0 0"
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                Padding="12">
+          <TextBlock Text="Additional info"
+                     Theme="{StaticResource SubtitleTextBlockStyle}"
+                     HorizontalAlignment="Center"/>
+        </Border>
+        <Border CornerRadius="0 0 4 4"
+                Background="{DynamicResource ControlFillColorInputActiveBrush}"
+                MaxHeight="512"
+                Padding="16">
+          <!-- TODO -->
         </Border>
       </StackPanel>
     </ScrollViewer>

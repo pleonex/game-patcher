@@ -8,6 +8,16 @@ public partial class LibraryProjectPageView : UserControl
     {
         InitializeComponent();
     }
+
+    private void CarouselPreviousClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        screenshotsCarousel.Previous();
+    }
+
+    private void CarouselNextClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        screenshotsCarousel.Next();
+    }
 }
 
 internal sealed class LibraryProjectPageViewModelDesigner : LibraryProjectPageViewModel
