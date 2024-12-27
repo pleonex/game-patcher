@@ -20,7 +20,11 @@ project:
   logo:
     icon: "https://art.gametdb.com/ds/coverS/EN/VPYP.png" # also content:// for mod packages
     large: "https://tradusquare.es/wp-content/uploads/Archivos-de-usuarios/pleonex/conquest/conquest_fondo0.webp"
-  additional_information:
+  additional_information: >
+    This project is not related to Spanish fan-translations from other groups.
+  changelog: >
+    * December 2025: support for US region game.
+    * March 2025: initial public release.
   update:
     # Get the latest version of this file to check for updates
     method: "http"

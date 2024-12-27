@@ -21,6 +21,7 @@ public class Project
     public string Credits { get; set; } = "";
     public Logo Logo { get; set; } = new();
     public string AdditionalInformation { get; set; } = "";
+    public string Changelog { get; set; } = "";
     public Update Update { get; set; } = new();
 }
 
