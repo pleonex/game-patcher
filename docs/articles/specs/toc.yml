@@ -5,3 +5,7 @@
   href: ./manifest.md
 - name: 🚧 Mod installer extensible (.mix)
   href: ./installer.md
+
+- name: 🎮 Platform extensions
+- name: 🚧 Nintendo DS(i)
+  href: ./platform-nds.md
