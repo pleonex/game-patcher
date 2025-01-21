@@ -1,6 +1,7 @@
 # Multi-platform Open eXtensible Mod Installer
 
-Multi-platform framework for distributing mods of video-games.
+Multi-platform framework for distributing and installing mods of a software
+product such as a video-game.
 
 > [!CAUTION]  
 > This project is still in a very early phase. It doesn't have any deliverables
@@ -12,12 +13,16 @@ Multi-platform framework for distributing mods of video-games.
 - 🔒 Security features.
 - 💻 Software libraries and tools to create and apply the mods.
 
-## Platforms
+![c1-level](./docs/images/design_l1.drawio.png)
 
-Support platforms by the specification:
+## Supported target platforms
 
-- 🚧 WIP: Nintendo DS
-- 🚧 WIP: Nintendo DSi
+Platform support status:
+
+| Platform     | Specification | Installer | Builder |
+| ------------ | ------------- | --------- | ------- |
+| Nintendo DS  | 🚧            | ❌        | ❌      |
+| Nintendo DSi | 🚧            | ❌        | ❌      |
 
 ## Get started
 
