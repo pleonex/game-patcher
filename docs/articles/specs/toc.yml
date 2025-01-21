@@ -1,10 +1,15 @@
+- name: 🏠 Home
+  href: ../../index.md
+
 - name: 📃 Specifications
-- name: 🚧 Overview
+- name: Overview
   href: ./overview.md
-- name: 🚧 Modding project manifest (.mdp)
+- name: Modding project manifest (.mdp)
   href: ./manifest.md
-- name: 🚧 Mod installer extensible (.mix)
+- name: Mod installer extensible (.mix)
   href: ./installer.md
+- name: Design goals
+  href: ./goals.md
 
 - name: 🎮 Platform extensions
 - name: 🚧 Nintendo DS(i)
