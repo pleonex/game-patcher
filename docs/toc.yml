@@ -1,8 +1,11 @@
-# - name: Dev guides
-#   href: articles/dev/
-
 - name: Format specs
   href: articles/specs/
+
+- name: Installer
+  href: articles/installer/
+
+# - name: Dev guides
+#   href: articles/dev/
 
 - name: Changelog
   href: articles/changelog.md

@@ -15,7 +15,7 @@ product such as a video-game.
 
 ## Projects
 
-![c4-installer-l2](./images/design_l2.drawio.png)
+![C4 Level-2 diagram showing blocks for the below projects](./images/design_l2.drawio.png)
 
 - [_Mod format standard_](./articles/specs/overview.md): standard multi-platform
   mod installation format.
@@ -23,7 +23,8 @@ product such as a video-game.
 - _Mod builder_: cross-platform application that helps mod teams to create a
   distributable package for their mod (`.mdp` and `.mix` files).
 
-- _Mod installer_: multi-platform that installs compatible mod packages.
+- [_Mod installer_](./articles/installer/overview.md): multi-platform that
+  installs compatible mod packages.
 
 - _Framework libraries_: programming libraries that provide support for the mod
   format, creating a new package and installing it. Extended for each supported
@@ -37,7 +38,8 @@ product such as a video-game.
 
 Platform support status:
 
-| Platform     | Specification | Installer | Builder |
-| ------------ | ------------- | --------- | ------- |
-| Nintendo DS  | 🚧            | ❌        | ❌      |
-| Nintendo DSi | 🚧            | ❌        | ❌      |
+| Platform | Specification | Installer | Builder |
+| -------- | ------------- | --------- | ------- |
+| Generic  | 🚧            | ❌        | ❌      |
+| NDS      | 🚧            | ❌        | ❌      |
+| DSi      | 🚧            | ❌        | ❌      |

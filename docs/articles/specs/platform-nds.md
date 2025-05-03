@@ -1,9 +1,9 @@
-# Platform extension: Nintendo DS
+# Platform extension: DS / DSi
 
-This document describes the extension points to support the _Nintendo DS_
+This document describes the extension points to support the _NDS_ and _DSi_
 platform in the project and mod installer formats.
 
-## Verification methods
+## Compatibility verification methods
 
 ### `ds-gameid`
 
@@ -22,6 +22,7 @@ against later modifications.
 DS header (including extended ROM format after DSi release)
 
 - File system URI: `nds://`
+- Integrity: header checksums
 - Deployment arguments: none.
 
 ### `dsi-rom`
@@ -29,6 +30,7 @@ DS header (including extended ROM format after DSi release)
 DSi header, banner and armi
 
 - File system URI: `dsi://`
+- Integrity: header checksums
 - Deployment arguments:
   - `regenerate_hashes` (`bool`): requires keys.
 

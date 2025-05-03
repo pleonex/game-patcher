@@ -2,3 +2,4 @@ patcher
 OpenAPI
 modiverse
 readme
+DSi

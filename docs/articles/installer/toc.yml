@@ -1,0 +1,10 @@
+- name: ✨ Getting started
+- name: Introduction
+  href: overview.md
+
+# To be removed from public docs after initial releases
+- name: 💭 Initial design
+- name: 🚧 Installer
+  href: design-installer.md
+- name: 🚧 Builder
+  href: design-builder.md

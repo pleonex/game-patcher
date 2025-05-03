@@ -19,10 +19,11 @@ product such as a video-game.
 
 Platform support status:
 
-| Platform     | Specification | Installer | Builder |
-| ------------ | ------------- | --------- | ------- |
-| Nintendo DS  | 🚧            | ❌        | ❌      |
-| Nintendo DSi | 🚧            | ❌        | ❌      |
+| Platform | Specification | Installer | Builder |
+| -------- | ------------- | --------- | ------- |
+| Generic  | 🚧            | ❌        | ❌      |
+| DS       | 🚧            | ❌        | ❌      |
+| DSi      | 🚧            | ❌        | ❌      |
 
 ## Get started
 
