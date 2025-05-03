@@ -21,29 +21,81 @@ There are several projects that aimed at providing a unique installer for mods.
 Most of them focus on a single platform. See the
 [goals reference](../specs/goals.md#references) section for more details.
 
+## Architecture
+
+The architecture consists on an application that can apply a mod. The design
+concept is based on two concepts: multi-platform and cross-patching.
+
+### Multi-platform
+
+The core engine can run from multiple operative systems. Creating a native
+installer application to run on a platform would only require to create or adapt
+a frontend.
+
+The base engine will use .NET technology as there are
+[known .NET libraries](https://github.com/SceneGate/) supporting already the
+first target platforms. .NET will also allow creating relatively easy mobile and
+web applications.
+
+As .NET can't run everywhere, a second engine based on Rust may be created. Set
+of platforms planned to run the installer application(s).
+
+| Engine / OS | Windows | Linux | macOS | Android | iOS | 3DS | Switch |
+| ----------- | ------- | ----- | ----- | ------- | --- | --- | ------ |
+| .NET        | ✔️      | ✔️    | ✔️    | ✔️      | ❌  | ❌  | ❌     |
+| Web REST    | ✔️      | ✔️    | ✔️    | ✔️      | ✔️  | ❌  | ❌     |
+| Rust        | ❌      | ❌    | ❌    | ❌      | ❌  | ✔️  | ✔️     |
+
+![OS support diagram representing the same as the table](resources/design_installer_os_support.drawio.png)
+
+### Cross-patching
+
+The core engine can apply a mod for a software that will run on a different
+platform. For instance, installing a mod for a DS game from an Android device.
+
+Set of target platforms planned to support on each engine.
+
+| Engine / Target platform | NDS | DSi | 3DS | Switch | Steam | PSX |
+| ------------------------ | --- | --- | --- | ------ | ----- | --- |
+| Windows (.NET)           | ✔️  | ✔️  | ✔️  | ✔️     | ✔️    | ✔️  |
+| Linux (.NET)             | ✔️  | ✔️  | ✔️  | ✔️     | ✔️    | ✔️  |
+| macOS (.NET)             | ✔️  | ✔️  | ✔️  | ✔️     | ❌    | ✔️  |
+| Android (.NET)           | ✔️  | ✔️  | ✔️  | ❌     | ❌    | ✔️  |
+| Web (REST)               | ✔️  | ✔️  | ✔️  | ❌     | ❌    | ❌  |
+| 3DS (rust)               | ✔️  | ✔️  | ✔️  | ❌     | ❌    | ❌  |
+| Switch (rust)            | ✔️  | ✔️  | ✔️  | ✔️     | ❌    | ✔️  |
+
 ## High level components
 
-TODO: C4 L3 diagram with engine + frontend blocks
+There are three main components:
+
+- Engine: multi-platform development libraries implementing reading, creating
+  and applying mods.
+- Platform extension: extend the engine for a target platform.
+- Frontend: user applications that use the _engine_ libraries to either apply a
+  mod or create a new one.
+
+![C4 Level-3 diagram with the components described](./resources/design_installer_l3.drawio.png)
 
 ### Engine framework
 
-TODO: list blocks and brief description
+TODO: list components and brief description
 
 ![C4 Level-3 flow diagram with a block per component below](./resources/design_installer_flow-blocks.drawio.png)
 
 ### Platform extension libraries
 
-TODO: describe and quick diagram
+TODO: describe and small diagram
 
 ## Frontend
 
 ### UI
 
-TODO: diagram with the UI design
+TODO: wireframe and design pages
 
 ### Frontend components
 
-TODO: related components for the frontend side.
+TODO: diagram showing XAML, MVVM with navigator and configuration
 
 ## Extensibility
 
@@ -91,20 +143,24 @@ The .NET engine will write logs using the Microsoft logging interface.
 
 The desktop application will integrate with NLog for persisting logs on the file
 system. It will configure archiving policies to not have log files bigger than
-30 MB.
+20 MB.
 
 ## Implementation
 
 ### Phases
 
-1. [core] read MIX format and apply generic mod resources
-   - Initial support for DS format extension
-2. [core + DS] validate software compatibility and integrity
-3. [UI] Desktop application for Windows, Linux, and macOS
-4. [core] read MDP format and update and fetch remote resources
-5. [core] security features: signature verification and encryption
-6. [ext-3ds] 3DS extensions
-7. [ext-pc] Steam extensions
-8. [android] Mobile application for Android
-9. [rust] Port core libraries to Rust language
-10. [UI] 3DS and Switch homebrews based on Rust engine
+1. 🚧 [core + DS] read and apply MIX mods
+   1. read MIX format with compatibility validation
+   2. apply of xdelta patches
+   3. bundle and deployment of mod games
+2. [UI] Desktop application for Windows, Linux, and macOS
+   - Instructions to prepare software for modding
+   - Validate hardware compatibility
+   - Backup software
+3. [core + desktop] read MDP format, update version and fetch remote resources
+4. [core] security features: signature verification and encryption
+5. [ext-3ds] 3DS extensions
+6. [ext-pc] Steam extensions
+7. [android] Mobile application for Android
+8. [rust] Port core libraries to Rust language
+9. [UI] 3DS and Switch homebrews based on Rust engine
