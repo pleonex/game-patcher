@@ -1,4 +1,4 @@
-﻿namespace PleOps.Moxmi.ModInstaller;
+﻿namespace PleOps.Moxmi.Compatibility;
 
 using System;
 using System.IO;
