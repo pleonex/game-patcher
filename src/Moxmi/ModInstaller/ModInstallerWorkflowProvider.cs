@@ -1,30 +1,62 @@
 ﻿namespace PleOps.Moxmi.ModInstaller;
 
 using System;
-using System.Reflection;
+using PleOps.Moxmi.Compatibility;
+using PleOps.Moxmi.Integrity;
 
 public class ModInstallerWorkflowProvider
 {
-    private readonly IServiceProvider container;
+    private readonly Dictionary<string, ICompatibilityValidator> compatibilityValidators;
+    private readonly Dictionary<string, ISoftwareIntegrityValidator> integrityValidators;
 
     public ModInstallerWorkflowProvider()
     {
-        // TODO: add dependency DI
+        compatibilityValidators = [];
+        integrityValidators = [];
+
+        RegisterBuiltin();
     }
 
-    public void RegisterPlatformExtension(Assembly assembly)
+    private void RegisterBuiltin()
     {
-        // Maybe another class being a wrapper over our container then build gives this one
+        compatibilityValidators.Add("file-sha256", new FileHashCompatibilityValidator());
+    }
+
+    public void RegisterCompatibilityValidator(string method, ICompatibilityValidator validator)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(method);
+        ArgumentNullException.ThrowIfNull(validator);
+
+        compatibilityValidators.Add(method, validator);
+    }
+
+    public void RegisterIntegrityValidator(string format, ISoftwareIntegrityValidator validator)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(format);
+        ArgumentNullException.ThrowIfNull(validator);
+
+        integrityValidators.Add(format, validator);
     }
 
     public ICompatibilityValidator GetCompatibilityValidator(string method)
     {
         ArgumentException.ThrowIfNullOrEmpty(method);
 
-        // this won't work, I need a way to identify them
-        return method switch {
-            "file-sha256" => (FileHashCompatibilityValidator)container.GetService(typeof(FileHashCompatibilityValidator))!,
-            _ => throw new NotSupportedException($"Unsupported validator method: {method}"),
-        };
+        if (compatibilityValidators.TryGetValue(method, out var instance)) {
+            return instance;
+        }
+
+        throw new NotSupportedException($"Unsupported validator method: {method}");
+    }
+
+    public ISoftwareIntegrityValidator GetIntegrityValidator(string softwareFormat)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(softwareFormat);
+
+        if (integrityValidators.TryGetValue(softwareFormat, out var instance)) {
+            return instance;
+        }
+
+        throw new NotSupportedException($"Unsupported software format: {softwareFormat}");
     }
 }
