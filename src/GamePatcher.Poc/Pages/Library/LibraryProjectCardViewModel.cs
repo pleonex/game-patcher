@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using PleOps.GamePatcher.Poc.ModdingProject;
+using PleOps.Moxmi.ModdingProject;
 
 public partial class LibraryProjectCardViewModel : ViewModelBase
 {

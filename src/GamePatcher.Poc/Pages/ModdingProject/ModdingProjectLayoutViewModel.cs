@@ -2,7 +2,7 @@
 
 using System;
 using System.Collections.ObjectModel;
-using PleOps.GamePatcher.Poc.ModdingProject;
+using PleOps.Moxmi.ModdingProject;
 
 internal class ModdingProjectLayoutViewModel : ViewModelBase, IStackViewModel
 {

@@ -1,4 +1,4 @@
-﻿namespace PleOps.GamePatcher.Poc.ModdingProject;
+﻿namespace PleOps.Moxmi.ModdingProject;
 
 using System;
 using System.IO;

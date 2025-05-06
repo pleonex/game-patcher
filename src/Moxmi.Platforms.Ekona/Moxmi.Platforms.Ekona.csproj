@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>PleOps.Moxmi.Platforms.Ekona</AssemblyName>
+    <Description>Platform extension for MOXMI providing support of DS(i) via Ekona.</Description>
+    <IsPackable>true</IsPackable>
+
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+
+    <RootNamespace>PleOps.Moxmi.Platforms.Ekona</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../docs/images/logo_128.png" Pack="true" PackagePath="$(PackageIcon)" Visible="false" />
+    <None Include="../../docs/index.md" Pack="true" PackagePath="$(PackageReadmeFile)" Visible="False" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SceneGate.Ekona" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Moxmi\Moxmi.csproj" />
+  </ItemGroup>
+
+</Project>

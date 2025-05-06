@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>MoxmiConsole</AssemblyName>
+    <Description>Proof-of-concept console commands for MOXMI mod files.</Description>
+    <OutputType>Exe</OutputType>
+    <IsPackable>true</IsPackable>
+
+    <TargetFramework>net9.0</TargetFramework>
+
+    <!-- Keep the name of the exe simple while having a full NuGet package name -->
+    <PackageId>PleOps.Moxmi.Console</PackageId>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>moxmi</ToolCommandName>
+
+    <RootNamespace>PleOps.Moxmi.Console</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../docs/images/logo_128.png" Pack="true" PackagePath="$(PackageIcon)" Visible="false" />
+    <None Include="../../docs/index.md" Pack="true" PackagePath="$(PackageReadmeFile)" Visible="False" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="5.4.0" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.4.0" />
+    <PackageReference Include="Spectre.Console" Version="0.50.0" />
+    <PackageReference Include="Spectre.Console.Analyzer" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Spectre.Console.Cli" Version="0.50.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Moxmi.Platforms.Ekona\Moxmi.Platforms.Ekona.csproj" />
+    <ProjectReference Include="..\Moxmi\Moxmi.csproj" />
+  </ItemGroup>
+
+</Project>

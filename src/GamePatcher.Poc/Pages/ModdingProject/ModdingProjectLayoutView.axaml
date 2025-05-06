@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fluent="using:FluentAvalonia.UI.Controls"
              xmlns:local="using:PleOps.GamePatcher.Poc.Pages.ModdingProject"
-             xmlns:mdp="using:PleOps.GamePatcher.Poc.ModdingProject"
+             xmlns:mdp="using:PleOps.Moxmi.ModdingProject"
              mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="750"
              x:DataType="local:ModdingProjectLayoutViewModel"
              x:Class="PleOps.GamePatcher.Poc.Pages.ModdingProject.ModdingProjectLayoutView">
@@ -12,7 +12,7 @@
   <Design.DataContext>
     <local:ModdingProjectLayoutViewModelDesigner />
   </Design.DataContext>
-  
+
   <fluent:NavigationView Name="mdpNavigation"
                          IsBackButtonVisible="False"
                          IsPaneOpen="True"
@@ -68,9 +68,9 @@
                   Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
         </StackPanel>
       </Border>
-      
+
       <fluent:Frame Name="mdpFrame" Margin="16" />
     </DockPanel>
   </fluent:NavigationView>
-  
+
 </UserControl>

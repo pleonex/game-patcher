@@ -34,7 +34,7 @@
                  Stretch="Uniform"
                  StretchDirection="Both" />
         </Border>
-      
+
         <TextBlock Grid.Row="0" Grid.Column="2"
                    Text="{Binding ProjectInfo.Name}"
                    ToolTip.Tip="{Binding ProjectInfo.Name}"
@@ -106,5 +106,5 @@
                  TextTrimming="CharacterEllipsis" />
     </StackPanel>
   </Border>
-  
+
 </UserControl>

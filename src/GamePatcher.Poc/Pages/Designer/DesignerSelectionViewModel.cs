@@ -4,8 +4,8 @@ using System.IO;
 using System.Threading.Tasks;
 using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.Input;
-using PleOps.GamePatcher.Poc.ModdingProject;
 using PleOps.GamePatcher.Poc.Mvvm;
+using PleOps.Moxmi.ModdingProject;
 using Avalonia.Threading;
 
 internal partial class DesignerSelectionViewModel : ViewModelBase, IStackViewModel

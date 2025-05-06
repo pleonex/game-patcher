@@ -1,7 +1,9 @@
-﻿namespace PleOps.GamePatcher.Poc.ModdingProject;
+﻿namespace PleOps.Moxmi.ModdingProject;
 
 using System.Collections.ObjectModel;
 
+// TODO: use nullable reference without default values, required
+// and set attributes for validation
 public class ModdingProjectManifest
 {
     public Project Project { get; set; } = new();

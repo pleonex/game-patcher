@@ -2,9 +2,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using PleOps.GamePatcher.Poc.ModdingProject;
+using PleOps.Moxmi.ModdingProject;
 
 internal partial class LibraryProjectPageViewModel : ViewModelBase, IStackViewModel
 {

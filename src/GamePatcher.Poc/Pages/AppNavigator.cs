@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FluentAvalonia.UI.Controls;
-using PleOps.GamePatcher.Poc.ModdingProject;
+using PleOps.Moxmi.ModdingProject;
 using PleOps.GamePatcher.Poc.Pages.Designer;
 using PleOps.GamePatcher.Poc.Pages.Library;
 using PleOps.GamePatcher.Poc.Pages.ModdingProject;

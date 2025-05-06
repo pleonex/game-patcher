@@ -3,7 +3,7 @@
 using System;
 using System.IO;
 using System.Reflection;
-using PleOps.GamePatcher.Poc.ModdingProject;
+using PleOps.Moxmi.ModdingProject;
 
 internal static class DesignerDataProvider
 {

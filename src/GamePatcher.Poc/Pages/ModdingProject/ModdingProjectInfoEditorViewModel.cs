@@ -1,7 +1,7 @@
 ﻿namespace PleOps.GamePatcher.Poc.Pages.ModdingProject;
 
 using System;
-using PleOps.GamePatcher.Poc.ModdingProject;
+using PleOps.Moxmi.ModdingProject;
 
 internal class ModdingProjectInfoEditorViewModel : ViewModelBase
 {

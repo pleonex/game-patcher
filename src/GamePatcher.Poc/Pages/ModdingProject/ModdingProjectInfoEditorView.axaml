@@ -90,7 +90,7 @@
           Margin="0 16 0 0"
           RowDefinitions="Auto,Auto"
           ColumnDefinitions="*,Auto">
-      
+
       <Label Grid.Row="0" Grid.Column="0"
              Content="Update:"
              FontSize="14"
@@ -98,11 +98,11 @@
              Margin="4 0 0 12" />
       <TextBox Grid.Row="1" Grid.Column="0"
                Text="{Binding Project.Update.Uri}" />
-      <TextBox Grid.Row="1" Grid.Column="1" 
+      <TextBox Grid.Row="1" Grid.Column="1"
                 Margin="8 0 0 0"
                 Text="{Binding Project.Update.Method}" />
     </Grid>
-    
+
   </Grid>
 
 </UserControl>
