@@ -7,7 +7,7 @@ var app = new CommandApp();
 app.Configure(static configurator => {
     configurator.AddBranch("installer", static installer => {
         installer.SetDescription("Install a mod");
-        //installer.AddCommand<InteractiveInstallerCommand>("interactive");
+        installer.AddCommand<InteractiveInstallerCommand>("interactive");
     });
 });
 
