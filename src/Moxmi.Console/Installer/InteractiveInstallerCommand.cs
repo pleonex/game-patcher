@@ -12,13 +12,9 @@ using Spectre.Console.Extensions;
 [Description("Install a modding project or specific mod with user inputs")]
 internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCommand.Settings>
 {
-    private ILogger<InteractiveInstallerCommand> logger = null!;
-
     public override async Task<int> ExecuteAsync(CommandContext context, Settings settings)
     {
         AppLoggerFactory.MinimumLevel = settings.Verbosity;
-        logger = AppLoggerFactory.CreateLogger<InteractiveInstallerCommand>();
-        logger.LogInformation("Starting to apply mod!");
 
         var workflowProvider = new ModInstallerWorkflowProvider();
         workflowProvider.RegisterEkona();
@@ -56,6 +52,9 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
             AnsiConsole.MarkupLine("[red]No compatible product found[/]");
             return 1;
         }
+
+        AnsiConsole.Write(new Rule("Software analysis"));
+        // TODO: open it, then pass it for integrity check?
 
         AnsiConsole.Write(new Rule("Integrity verification"));
         var integrity = workflowProvider.GetIntegrityValidator(product.Format);

@@ -7,7 +7,7 @@ using SceneGate.Ekona.Containers.Rom;
 using SceneGate.Ekona.Security;
 using Yarhl.IO;
 
-public class DSiRomIntegrityValidator(DsiKeyStore? dsiKeys)
+public class NitroRomIntegrityValidator(DsiKeyStore? dsiKeys)
     : ISoftwareIntegrityValidator
 {
     private readonly DsiKeyStore? dsiKeys = dsiKeys;

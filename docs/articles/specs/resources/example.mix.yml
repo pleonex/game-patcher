@@ -111,7 +111,7 @@ resources:
         is_optional: "false"
     installation_parameters:
       xdelta:
-        target: "dsi://root/data/message.dat"
+        target: "/root/data/message.dat"
         original_hash: "yQ3LglAj9AjMJ+6afs3n9DExnqEiEm6KmJSLyrUWDrM="
         modified_hash: "HMKxWxQ6AAm7MYJv1iIq//J1abTvumcvuEs5k1U6CM0="
 
@@ -131,7 +131,7 @@ resources:
         is_optional: "false"
     installation_parameters:
       xdelta:
-        target: "dsi://root/system/arm9"
+        target: "/root/system/arm9"
         original_hash: "KgdHkvgZ7s+D31MZkdHByrm3LEa7XtnC95ojztfowbk="
         modified_hash: "x7aqyF3I5TwD8W5APv2eklhg05JGcvpxkDwUfRWCi8c="
 
@@ -170,7 +170,7 @@ resources:
         is_optional: "false" # mandatory inside the optional feature
     installation_parameters:
       armips:
-        target: "dsi://root/system/overlays9/overlay_3"
+        target: "/root/system/overlays9/overlay_3"
         # Parameters we will pass to the armips program when applying the patch.
         parameters:
           - name: "DWC_DISABLE_HTTPS"
