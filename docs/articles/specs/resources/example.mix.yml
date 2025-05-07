@@ -17,7 +17,7 @@ project:
   # Different to modproj, the team and credits for this specific mod only
   team: "Pokémon Conquest Spanish Team"
   credits: >
-    * Ingeniería inversa: pleonex  
+    * Ingeniería inversa: pleonex
     * Traductores: ...
   logo:
     icon: "https://..." # also content://
@@ -28,9 +28,9 @@ mod:
   id: "spanish_v1.0"
   version: "1.0.0"
   name: "Traducción al español"
-  authors: > # feel free to copy also the credits
+  authors: >- # feel free to copy also the credits
     Pokémon Conquest Spanish Team
-  description: >
+  description: >-
     Primera versión de la traducción. Incluye todos los textos, imágenes y
     fuentes. Incluye soporte de los misiones descargables con servidor WFC
     propio. El único elemento sin traduccir es el vídeo de presentación.

@@ -7,7 +7,6 @@ using PleOps.Moxmi.ModInstaller;
 using PleOps.Moxmi.Platforms.Ekona;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using Spectre.Console.Extensions;
 
 [Description("Install a modding project or specific mod with user inputs")]
 internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCommand.Settings>
@@ -16,18 +15,68 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
     {
         AppLoggerFactory.MinimumLevel = settings.Verbosity;
 
-        var workflowProvider = new ModInstallerWorkflowProvider();
-        workflowProvider.RegisterEkona();
+        int result = await AnsiConsole.Status().StartAsync(
+            "Initializing mod installer",
+            async ctx => {
+                var workflowProvider = new ModInstallerWorkflowProvider()
+                    .RegisterEkona();
 
-        AnsiConsole.Write(new Rule("Mod installer"));
+                ctx.Status = "Reading the mod installer";
+                ModInstallerExtensibleManifest mix = ReadMix(settings.ModPath);
+
+                ctx.Status = "Checking the compatibility of the mod";
+                AnsiConsole.WriteLine();
+                var product = await GetCompatibleProductAsync(mix, settings.SoftwarePath, workflowProvider);
+                if (product is null) {
+                    return 1;
+                }
+
+                // TODO: open it with integrity checks?
+                //await Task.Delay(2_000);
+
+                ctx.Status = "Checking software integrity";
+                AnsiConsole.WriteLine();
+                bool isValid = await VerifyIntegrityAsync(settings.SoftwarePath, product, workflowProvider);
+                if (!isValid) {
+                    return 2;
+                }
+
+                ctx.Status = "Applying mod resources";
+                AnsiConsole.WriteLine();
+                await Task.Delay(2_000);
+                AnsiConsole.MarkupLineInterpolated($"Applying resources: [gray]{mix.Resources[0].Content.Href}[/]");
+                AnsiConsole.MarkupLine("Mod resources [green]applied[/]");
+
+                ctx.Status = "Creating output bundle";
+                AnsiConsole.WriteLine();
+                await Task.Delay(2_000);
+                AnsiConsole.MarkupLine("Creating bundle... [green]done[/]");
+
+                return 0;
+            });
+        return result;
+
+    }
+
+    private static ModInstallerExtensibleManifest ReadMix(string modPath)
+    {
         var deserializer = new ModInstallerExtensibleSerializer();
-        using var mixData = File.OpenRead(settings.ModPath);
-        var mix = deserializer.Deserialize(mixData);
-        AnsiConsole.MarkupLineInterpolated($"[bold blue]{mix.Mod.Name} v{mix.Mod.Version}[/]");
-        AnsiConsole.MarkupLineInterpolated($"[italic gray]by {mix.Mod.Authors}[/]");
-        AnsiConsole.MarkupLineInterpolated($"{mix.Mod.Description}");
+        using var mixData = File.OpenRead(modPath);
+        ModInstallerExtensibleManifest mix = deserializer.Deserialize(mixData);
+        AnsiConsole.MarkupLine("Reading MIX... [green]done[/]");
 
-        AnsiConsole.Write(new Rule("Compatibility verification"));
+        var panel = new Panel($"[italic gray]by {mix.Mod.Authors}[/]\n{mix.Mod.Description.EscapeMarkup()}");
+        panel.Header($"[bold blue]{mix.Mod.Name} v{mix.Mod.Version}[/]");
+        AnsiConsole.Write(panel);
+
+        return mix;
+    }
+
+    private static async Task<CompatibleProductInfo?> GetCompatibleProductAsync(
+        ModInstallerExtensibleManifest mix,
+        string softwarePath,
+        ModInstallerWorkflowProvider workflowProvider)
+    {
         CompatibleProductInfo? product = null;
         foreach (var compatibleProduct in mix.Mod.Compatibility) {
             AnsiConsole.MarkupLineInterpolated($"Checking match with {compatibleProduct.Name}");
@@ -36,9 +85,9 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
             try {
                 var validator = workflowProvider.GetCompatibilityValidator(verificationInfo.Method);
 
-                var isCompatible = await validator.VerifyCompatibilityAsync(settings.SoftwarePath, verificationInfo.Hash);
+                var isCompatible = await validator.VerifyCompatibilityAsync(softwarePath, verificationInfo.Hash);
                 if (isCompatible) {
-                    AnsiConsole.MarkupLineInterpolated($"[green]Match![/] Product ID: {compatibleProduct.ProductId}");
+                    AnsiConsole.MarkupLineInterpolated($"Checking compatibility... [green]done[/] -> {compatibleProduct.ProductId}");
                     product = compatibleProduct;
                     break;
                 }
@@ -50,25 +99,25 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
 
         if (product is null) {
             AnsiConsole.MarkupLine("[red]No compatible product found[/]");
-            return 1;
+            return null;
         }
 
-        AnsiConsole.Write(new Rule("Software analysis"));
-        // TODO: open it, then pass it for integrity check?
+        return product;
+    }
 
-        AnsiConsole.Write(new Rule("Integrity verification"));
+    private static async Task<bool> VerifyIntegrityAsync(
+        string softwarePath,
+        CompatibleProductInfo product,
+        ModInstallerWorkflowProvider workflowProvider)
+    {
         var integrity = workflowProvider.GetIntegrityValidator(product.Format);
-        var status = await integrity.VerifyIntegrityAsync(settings.SoftwarePath);
+        var status = await integrity.VerifyIntegrityAsync(softwarePath);
+
+        AnsiConsole.MarkupLine("Checking integrity... [green]done[/]");
         AnsiConsole.MarkupLine($"Is data valid: {status.IsDataValid}");
         AnsiConsole.MarkupLine($"Signed: {status.HasValidPublisherSignature}");
 
-        AnsiConsole.Write(new Rule("Installation"));
-        AnsiConsole.MarkupLine("[gray]Applying resources...[/]");
-
-        AnsiConsole.Write(new Rule("Bundle"));
-        AnsiConsole.MarkupLine("[gray]Creating new software bundle...[/]");
-
-        return 0;
+        return status.IsDataValid != Integrity.IntegrityVerificationResult.Invalid;
     }
 
     public sealed class Settings : CommandSettings
