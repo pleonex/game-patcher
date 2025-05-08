@@ -2,8 +2,8 @@
 
 using PleOps.Moxmi.ModInstaller;
 using PleOps.Moxmi.Platforms.Ekona.Compatibility;
-using PleOps.Moxmi.Platforms.Ekona.Containers;
 using PleOps.Moxmi.Platforms.Ekona.Integrity;
+using PleOps.Moxmi.Platforms.Ekona.Readers;
 
 public static class EkonaPlatformProviderExtensions
 {
@@ -15,8 +15,8 @@ public static class EkonaPlatformProviderExtensions
         provider.RegisterIntegrityValidator("ds-rom", new NitroRomIntegrityValidator(null));
         provider.RegisterIntegrityValidator("dsi-rom", new NitroRomIntegrityValidator(null));
 
-        provider.RegisterContainerConverter("ds-rom", new NitroRomContainerConverter());
-        provider.RegisterContainerConverter("dsi-rom", new NitroRomContainerConverter()); // TODO: keys
+        provider.RegisterSoftwareReader("ds-rom", new NitroRomReader());
+        provider.RegisterSoftwareReader("dsi-rom", new NitroRomReader());
         return provider;
     }
 }

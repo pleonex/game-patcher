@@ -7,6 +7,7 @@ using PleOps.Moxmi.ModInstaller;
 using PleOps.Moxmi.Platforms.Ekona;
 using Spectre.Console;
 using Spectre.Console.Cli;
+using Yarhl.FileSystem;
 
 [Description("Install a modding project or specific mod with user inputs")]
 internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCommand.Settings>
@@ -31,14 +32,18 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
                     return 1;
                 }
 
-                // TODO: open it with integrity checks?
-                //await Task.Delay(2_000);
-
                 ctx.Status = "Checking software integrity";
                 AnsiConsole.WriteLine();
                 bool isValid = await VerifyIntegrityAsync(settings.SoftwarePath, product, workflowProvider);
                 if (!isValid) {
                     return 2;
+                }
+
+                ctx.Status = "Opening software";
+                AnsiConsole.WriteLine();
+                using Node? software = await ReadSoftwareAsync(settings.SoftwarePath, product, workflowProvider);
+                if (software is null) {
+                    return 3;
                 }
 
                 ctx.Status = "Applying mod resources";
@@ -81,19 +86,26 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         foreach (var compatibleProduct in mix.Mod.Compatibility) {
             AnsiConsole.MarkupLineInterpolated($"Checking match with {compatibleProduct.Name}");
 
-            var verificationInfo = compatibleProduct.Verification;
-            try {
+            bool matchAllValidators = true;
+            foreach (var verificationInfo in compatibleProduct.Verification) {
                 var validator = workflowProvider.GetCompatibilityValidator(verificationInfo.Method);
+                if (validator is null) {
+                    AnsiConsole.MarkupLineInterpolated($"[red]Cannot validate with method {verificationInfo.Method}[/]");
+                    matchAllValidators = false;
+                    break;
+                }
 
-                var isCompatible = await validator.VerifyCompatibilityAsync(softwarePath, verificationInfo.Hash);
-                if (isCompatible) {
-                    AnsiConsole.MarkupLineInterpolated($"Checking compatibility... [green]done[/] -> {compatibleProduct.ProductId}");
-                    product = compatibleProduct;
+                var isCompatible = await validator.VerifyCompatibilityAsync(softwarePath, verificationInfo.Value);
+                matchAllValidators = matchAllValidators && isCompatible;
+                if (!isCompatible) {
                     break;
                 }
             }
-            catch (Exception) {
-                AnsiConsole.MarkupLineInterpolated($"[red]Cannot validate with method {verificationInfo.Method}[/]");
+
+            if (matchAllValidators) {
+                AnsiConsole.MarkupLineInterpolated($"Checking compatibility... [green]done[/] -> {compatibleProduct.ProductId}");
+                product = compatibleProduct;
+                break;
             }
         }
 
@@ -111,6 +123,11 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         ModInstallerWorkflowProvider workflowProvider)
     {
         var integrity = workflowProvider.GetIntegrityValidator(product.Format);
+        if (integrity is null) {
+            AnsiConsole.MarkupLineInterpolated($"[red]Cannot find integrity validator for {product.Format}[/]");
+            return false;
+        }
+
         var status = await integrity.VerifyIntegrityAsync(softwarePath);
 
         AnsiConsole.MarkupLine("Checking integrity... [green]done[/]");
@@ -118,6 +135,22 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         AnsiConsole.MarkupLine($"Signed: {status.HasValidPublisherSignature}");
 
         return status.IsDataValid != Integrity.IntegrityVerificationResult.Invalid;
+    }
+
+    private static async Task<Node?> ReadSoftwareAsync(
+        string softwarePath,
+        CompatibleProductInfo product,
+        ModInstallerWorkflowProvider provider)
+    {
+        var reader = provider.GetSoftwareReader(product.Format);
+        if (reader is null) {
+            return null;
+        }
+
+        Node node = await reader.OpenPathAsync(softwarePath);
+        AnsiConsole.MarkupLine("Software reading... [green]done![/]");
+
+        return node;
     }
 
     public sealed class Settings : CommandSettings

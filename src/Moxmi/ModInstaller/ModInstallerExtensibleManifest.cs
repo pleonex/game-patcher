@@ -58,13 +58,13 @@ public class CompatibleProductInfo
     public string Name { get; set; } = "";
     public string Platform { get; set; } = "";
     public string Format { get; set; } = "";
-    public VerificationMethodInfo Verification { get; set; } = new();
+    public Collection<VerificationMethodInfo> Verification { get; set; } = [];
 }
 
 public class VerificationMethodInfo
 {
     public string Method { get; set; } = "";
-    public string Hash { get; set; } = "";
+    public string Value { get; set; } = "";
 }
 
 public class FeatureGroup

@@ -41,22 +41,22 @@ mod:
       platform: "nds"
       format: "dsi-rom"
       verification:
-        method: "dsi-dec-rsa"
-        hash: "lB8RA+0gvnHT50wmPQp3j7VRG9VnVoqDYp7jmVhYf/FmthzG+D2yr0iNcob1FHenKqWyTcKAOAJgDjDN8dBg1flvZW8M5ovG6c49/Yuqsepd1qaNvxOm1LuAgWsj4WqG7XuPGx5h6MPRFp01nIr4Ko7Y5utWO/HVtTu4R6E/DCo="
+        - method: "dsi-dec-rsa"
+          value: "lB8RA+0gvnHT50wmPQp3j7VRG9VnVoqDYp7jmVhYf/FmthzG+D2yr0iNcob1FHenKqWyTcKAOAJgDjDN8dBg1flvZW8M5ovG6c49/Yuqsepd1qaNvxOm1LuAgWsj4WqG7XuPGx5h6MPRFp01nIr4Ko7Y5utWO/HVtTu4R6E/DCo="
     - product_id: "PSL_E_VPYT01_00"
       name: "Cartridge dump USA"
       platform: "nds"
       format: "dsi-rom"
       verification:
-        method: "file-sha256"
-        hash: "Zc47YEF9Y61gxQvVMBzdkcI1GE7/tbz/Lahn71P4Qu8="
+        - method: "file-sha256"
+          value: "Zc47YEF9Y61gxQvVMBzdkcI1GE7/tbz/Lahn71P4Qu8="
     - product_id: "PSL_EU_VPYP01_01"
       name: "Spanish translation beta patch v0.1"
       platform: "nds"
       format: "dsi-rom"
       verification:
-        method: "ds-gameid"
-        hash: "VPYP-01-00"
+        - method: "ds-gameid"
+          value: "VPYP-01-00"
   feature_groups:
     # Groups of features the user can choose when applying the mod
     # Also parameters to personalize the mod, used in the resources.
