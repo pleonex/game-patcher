@@ -102,6 +102,7 @@ public class Signature
 public class Resource
 {
     public string Id { get; set; } = "";
+    public string Name { get; set; } = "";
     public string InstallationMethod { get; set; } = "";
     public Content Content { get; set; } = new();
     public Collection<ResourceCompatibleProduct> Compatibility { get; set; } = [];

@@ -1,5 +1,6 @@
 ﻿namespace PleOps.Moxmi.Console.Installer;
 
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -39,6 +40,9 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
                     return 2;
                 }
 
+                // TODO: ask for features
+                // TODO: ask for parameters
+
                 ctx.Status = "Opening software";
                 AnsiConsole.WriteLine();
                 using Node? software = await ReadSoftwareAsync(settings.SoftwarePath, product, workflowProvider);
@@ -48,9 +52,10 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
 
                 ctx.Status = "Applying mod resources";
                 AnsiConsole.WriteLine();
-                await Task.Delay(2_000);
-                AnsiConsole.MarkupLineInterpolated($"Applying resources: [gray]{mix.Resources[0].Content.Href}[/]");
-                AnsiConsole.MarkupLine("Mod resources [green]applied[/]");
+                bool installSuccess = await ApplyModResourcesAsync(software, mix.Resources, workflowProvider);
+                if (!installSuccess) {
+                    return 4;
+                }
 
                 ctx.Status = "Creating output bundle";
                 AnsiConsole.WriteLine();
@@ -151,6 +156,29 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         AnsiConsole.MarkupLine("Software reading... [green]done![/]");
 
         return node;
+    }
+
+    private static async Task<bool> ApplyModResourcesAsync(
+        Node software,
+        Collection<Resource> resources,
+        ModInstallerWorkflowProvider provider)
+    {
+        // TODO: filter resources for selected features
+        foreach (var resource in resources) {
+            var installer = provider.GetResourceInstaller(resource.InstallationMethod);
+            if (installer is null) {
+                AnsiConsole.MarkupLineInterpolated($"[red]Cannot find installer for method: {resource.InstallationMethod}[/]");
+                return false;
+            }
+
+            // TODO: get resource
+            // TODO: get options
+            AnsiConsole.MarkupLineInterpolated($"Applying resources: [gray]{resource.Name}[/]");
+            await installer.InstallResourceAsync(software, null, null);
+        }
+
+        AnsiConsole.MarkupLine("Mod resources... [green]applied[/]");
+        return true;
     }
 
     public sealed class Settings : CommandSettings

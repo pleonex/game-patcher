@@ -95,6 +95,7 @@ mod:
 resources:
   # XDelta patch for a file inside the ROM for multi-region
   - id: "d7860147-0ea9-4201-ae6c-ccb3c5ea11a0"
+    name: "Translation patch cross-region"
     installation_method: "xdelta"
     content:
       href: "content://patches/spanish.xdelta.zip"
@@ -117,6 +118,7 @@ resources:
 
   # XDelta patch for one version only
   - id: "556fb6c7-5d58-4671-8c6e-c6c8a8e7e415"
+    name: "Update ARM9 for EU region"
     installation_method: "xdelta"
     content:
       href: "content://patches/spanish_arm9_eu.xdelta"
@@ -137,9 +139,12 @@ resources:
 
   # Platform-specific modifications
   - id: "b48ee696-ab42-424e-a405-e777b2c2826c"
-    installation_method: "ds-romheader"
+    name: "Update ROM header"
+    installation_method: "ds-romheader-zip"
     content:
-      href: "content://patches/rom-info.yml"
+      # Only one file per resource, but it can be a zip
+      # with a json and subresources (e.g., new banner image)
+      href: "content://patches/rom-info.zip"
       format: "yaml"
       hash_algorithm: "sha256"
       hash_value: "rUlyOvXAqMXsW7b24BQ8jf+EQW0tU+WAZim46Itephs="
