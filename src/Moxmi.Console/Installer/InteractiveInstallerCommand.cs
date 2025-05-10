@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using PleOps.Moxmi.ModInstaller;
+using PleOps.Moxmi.ModResources;
 using PleOps.Moxmi.Platforms.Ekona;
 using Spectre.Console;
 using Spectre.Console.Cli;
@@ -165,16 +166,17 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
     {
         // TODO: filter resources for selected features
         foreach (var resource in resources) {
+            var options = new ModInstallationYamlOptions(resource.InstallationParameters, []);
+
             var installer = provider.GetResourceInstaller(resource.InstallationMethod);
             if (installer is null) {
                 AnsiConsole.MarkupLineInterpolated($"[red]Cannot find installer for method: {resource.InstallationMethod}[/]");
                 return false;
             }
 
-            // TODO: get resource
-            // TODO: get options
+            // TODO: get resource (need to implement MIX package)
             AnsiConsole.MarkupLineInterpolated($"Applying resources: [gray]{resource.Name}[/]");
-            await installer.InstallResourceAsync(software, null, null);
+            await installer.InstallResourceAsync(software, null, options);
         }
 
         AnsiConsole.MarkupLine("Mod resources... [green]applied[/]");

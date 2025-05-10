@@ -26,6 +26,8 @@ public class ModInstallerWorkflowProvider
     private void RegisterBuiltin()
     {
         compatibilityValidators.Add("file-sha256", new FileHashCompatibilityValidator());
+
+        installers.Add("xdelta", new XdeltaResourceInstaller());
     }
 
     public void RegisterCompatibilityValidator(string method, ICompatibilityValidator validator)

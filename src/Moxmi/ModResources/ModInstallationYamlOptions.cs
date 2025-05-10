@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 
 // This class only works for YAML dictionaries so far, we could implement custom drivers of config deserializers
-public class ModInstallationOptions(
+public class ModInstallationYamlOptions(
     Dictionary<string, object> resourceParameters,
     Dictionary<string, string> productFeatureParameters)
 {
