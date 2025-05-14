@@ -20,7 +20,9 @@ project:
     * Ingeniería inversa: pleonex
     * Traductores: ...
   logo:
-    icon: "https://..." # also content://
+    icon:
+      href: "https://..." # also content://
+      hash: ""
     large:
   additional_information:
 

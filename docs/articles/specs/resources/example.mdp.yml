@@ -18,10 +18,15 @@ project:
 
     * Translators: ...
   logo:
-    icon: "https://art.gametdb.com/ds/coverS/EN/VPYP.png" # also content:// for mod packages
-    large: "https://tradusquare.es/wp-content/uploads/Archivos-de-usuarios/pleonex/conquest/conquest_fondo0.webp"
+    icon:
+      href: "https://art.gametdb.com/ds/coverS/EN/VPYP.png" # also content:// for mod packages
+      hash: ""
+    large:
+      href: "https://tradusquare.es/wp-content/uploads/Archivos-de-usuarios/pleonex/conquest/conquest_fondo0.webp"
+      hash: ""
   additional_information: >
     This project is not related to Spanish fan-translations from other groups.
+  release_date: "2025-05-13T17:14:32"
   changelog: >
     * December 2025: support for US region game.
     * March 2025: initial public release.
@@ -94,9 +99,11 @@ mods:
       propio. El único elemento sin traduccir es el vídeo de presentación.
     screenshots:
       - href: "https://tradusquare.es/wp-content/uploads/2023/10/images_girl.png"
+        hash: ""
         title: "Main character selection"
         alt_text: "Game screenshot showing the selection of a girl as main character"
       - href: "https://tradusquare.es/wp-content/uploads/2023/10/teclado.png"
+        hash: ""
         title: "Keyboard for names"
         alt_text: "Game screenshot showing a keyboard with european characters"
     target_language: "es_ES" # empty for hacks
