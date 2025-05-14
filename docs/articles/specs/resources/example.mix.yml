@@ -68,6 +68,16 @@ mod:
       is_optional: false
       parameters:
 
+    - id: "game_header"
+      name: "Cabecera del juego"
+      description: "Cambia la cabecera del juego"
+      is_optional: true
+      parameters:
+        - id: "CHANGE_GAME_ID"
+          description: "Cambia el ID del juego"
+          default: false
+          type: "bool"
+
     - id: "dwc"
       name: "Conexión inalámbrica"
       description: "Configuración del servidor de descarga de DLCs"
@@ -87,12 +97,72 @@ mod:
           description: "Puerto de conexión del protocolo HTTP"
           default: "80"
           type: "number"
+
+installation:
+  method: "simple" # simple by order + selected product / features or matrix
+  matrix:
+    - name: "Base"
+      compatible:
+        - product_id: "PSL_E_VPYT01_00"
+        - product_id: "PSL_EU_VPYP01_01"
+      required_features:
+        - name: "translation"
+      resources:
+        - resource_id: "d7860147-0ea9-4201-ae6c-ccb3c5ea11a0"
+
+    - name: "Base with custom header"
+      compatible:
+        - product_id: "PSL_E_VPYT01_00"
+        - product_id: "PSL_EU_VPYP01_01"
+      required_features:
+        - name: "translation"
+        - name: "game_header"
+      resources:
+        - resource_id: "d7860147-0ea9-4201-ae6c-ccb3c5ea11a0"
+        - resource_id: "b48ee696-ab42-424e-a405-e777b2c2826c"
+
+    - name: "Base with dwc"
+      compatible:
+        - product_id: "PSL_E_VPYT01_00"
+        - product_id: "PSL_EU_VPYP01_01"
+      required_features:
+        - name: "translation"
+        - name: "dwc"
+      resources:
+        - resource_id: "d7860147-0ea9-4201-ae6c-ccb3c5ea11a0"
+        - resource_id: "1cf2f399-bb1f-477a-989c-bb4811987586"
+
+    - name: "Base with custom header and dwc"
+      compatible:
+        - product_id: "PSL_E_VPYT01_00"
+        - product_id: "PSL_EU_VPYP01_01"
+      required_features:
+        - name: "translation"
+        - name: "game_header"
+        - name: "dwc"
+      resources:
+        - resource_id: "d7860147-0ea9-4201-ae6c-ccb3c5ea11a0"
+        - resource_id: "b48ee696-ab42-424e-a405-e777b2c2826c"
+        - resource_id: "1cf2f399-bb1f-477a-989c-bb4811987586"
+
+    - name: "EU base"
+      compatible:
+        - product_id: "PSL_EU_VPYP01_00"
+      required_features:
+        - name: "translation"
+      resources:
+        - resource_id: "d7860147-0ea9-4201-ae6c-ccb3c5ea11a0"
+        - resource_id: "556fb6c7-5d58-4671-8c6e-c6c8a8e7e415"
+
   # List of supported output formats / packaging methods for the mod.
   # Some mods may be incompatible with some systems, e.g. LayeredFS on 3DS
   deployment:
     - name: "dsi-rom"
+    - name: "layeredfs"
       parameters:
-        regenerate_hashes: "true"
+        exported_files:
+          - "/root/data/message.dat"
+        export_program: true
 
 resources:
   # XDelta patch for a file inside the ROM for multi-region
@@ -100,6 +170,8 @@ resources:
     name: "Translation patch cross-region"
     installation_method: "xdelta"
     content:
+      # It should only be content inside the zip MIX package
+      # Multiple resources may point to the same file for multiple feature group
       href: "content://patches/spanish.xdelta.zip"
       format: "xdelta-zip"
       hash_algorithm: "sha256"
@@ -110,8 +182,6 @@ resources:
       - product_id: "PSL_EU_VPYP01_01"
     feature_group:
       - name: "translation"
-        order: "1"
-        is_optional: "false"
     installation_parameters:
       xdelta:
         target: "/root/data/message.dat"
@@ -131,8 +201,6 @@ resources:
       - product_id: "PSL_EU_VPYP01_00"
     feature_group:
       - name: "translation"
-        order: "2"
-        is_optional: "false"
     installation_parameters:
       xdelta:
         target: "/root/system/arm9"
@@ -156,8 +224,7 @@ resources:
       - product_id: "PSL_EU_VPYP01_01"
     feature_group:
       - name: "translation"
-        order: "3"
-        is_optional: "true" # optional inside a mandatory group
+      - name: "game_header"
     installation_parameters:
 
   # Optional feature: assembly patch with parameters
@@ -173,8 +240,6 @@ resources:
       - product_id: "PSL_E_VPYT01_00"
     feature_group:
       - name: "dwc"
-        order: "1"
-        is_optional: "false" # mandatory inside the optional feature
     installation_parameters:
       armips:
         target: "/root/system/overlays9/overlay_3"

@@ -13,4 +13,4 @@ build/temp/
 launchSettings.json
 
 # Test data
-resources/
+/resources/
