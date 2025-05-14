@@ -18,55 +18,51 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
     {
         AppLoggerFactory.MinimumLevel = settings.Verbosity;
 
-        int result = await AnsiConsole.Status().StartAsync(
-            "Initializing mod installer",
-            async ctx => {
-                var workflowProvider = new ModInstallerWorkflowProvider()
-                    .RegisterEkona();
+        var workflowProvider = new ModInstallerWorkflowProvider()
+            .RegisterEkona();
 
-                ctx.Status = "Reading the mod installer";
-                ModInstallerExtensibleManifest mix = ReadMix(settings.ModPath);
+        AnsiConsole.WriteLine("Reading the mod installer");
+        ModInstallerExtensibleManifest mix = ReadMix(settings.ModPath);
 
-                ctx.Status = "Checking the compatibility of the mod";
-                AnsiConsole.WriteLine();
-                var product = await GetCompatibleProductAsync(mix, settings.SoftwarePath, workflowProvider);
-                if (product is null) {
-                    return 1;
-                }
+        AnsiConsole.WriteLine();
+        var product = await GetCompatibleProductAsync(mix, settings.SoftwarePath, workflowProvider);
+        if (product is null) {
+            return 1;
+        }
 
-                ctx.Status = "Checking software integrity";
-                AnsiConsole.WriteLine();
-                bool isValid = await VerifyIntegrityAsync(settings.SoftwarePath, product, workflowProvider);
-                if (!isValid) {
-                    return 2;
-                }
+        AnsiConsole.WriteLine();
+        bool isValid = await VerifyIntegrityAsync(settings.SoftwarePath, product, workflowProvider);
+        if (!isValid) {
+            return 2;
+        }
 
-                // TODO: ask for features
-                // TODO: ask for parameters
+        AnsiConsole.WriteLine();
+        AnsiConsole.MarkupLine("[teal]Mod features[/]");
+        var features = AnsiConsole.Prompt(
+            new MultiSelectionPrompt<FeatureGroup>()
+                .Title("Optional features")
+                .AddChoices(mix.Mod.FeatureGroups.Where(x => x.IsOptional))
+                .UseConverter(f => f.Name));
 
-                ctx.Status = "Opening software";
-                AnsiConsole.WriteLine();
-                using Node? software = await ReadSoftwareAsync(settings.SoftwarePath, product, workflowProvider);
-                if (software is null) {
-                    return 3;
-                }
+        // TODO: ask for parameters
 
-                ctx.Status = "Applying mod resources";
-                AnsiConsole.WriteLine();
-                bool installSuccess = await ApplyModResourcesAsync(software, mix.Resources, workflowProvider);
-                if (!installSuccess) {
-                    return 4;
-                }
+        AnsiConsole.WriteLine("Opening software");
+        using Node? software = await ReadSoftwareAsync(settings.SoftwarePath, product, workflowProvider);
+        if (software is null) {
+            return 3;
+        }
 
-                ctx.Status = "Creating output bundle";
-                AnsiConsole.WriteLine();
-                await Task.Delay(2_000);
-                AnsiConsole.MarkupLine("Creating bundle... [green]done[/]");
+        AnsiConsole.WriteLine();
+        bool installSuccess = await ApplyModResourcesAsync(software, mix.Resources, workflowProvider);
+        if (!installSuccess) {
+            return 4;
+        }
 
-                return 0;
-            });
-        return result;
+        AnsiConsole.WriteLine();
+        await Task.Delay(2_000);
+        AnsiConsole.MarkupLine("Creating bundle... [green]done[/]");
 
+        return 0;
     }
 
     private static ModInstallerExtensibleManifest ReadMix(string modPath)
