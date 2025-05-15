@@ -5,6 +5,10 @@ using Spectre.Console.Cli;
 
 var app = new CommandApp();
 app.Configure(static configurator => {
+    #if DEBUG
+    configurator.PropagateExceptions();
+    #endif
+
     configurator.AddBranch("installer", static installer => {
         installer.SetDescription("Install a mod");
         installer.AddCommand<InteractiveInstallerCommand>("interactive");

@@ -3,7 +3,7 @@ project:
   type: translation
   description:
     en: Spanish fan-translation of the Nintendo DS game "Pokémon Conquest"
-    es_ES:
+    es_ES: >-
       Traducción al español de España del juego de Nintendo DS "Pokémon
       Conquest"
   links:
@@ -21,8 +21,8 @@ project:
     * Traductores: ...
   logo:
     icon:
-      href: "https://..." # also content://
-      hash: ""
+      src: "https://..." # also content://
+      integrity: "sha256-Zc47YEF9Y61gxQvVMBzdkcI1GE7/tbz/Lahn71P4Qu8="
     large:
   additional_information:
 
@@ -32,10 +32,11 @@ mod:
   name: "Traducción al español"
   authors: >- # feel free to copy also the credits
     Pokémon Conquest Spanish Team
-  description: >-
-    Primera versión de la traducción. Incluye todos los textos, imágenes y
-    fuentes. Incluye soporte de los misiones descargables con servidor WFC
-    propio. El único elemento sin traduccir es el vídeo de presentación.
+  description:
+    es_ES: >-
+      Primera versión de la traducción. Incluye todos los textos, imágenes y
+      fuentes. Incluye soporte de los misiones descargables con servidor WFC
+      propio. El único elemento sin traduccir es el vídeo de presentación.
   target_language: "es_ES" # empty for hacks
   compatibility:
     - product_id: "PSL_EU_VPYP01_00"

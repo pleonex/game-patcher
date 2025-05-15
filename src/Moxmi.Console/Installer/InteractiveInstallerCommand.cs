@@ -21,7 +21,6 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         var workflowProvider = new ModInstallerWorkflowProvider()
             .RegisterEkona();
 
-        AnsiConsole.WriteLine("Reading the mod installer");
         ModInstallerExtensibleManifest mix = ReadMix(settings.ModPath);
 
         AnsiConsole.WriteLine();
@@ -37,23 +36,16 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         }
 
         AnsiConsole.WriteLine();
-        AnsiConsole.MarkupLine("[teal]Mod features[/]");
-        var features = AnsiConsole.Prompt(
-            new MultiSelectionPrompt<FeatureGroup>()
-                .Title("Optional features")
-                .AddChoices(mix.Mod.FeatureGroups.Where(x => x.IsOptional))
-                .UseConverter(f => f.Name));
+        var features = await AskModFeaturesForProductAsync(mix, product);
 
-        // TODO: ask for parameters
-
-        AnsiConsole.WriteLine("Opening software");
+        AnsiConsole.WriteLine();
         using Node? software = await ReadSoftwareAsync(settings.SoftwarePath, product, workflowProvider);
         if (software is null) {
             return 3;
         }
 
         AnsiConsole.WriteLine();
-        bool installSuccess = await ApplyModResourcesAsync(software, mix.Resources, workflowProvider);
+        bool installSuccess = await ApplyModResourcesAsync(software, mix.Resources, features, workflowProvider);
         if (!installSuccess) {
             return 4;
         }
@@ -67,12 +59,13 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
 
     private static ModInstallerExtensibleManifest ReadMix(string modPath)
     {
+        AnsiConsole.WriteLine("Reading the mod installer");
         var deserializer = new ModInstallerExtensibleSerializer();
         using var mixData = File.OpenRead(modPath);
         ModInstallerExtensibleManifest mix = deserializer.Deserialize(mixData);
         AnsiConsole.MarkupLine("Reading MIX... [green]done[/]");
 
-        var panel = new Panel($"[italic gray]by {mix.Mod.Authors}[/]\n{mix.Mod.Description.EscapeMarkup()}");
+        var panel = new Panel($"[italic gray]by {mix.Mod.Authors}[/]\n{mix.Mod.Description.GetOrDefault("es_ES").EscapeMarkup()}");
         panel.Header($"[bold blue]{mix.Mod.Name} v{mix.Mod.Version}[/]");
         AnsiConsole.Write(panel);
 
@@ -139,11 +132,59 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         return status.IsDataValid != Integrity.IntegrityVerificationResult.Invalid;
     }
 
+    private static async Task<InstallationFeatures> AskModFeaturesForProductAsync(
+        ModInstallerExtensibleManifest mix,
+        CompatibleProductInfo product)
+    {
+        var compatibleFeatures = mix.Resources
+            .Where(r => r.Compatibility.Any(c => c.ProductId == product.ProductId))
+            .SelectMany(r => r.FeatureGroup)
+            .Select(g => g.Name)
+            .ToArray();
+
+        var featuresInfo = mix.Mod.FeatureGroups
+            .Where(f => compatibleFeatures.Contains(f.Id))
+            .OrderBy(f => f.IsOptional);
+
+        AnsiConsole.MarkupLine("[teal]Mod features[/]");
+        InstallationFeatures selectedFeatures = [];
+        foreach (var feature in featuresInfo) {
+            AnsiConsole.Write(new Rule(feature.Name));
+            if (feature.IsOptional) {
+                bool include = await AnsiConsole.PromptAsync(
+                    new TextPrompt<bool>("Optional feature. Add it?")
+                        .AddChoices([true, false])
+                        .DefaultValue(true)
+                        .WithConverter(v => v ? "y" : "n"));
+
+                if (!include) {
+                    continue;
+                }
+            }
+            else {
+                AnsiConsole.MarkupLine("[green]Required[/] feature");
+            }
+
+            Dictionary<string, string> parameters = [];
+            foreach (var parameter in feature.Parameters ?? []) {
+                string value = await AnsiConsole.PromptAsync(
+                    new TextPrompt<string>(parameter.Description)
+                        .DefaultValue(parameter.DefaultValue));
+                parameters.Add(parameter.Id, value);
+            }
+
+            selectedFeatures[feature.Id] = parameters;
+        }
+
+        return selectedFeatures;
+    }
+
     private static async Task<Node?> ReadSoftwareAsync(
         string softwarePath,
         CompatibleProductInfo product,
         ModInstallerWorkflowProvider provider)
     {
+        AnsiConsole.WriteLine("Opening software");
         var reader = provider.GetSoftwareReader(product.Format);
         if (reader is null) {
             return null;
@@ -158,10 +199,13 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
     private static async Task<bool> ApplyModResourcesAsync(
         Node software,
         Collection<Resource> resources,
+        InstallationFeatures features,
         ModInstallerWorkflowProvider provider)
     {
-        // TODO: filter resources for selected features
-        foreach (var resource in resources) {
+        var filteredResources = resources
+            .Where(r => r.FeatureGroup.All(f => features.ContainsKey(f.Name)));
+
+        foreach (var resource in filteredResources) {
             var options = new ModInstallationYamlOptions(resource.InstallationParameters, []);
 
             var installer = provider.GetResourceInstaller(resource.InstallationMethod);
@@ -177,6 +221,10 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
 
         AnsiConsole.MarkupLine("Mod resources... [green]applied[/]");
         return true;
+    }
+
+    private sealed class InstallationFeatures : Dictionary<string, Dictionary<string, string>>
+    {
     }
 
     public sealed class Settings : CommandSettings

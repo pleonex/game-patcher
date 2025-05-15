@@ -6,11 +6,15 @@ using YamlDotNet.Serialization;
 
 // TODO: use nullable reference without default values, required
 // and set attributes for validation
+// TODO: rename to MixManifest
 public class ModInstallerExtensibleManifest
 {
     public ProjectInfo Project { get; set; } = new();
     public ModInfo Mod { get; set; } = new();
     public Collection<Resource> Resources { get; set; } = [];
+
+    public InstallationInfo Installation { get; set; } = new();
+
     public Signature Signature { get; set; } = new();
 }
 
@@ -18,7 +22,7 @@ public class ProjectInfo
 {
     public string Name { get; set; } = "";
     public string Type { get; set; } = "";
-    public Dictionary<string ,string> Description { get; set; } = [];
+    public LocalizedText Description { get; set; } = [];
     public Collection<Link> Links { get; set; } = [];
     public string Status { get; set; } = "";
     public string Team { get; set; } = "";
@@ -27,10 +31,33 @@ public class ProjectInfo
     public string? AdditionalInformation { get; set; }
 }
 
+public class LocalizedText : Dictionary<string, string>
+{
+    private const string DefaultLanguageCode = "en";
+
+    // Rename conflict with getvalueordefault
+    public string GetOrDefault(string languageCode)
+    {
+        if (TryGetValue(languageCode, out string? text)) {
+            return text;
+        }
+
+        return this[DefaultLanguageCode];
+    }
+}
+
 public class Logo
 {
-    public string Icon { get; set; } = "";
-    public string Large { get; set; } = "";
+    public Subresource? Icon { get; set; }
+    public Subresource? Large { get; set; }
+}
+
+public class Subresource
+{
+    [YamlMember(Alias = "src")]
+    public required string Source { get; set; }
+
+    public required string Integrity { get; set; }
 }
 
 public class Link
@@ -45,11 +72,10 @@ public class ModInfo
     public string Version { get; set; } = "";
     public string Name { get; set; } = "";
     public string Authors { get; set; } = "";
-    public string Description { get; set; } = "";
+    public LocalizedText Description { get; set; } = [];
     public string TargetLanguage { get; set; } = "";
     public Collection<CompatibleProductInfo> Compatibility { get; set; } = [];
     public Collection<FeatureGroup> FeatureGroups { get; set; } = [];
-    public Collection<Deployment> Deployment { get; set; } = [];
 }
 
 public class CompatibleProductInfo
@@ -86,10 +112,20 @@ public class FeatureGroupParameter
     public string Type { get; set; } = "";
 }
 
+public class InstallationInfo
+{
+    public string Method { get; set; } = "simple";
+
+    // Future usage
+    public Collection<Dictionary<string, object>>? Matrix { get; set; }
+
+    public Collection<Deployment> Deployment { get; set; } = [];
+}
+
 public class Deployment
 {
     public string Name { get; set; } = "";
-    public Dictionary<string ,string> Parameters { get; set; } = [];
+    public Dictionary<string ,object> Parameters { get; set; } = [];
 }
 
 public class Signature
@@ -125,7 +161,5 @@ public class ResourceCompatibleProduct
 
 public class ResourceFeatureGroup
 {
-    public string Name { get; set; } = "";
-    public int Order { get; set; }
-    public bool IsOptional { get; set; }
+    public required string Name { get; set; }
 }
