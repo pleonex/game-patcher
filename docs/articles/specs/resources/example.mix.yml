@@ -27,7 +27,7 @@ project:
   additional_information:
 
 mod:
-  id: "spanish_v1.0"
+  id: "846ca6b1-0abc-4b8d-9316-b0401d3b9a96"
   version: "1.0.0"
   name: "Traducción al español"
   authors: >- # feel free to copy also the credits
@@ -38,12 +38,16 @@ mod:
       fuentes. Incluye soporte de los misiones descargables con servidor WFC
       propio. El único elemento sin traduccir es el vídeo de presentación.
   target_language: "es_ES" # empty for hacks
-  compatibility:
+  compatible_products:
     - product_id: "PSL_EU_VPYP01_00"
       name: "Cartridge dump Europe"
       platform: "nds"
       format: "dsi-rom"
       verification:
+        # Multiple methods in case one installer doesn't support all
+        # Every method supported by the installer must be valid
+        - method: "ds-gameid"
+          value: "VPYP-01-00"
         - method: "dsi-dec-rsa"
           value: "lB8RA+0gvnHT50wmPQp3j7VRG9VnVoqDYp7jmVhYf/FmthzG+D2yr0iNcob1FHenKqWyTcKAOAJgDjDN8dBg1flvZW8M5ovG6c49/Yuqsepd1qaNvxOm1LuAgWsj4WqG7XuPGx5h6MPRFp01nIr4Ko7Y5utWO/HVtTu4R6E/DCo="
     - product_id: "PSL_E_VPYT01_00"
@@ -60,7 +64,7 @@ mod:
       verification:
         - method: "ds-gameid"
           value: "VPYP-01-00"
-  feature_groups:
+  features:
     # Groups of features the user can choose when applying the mod
     # Also parameters to personalize the mod, used in the resources.
     - id: "translation"
@@ -169,79 +173,72 @@ resources:
   # XDelta patch for a file inside the ROM for multi-region
   - id: "d7860147-0ea9-4201-ae6c-ccb3c5ea11a0"
     name: "Translation patch cross-region"
-    installation_method: "xdelta"
+    install_step: "xdelta"
     content:
       # It should only be content inside the zip MIX package
       # Multiple resources may point to the same file for multiple feature group
-      href: "content://patches/spanish.xdelta.zip"
-      format: "xdelta-zip"
-      hash_algorithm: "sha256"
-      hash_value: "5dbrSZngg8H9hw9OcHV3sMOnb62ORcY8CtkIdvfQZPc="
-    compatibility:
+      src: "content://patches/spanish.xdelta"
+      integrity: "sha256-5dbrSZngg8H9hw9OcHV3sMOnb62ORcY8CtkIdvfQZPc="
+    compatible_products:
       - product_id: "PSL_EU_VPYP01_00"
       - product_id: "PSL_E_VPYT01_00"
       - product_id: "PSL_EU_VPYP01_01"
-    feature_group:
-      - name: "translation"
+    required_features:
+      - feature_id: "translation"
     installation_parameters:
       xdelta:
-        target: "/root/data/message.dat"
-        original_hash: "yQ3LglAj9AjMJ+6afs3n9DExnqEiEm6KmJSLyrUWDrM="
-        modified_hash: "HMKxWxQ6AAm7MYJv1iIq//J1abTvumcvuEs5k1U6CM0="
+        path: "/root/data/message.dat"
+        integrity_src: "sha256-yQ3LglAj9AjMJ+6afs3n9DExnqEiEm6KmJSLyrUWDrM="
+        integrity_target: "sha256-HMKxWxQ6AAm7MYJv1iIq//J1abTvumcvuEs5k1U6CM0="
 
   # XDelta patch for one version only
   - id: "556fb6c7-5d58-4671-8c6e-c6c8a8e7e415"
     name: "Update ARM9 for EU region"
-    installation_method: "xdelta"
+    install_step: "xdelta"
     content:
-      href: "content://patches/spanish_arm9_eu.xdelta"
-      format: "xdelta"
-      hash_algorithm: "sha256"
-      hash_value: "0F3koaII1otRA8wEp8UJMmrK/S7tZbqwZOJukDpQWUM="
-    compatibility:
+      src: "content://patches/spanish_arm9_eu.xdelta"
+      integrity: "sha256-0F3koaII1otRA8wEp8UJMmrK/S7tZbqwZOJukDpQWUM="
+    compatible_products:
       - product_id: "PSL_EU_VPYP01_00"
-    feature_group:
-      - name: "translation"
-    installation_parameters:
+    required_features:
+      - feature_id: "translation"
+    install_params:
       xdelta:
-        target: "/root/system/arm9"
-        original_hash: "KgdHkvgZ7s+D31MZkdHByrm3LEa7XtnC95ojztfowbk="
-        modified_hash: "x7aqyF3I5TwD8W5APv2eklhg05JGcvpxkDwUfRWCi8c="
+        path: "/root/system/arm9"
+        integrity_src: "sha256-KgdHkvgZ7s+D31MZkdHByrm3LEa7XtnC95ojztfowbk="
+        integrity_target: "sha256-x7aqyF3I5TwD8W5APv2eklhg05JGcvpxkDwUfRWCi8c="
 
   # Platform-specific modifications
   - id: "b48ee696-ab42-424e-a405-e777b2c2826c"
     name: "Update ROM header"
-    installation_method: "ds-romheader-zip"
+    install_step: "ds-romheader-zip"
     content:
       # Only one file per resource, but it can be a zip
       # with a json and subresources (e.g., new banner image)
-      href: "content://patches/rom-info.zip"
-      format: "yaml"
-      hash_algorithm: "sha256"
-      hash_value: "rUlyOvXAqMXsW7b24BQ8jf+EQW0tU+WAZim46Itephs="
-    compatibility:
+      src: "content://patches/rom-info.zip"
+      integrity: "sha256-rUlyOvXAqMXsW7b24BQ8jf+EQW0tU+WAZim46Itephs="
+    compatible_products:
       - product_id: "PSL_EU_VPYP01_00"
       - product_id: "PSL_E_VPYT01_00"
       - product_id: "PSL_EU_VPYP01_01"
-    feature_group:
-      - name: "translation"
-      - name: "game_header"
-    installation_parameters:
+    required_features:
+      - feature_id: "translation"
+      - feature_id: "game_header"
+    install_params:
 
   # Optional feature: assembly patch with parameters
   - id: "1cf2f399-bb1f-477a-989c-bb4811987586"
-    installation_method: "armips"
+    name: "Patch for the DWC server"
+    install_step: "armips"
     content:
-      href: "content://patches/dwc.asm"
-      format: "armips-asm"
-      hash_algorithm: "sha256"
-      hash_value: "DjT99mleurdSqQMbCq/Vr/TVFwF5GTg97S1LkNZJ0bE="
-    compatibility:
+      src: "content://patches/dwc.asm"
+      integrity: "sha256-DjT99mleurdSqQMbCq/Vr/TVFwF5GTg97S1LkNZJ0bE="
+    compatible_products:
       - product_id: "PSL_EU_VPYP01_00"
       - product_id: "PSL_E_VPYT01_00"
-    feature_group:
-      - name: "dwc"
-    installation_parameters:
+    required_features:
+      - feature_id: "dwc"
+    install_params:
       armips:
         target: "/root/system/overlays9/overlay_3"
         # Parameters we will pass to the armips program when applying the patch.

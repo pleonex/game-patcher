@@ -13,23 +13,24 @@ public class ModInstallerExtensibleSerializer
         PropertyNameCaseInsensitive = true,
     };
 
-    public ModInstallerExtensibleManifest DeserializeJson(Stream stream)
+    public MixManifest DeserializeJson(Stream stream)
     {
         ArgumentNullException.ThrowIfNull(stream);
 
-        return JsonSerializer.Deserialize<ModInstallerExtensibleManifest>(stream, JsonOpts)
+        // TODO: model validation
+        return JsonSerializer.Deserialize<MixManifest>(stream, JsonOpts)
             ?? throw new InvalidOperationException("Cannot deserialize MIX manifest");
     }
 
-    public ModInstallerExtensibleManifest DeserializeJson(string content)
+    public MixManifest DeserializeJson(string content)
     {
         ArgumentException.ThrowIfNullOrEmpty(content);
 
-        return JsonSerializer.Deserialize<ModInstallerExtensibleManifest>(content, JsonOpts)
+        return JsonSerializer.Deserialize<MixManifest>(content, JsonOpts)
             ?? throw new InvalidOperationException("Cannot deserialize MIX manifest");
     }
 
-    public ModInstallerExtensibleManifest DeserializeYaml(Stream stream)
+    public MixManifest DeserializeYaml(Stream stream)
     {
         ArgumentNullException.ThrowIfNull(stream);
 
@@ -39,13 +40,13 @@ public class ModInstallerExtensibleSerializer
         return DeserializeYaml(content);
     }
 
-    public ModInstallerExtensibleManifest DeserializeYaml(string content)
+    public MixManifest DeserializeYaml(string content)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(content);
 
         return new DeserializerBuilder()
             .WithNamingConvention(UnderscoredNamingConvention.Instance)
             .Build()
-            .Deserialize<ModInstallerExtensibleManifest>(content);
+            .Deserialize<MixManifest>(content);
     }
 }
