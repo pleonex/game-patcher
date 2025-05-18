@@ -62,7 +62,7 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         AnsiConsole.WriteLine("Reading the mod installer");
         var deserializer = new ModInstallerExtensibleSerializer();
         using var mixData = File.OpenRead(modPath);
-        ModInstallerExtensibleManifest mix = deserializer.Deserialize(mixData);
+        ModInstallerExtensibleManifest mix = deserializer.DeserializeJson(mixData);
         AnsiConsole.MarkupLine("Reading MIX... [green]done[/]");
 
         var panel = new Panel($"[italic gray]by {mix.Mod.Authors}[/]\n{mix.Mod.Description.GetOrDefault("es_ES").EscapeMarkup()}");
