@@ -10,18 +10,30 @@ using Yarhl.IO;
 
 public class XdeltaResourceInstaller : IModResourceInstaller
 {
-    public Task InstallResourceAsync(Node software, Stream resource, ModInstallationOptions options)
+    public async Task InstallResourceAsync(Node software, Stream resource, ModInstallationOptions options)
     {
         var xdeltaOpts = options.GetSection<XdeltaOptions>("xdelta");
 
         Node target = Navigator.SearchNode(software, xdeltaOpts.Path)
             ?? throw new InvalidOperationException("Cannot find target node");
 
+        if (target.Stream is null) {
+            throw new InvalidOperationException("The target node doesn't have binary format");
+        }
+
+        // xdelta decoder needs to compare the current Position and Length
+        // but the deflatestream doesn't support these properties.
+        // TEMPORARILY we create a copy on memory, ideally on disk to extract
+        using var resourceCopy = new MemoryStream();
+        await resource.CopyToAsync(resourceCopy);
+
         using var outputStream = new BinaryFormat();
-        var decoder = new Decoder(target.Stream, resource, outputStream.Stream);
+        resourceCopy.Position = 0;
+        target.Stream.Position = 0;
+        var decoder = new Decoder(target.Stream, resourceCopy, outputStream.Stream);
         decoder.Run();
 
-        return Task.CompletedTask;
+        target.ChangeFormat(outputStream);
     }
 }
 
