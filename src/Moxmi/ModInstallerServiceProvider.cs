@@ -4,7 +4,7 @@ using System;
 using PleOps.Moxmi.Compatibility;
 using PleOps.Moxmi.Integrity;
 using PleOps.Moxmi.ModResources;
-using PleOps.Moxmi.Readers;
+using PleOps.Moxmi.Packages;
 
 public class ModInstallerServiceProvider
 {

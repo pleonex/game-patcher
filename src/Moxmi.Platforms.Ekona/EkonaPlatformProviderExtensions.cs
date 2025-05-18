@@ -3,7 +3,7 @@
 using PleOps.Moxmi;
 using PleOps.Moxmi.Platforms.Ekona.Compatibility;
 using PleOps.Moxmi.Platforms.Ekona.Integrity;
-using PleOps.Moxmi.Platforms.Ekona.Readers;
+using PleOps.Moxmi.Platforms.Ekona.Packages;
 
 public static class EkonaPlatformProviderExtensions
 {

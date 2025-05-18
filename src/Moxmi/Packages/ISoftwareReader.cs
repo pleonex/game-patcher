@@ -1,4 +1,4 @@
-﻿namespace PleOps.Moxmi.Readers;
+﻿namespace PleOps.Moxmi.Packages;
 
 using Yarhl.FileSystem;
 

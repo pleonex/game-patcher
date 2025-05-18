@@ -27,7 +27,7 @@ public class XdeltaResourceInstaller : IModResourceInstaller
         using var resourceCopy = new MemoryStream();
         await resource.CopyToAsync(resourceCopy);
 
-        using var outputStream = new BinaryFormat();
+        var outputStream = new BinaryFormat();
         resourceCopy.Position = 0;
         target.Stream.Position = 0;
         var decoder = new Decoder(target.Stream, resourceCopy, outputStream.Stream);

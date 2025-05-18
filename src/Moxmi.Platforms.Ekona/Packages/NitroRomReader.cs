@@ -1,6 +1,6 @@
-﻿namespace PleOps.Moxmi.Platforms.Ekona.Readers;
+﻿namespace PleOps.Moxmi.Platforms.Ekona.Packages;
 
-using PleOps.Moxmi.Readers;
+using PleOps.Moxmi.Packages;
 using SceneGate.Ekona.Containers.Rom;
 using Yarhl.FileSystem;
 using Yarhl.IO;

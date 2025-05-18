@@ -8,6 +8,7 @@ using PleOps.Moxmi;
 using PleOps.Moxmi.ModInstallerExtensible;
 using PleOps.Moxmi.ModResources;
 using PleOps.Moxmi.Platforms.Ekona;
+using PleOps.Moxmi.Platforms.Ekona.Packages;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using Yarhl.FileSystem;
@@ -53,8 +54,10 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         }
 
         AnsiConsole.WriteLine();
-        await Task.Delay(2_000);
-        AnsiConsole.MarkupLine("Creating bundle... [green]TODO[/]");
+        AnsiConsole.MarkupLine("Creating bundle...");
+        var bundleWriter = new NitroRomWriter();
+        bundleWriter.WriteToFile(software, settings.OutputPath);
+        AnsiConsole.MarkupLine("Creating bundle... [green]done[/]");
 
         return 0;
     }
