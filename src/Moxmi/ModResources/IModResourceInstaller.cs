@@ -5,5 +5,5 @@ using Yarhl.FileSystem;
 
 public interface IModResourceInstaller
 {
-    Task InstallResourceAsync(Node software, Stream resource, ModInstallationJsonOptions options);
+    Task InstallResourceAsync(Node software, Stream resource, ModInstallationOptions options);
 }

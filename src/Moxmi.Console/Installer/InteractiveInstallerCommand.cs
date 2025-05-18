@@ -4,7 +4,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using PleOps.Moxmi.ModInstaller;
+using PleOps.Moxmi;
+using PleOps.Moxmi.ModInstallerExtensible;
 using PleOps.Moxmi.ModResources;
 using PleOps.Moxmi.Platforms.Ekona;
 using Spectre.Console;
@@ -18,19 +19,19 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
     {
         AppLoggerFactory.MinimumLevel = settings.Verbosity;
 
-        var workflowProvider = new ModInstallerWorkflowProvider()
+        var serviceProvider = new ModInstallerServiceProvider()
             .RegisterEkona();
 
         MixManifest mix = ReadMix(settings.ModPath);
 
         AnsiConsole.WriteLine();
-        var product = await GetCompatibleProductAsync(mix, settings.SoftwarePath, workflowProvider);
+        var product = await GetCompatibleProductAsync(mix, settings.SoftwarePath, serviceProvider);
         if (product is null) {
             return 1;
         }
 
         AnsiConsole.WriteLine();
-        bool isValid = await VerifyIntegrityAsync(settings.SoftwarePath, product, workflowProvider);
+        bool isValid = await VerifyIntegrityAsync(settings.SoftwarePath, product, serviceProvider);
         if (!isValid) {
             return 2;
         }
@@ -39,13 +40,13 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         var features = await AskModFeaturesForProductAsync(mix, product);
 
         AnsiConsole.WriteLine();
-        using Node? software = await ReadSoftwareAsync(settings.SoftwarePath, product, workflowProvider);
+        using Node? software = await ReadSoftwareAsync(settings.SoftwarePath, product, serviceProvider);
         if (software is null) {
             return 3;
         }
 
         AnsiConsole.WriteLine();
-        bool installSuccess = await ApplyModResourcesAsync(software, mix.Resources, features, workflowProvider);
+        bool installSuccess = await ApplyModResourcesAsync(software, mix.Resources, features, serviceProvider);
         if (!installSuccess) {
             return 4;
         }
@@ -60,13 +61,14 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
     private static MixManifest ReadMix(string modPath)
     {
         AnsiConsole.WriteLine("Reading the mod installer");
-        var deserializer = new ModInstallerExtensibleSerializer();
         using var mixData = File.OpenRead(modPath);
-        MixManifest mix = deserializer.DeserializeJson(mixData);
+        MixManifest mix = MixSerializer.DeserializeJson(mixData);
         AnsiConsole.MarkupLine("Reading MIX... [green]done[/]");
 
-        var panel = new Panel($"[italic gray]by {mix.Mod.Authors}[/]\n{mix.Mod.Description?.GetOrDefault("es_ES").EscapeMarkup()}");
-        panel.Header($"[bold blue]{mix.Mod.Name} v{mix.Mod.Version}[/]");
+        string panelContent = $"{mix.Mod.Description?.GetOrDefault("es_ES").EscapeMarkup()}\n"
+            + $"[italic gray]by\n{mix.Mod.Authors.EscapeMarkup()}[/]";
+        var panel = new Panel(panelContent)
+            .Header($"[bold blue]{mix.Mod.Name} v{mix.Mod.Version}[/]");
         AnsiConsole.Write(panel);
 
         return mix;
@@ -75,7 +77,7 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
     private static async Task<CompatibleProductInfo?> GetCompatibleProductAsync(
         MixManifest mix,
         string softwarePath,
-        ModInstallerWorkflowProvider workflowProvider)
+        ModInstallerServiceProvider serviceProvider)
     {
         CompatibleProductInfo? product = null;
         foreach (var compatibleProduct in mix.Mod.CompatibleProducts) {
@@ -83,7 +85,7 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
 
             bool matchAllValidators = true;
             foreach (var verificationInfo in compatibleProduct.Verification ?? []) {
-                var validator = workflowProvider.GetCompatibilityValidator(verificationInfo.Method);
+                var validator = serviceProvider.GetCompatibilityValidator(verificationInfo.Method);
                 if (validator is null) {
                     AnsiConsole.MarkupLineInterpolated($"[red]Cannot validate with method {verificationInfo.Method}[/]");
                     matchAllValidators = false;
@@ -115,9 +117,9 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
     private static async Task<bool> VerifyIntegrityAsync(
         string softwarePath,
         CompatibleProductInfo product,
-        ModInstallerWorkflowProvider workflowProvider)
+        ModInstallerServiceProvider serviceProvider)
     {
-        var integrity = workflowProvider.GetIntegrityValidator(product.Format);
+        var integrity = serviceProvider.GetIntegrityValidator(product.Format);
         if (integrity is null) {
             AnsiConsole.MarkupLineInterpolated($"[red]Cannot find integrity validator for {product.Format}[/]");
             return false;
@@ -184,10 +186,10 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
     private static async Task<Node?> ReadSoftwareAsync(
         string softwarePath,
         CompatibleProductInfo product,
-        ModInstallerWorkflowProvider provider)
+        ModInstallerServiceProvider serviceProvider)
     {
         AnsiConsole.WriteLine("Opening software");
-        var reader = provider.GetSoftwareReader(product.Format);
+        var reader = serviceProvider.GetSoftwareReader(product.Format);
         if (reader is null) {
             return null;
         }
@@ -202,15 +204,15 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         Node software,
         Collection<Resource> resources,
         InstallationFeatures features,
-        ModInstallerWorkflowProvider provider)
+        ModInstallerServiceProvider serviceProvider)
     {
         var filteredResources = resources
             .Where(r => r.RequiredFeatures.All(f => features.ContainsKey(f.FeatureId)));
 
         foreach (var resource in filteredResources) {
-            var options = new ModInstallationJsonOptions(resource.InstallParams ?? [], []);
+            var options = new ModInstallationOptions(resource.InstallParams ?? [], []);
 
-            var installer = provider.GetResourceInstaller(resource.InstallStep);
+            var installer = serviceProvider.GetResourceInstaller(resource.InstallStep);
             if (installer is null) {
                 AnsiConsole.MarkupLineInterpolated($"[red]Cannot find installer for method: {resource.InstallStep}[/]");
                 return false;

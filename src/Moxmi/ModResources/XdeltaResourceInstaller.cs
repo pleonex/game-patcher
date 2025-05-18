@@ -10,7 +10,7 @@ using Yarhl.IO;
 
 public class XdeltaResourceInstaller : IModResourceInstaller
 {
-    public Task InstallResourceAsync(Node software, Stream resource, ModInstallationJsonOptions options)
+    public Task InstallResourceAsync(Node software, Stream resource, ModInstallationOptions options)
     {
         var xdeltaOpts = options.GetSection<XdeltaOptions>("xdelta");
 

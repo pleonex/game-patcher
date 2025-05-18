@@ -9,9 +9,9 @@ using System.Reflection;
 public class ModInstallationYamlOptions(
     Dictionary<string, object> resourceParameters,
     Dictionary<string, string> productFeatureParameters)
+    : ModInstallationOptions(resourceParameters, productFeatureParameters)
 {
-    public T GetSection<T>(string key)
-        where T : new()
+    public override T GetSection<T>(string key)
     {
         ArgumentException.ThrowIfNullOrEmpty(key);
 
@@ -23,13 +23,13 @@ public class ModInstallationYamlOptions(
             throw new NotSupportedException("Unsupported structure");
         }
 
-        // To consider: Dictionary -> T it can be custom implement via interface
         T section = new T();
         var properties = GetFields(typeof(T));
         foreach (var configEntry in valueDict) {
             var propertyInfo = properties.FirstOrDefault(p => ComparePropertyName(p.Name, configEntry.Key))
                 ?? throw new InvalidOperationException($"Missing property for name {configEntry.Key}");
 
+            // TODO: support parameter replacement
             propertyInfo.SetValue(section, configEntry.Value);
         }
 
@@ -42,7 +42,7 @@ public class ModInstallationYamlOptions(
             return false;
         }
 
-        configKeyText = configKeyText.Replace("_", null);
+        configKeyText = configKeyText.Replace("_", null); // snake case
         return propertyName.Equals(configKeyText, StringComparison.InvariantCultureIgnoreCase);
     }
 

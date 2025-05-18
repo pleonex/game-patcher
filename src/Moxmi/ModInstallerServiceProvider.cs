@@ -1,4 +1,4 @@
-﻿namespace PleOps.Moxmi.ModInstaller;
+﻿namespace PleOps.Moxmi;
 
 using System;
 using PleOps.Moxmi.Compatibility;
@@ -6,14 +6,14 @@ using PleOps.Moxmi.Integrity;
 using PleOps.Moxmi.ModResources;
 using PleOps.Moxmi.Readers;
 
-public class ModInstallerWorkflowProvider
+public class ModInstallerServiceProvider
 {
     private readonly Dictionary<string, ICompatibilityValidator> compatibilityValidators;
     private readonly Dictionary<string, ISoftwareIntegrityValidator> integrityValidators;
     private readonly Dictionary<string, ISoftwareReader> readers;
     private readonly Dictionary<string, IModResourceInstaller> installers;
 
-    public ModInstallerWorkflowProvider()
+    public ModInstallerServiceProvider()
     {
         compatibilityValidators = [];
         integrityValidators = [];

@@ -1,4 +1,4 @@
-﻿namespace PleOps.Moxmi.ModInstaller;
+﻿namespace PleOps.Moxmi.ModInstallerExtensible;
 
 using System;
 using System.IO;
@@ -6,14 +6,14 @@ using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Serialization;
 using System.Text.Json;
 
-public class ModInstallerExtensibleSerializer
+public static class MixSerializer
 {
     private static readonly JsonSerializerOptions JsonOpts = new() {
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
         PropertyNameCaseInsensitive = true,
     };
 
-    public MixManifest DeserializeJson(Stream stream)
+    public static MixManifest DeserializeJson(Stream stream)
     {
         ArgumentNullException.ThrowIfNull(stream);
 
@@ -22,7 +22,7 @@ public class ModInstallerExtensibleSerializer
             ?? throw new InvalidOperationException("Cannot deserialize MIX manifest");
     }
 
-    public MixManifest DeserializeJson(string content)
+    public static MixManifest DeserializeJson(string content)
     {
         ArgumentException.ThrowIfNullOrEmpty(content);
 
@@ -30,7 +30,7 @@ public class ModInstallerExtensibleSerializer
             ?? throw new InvalidOperationException("Cannot deserialize MIX manifest");
     }
 
-    public MixManifest DeserializeYaml(Stream stream)
+    public static MixManifest DeserializeYaml(Stream stream)
     {
         ArgumentNullException.ThrowIfNull(stream);
 
@@ -40,7 +40,7 @@ public class ModInstallerExtensibleSerializer
         return DeserializeYaml(content);
     }
 
-    public MixManifest DeserializeYaml(string content)
+    public static MixManifest DeserializeYaml(string content)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(content);
 

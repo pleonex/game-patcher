@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
-public class ModInstallationJsonOptions(
+public class ModInstallationOptions(
     Dictionary<string, object> resourceParameters,
     Dictionary<string, string> productFeatureParameters)
 {
@@ -13,7 +13,7 @@ public class ModInstallationJsonOptions(
         PropertyNameCaseInsensitive = true,
     };
 
-    public T GetSection<T>(string key)
+    public virtual T GetSection<T>(string key)
         where T : new()
     {
         ArgumentException.ThrowIfNullOrEmpty(key);
@@ -26,9 +26,9 @@ public class ModInstallationJsonOptions(
             throw new NotSupportedException("Unsupported structure");
         }
 
-        // TODO: apply feature replacements
+        // TODO: apply feature replacements via JSON type info modifiers
         // TODO: do model validation
-        return JsonSerializer.Deserialize<T>(jsonElement, JsonOpts)
+        return jsonElement.Deserialize<T>(JsonOpts)
             ?? throw new InvalidOperationException("Invalid structure");
     }
 }

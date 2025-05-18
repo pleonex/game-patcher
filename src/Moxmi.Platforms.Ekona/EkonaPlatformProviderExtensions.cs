@@ -1,13 +1,13 @@
 ﻿namespace PleOps.Moxmi.Platforms.Ekona;
 
-using PleOps.Moxmi.ModInstaller;
+using PleOps.Moxmi;
 using PleOps.Moxmi.Platforms.Ekona.Compatibility;
 using PleOps.Moxmi.Platforms.Ekona.Integrity;
 using PleOps.Moxmi.Platforms.Ekona.Readers;
 
 public static class EkonaPlatformProviderExtensions
 {
-    public static ModInstallerWorkflowProvider RegisterEkona(this ModInstallerWorkflowProvider provider)
+    public static ModInstallerServiceProvider RegisterEkona(this ModInstallerServiceProvider provider)
     {
         provider.RegisterCompatibilityValidator("ds-gameid", new DsGameIdCompatibilityValidator());
 

@@ -1,4 +1,4 @@
-﻿namespace PleOps.Moxmi.ModInstaller;
+﻿namespace PleOps.Moxmi.ModInstallerExtensible;
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
