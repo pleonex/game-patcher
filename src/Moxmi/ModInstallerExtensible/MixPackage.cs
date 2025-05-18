@@ -1,39 +1,36 @@
 ﻿namespace PleOps.Moxmi.ModInstallerExtensible;
 
 using System;
-using System.IO.Compression;
 
 public sealed class MixPackage : IDisposable
 {
-    private readonly ZipArchive archive;
+    private readonly IMixPackageReader reader;
+    private readonly Lazy<MixManifest> lazyManifest;
 
-    internal MixPackage(MixManifest manifest, ZipArchive archive)
+    internal MixPackage(IMixPackageReader reader)
     {
-        ArgumentNullException.ThrowIfNull(manifest);
-        ArgumentNullException.ThrowIfNull(archive);
+        ArgumentNullException.ThrowIfNull(reader);
 
-        this.archive = archive;
-        Manifest = manifest;
+        this.reader = reader;
+        lazyManifest = new Lazy<MixManifest>(reader.GetManifest);
     }
 
-    public MixManifest Manifest { get; }
+    public MixManifest Manifest => lazyManifest.Value;
+
+    public static MixPackage FromZipFile(string zipPath)
+    {
+        var reader = new MixPackageReader(zipPath);
+        return new MixPackage(reader);
+    }
 
     public Stream GetResource(string uri)
     {
         ArgumentException.ThrowIfNullOrEmpty(uri);
-        if (!uri.StartsWith("content://", StringComparison.InvariantCultureIgnoreCase)) {
-            throw new NotSupportedException("Path URI not supported");
-        }
-
-        string path = uri.Substring("content://".Length);
-
-        // TODO: accept integrity verification
-        return archive.GetEntry(path)?.Open()
-            ?? throw new FileNotFoundException("Resource not in package", path);
+        return reader.GetResource(uri);
     }
 
     public void Dispose()
     {
-        archive.Dispose();
+        (reader as IDisposable)?.Dispose();
     }
 }

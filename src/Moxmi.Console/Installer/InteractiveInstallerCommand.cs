@@ -1,6 +1,5 @@
 ﻿namespace PleOps.Moxmi.Console.Installer;
 
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -54,6 +53,7 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         }
 
         AnsiConsole.WriteLine();
+        // TODO: ask for kind of output format for the platform
         AnsiConsole.MarkupLine("Creating bundle...");
         var bundleWriter = new NitroRomWriter();
         bundleWriter.WriteToFile(software, settings.OutputPath);
@@ -65,7 +65,7 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
     private static MixPackage ReadMix(string modPath)
     {
         AnsiConsole.WriteLine("Reading MIX package");
-        MixPackage mix = MixPackageReader.OpenRead(modPath);
+        MixPackage mix = MixPackage.FromZipFile(modPath);
         MixManifest manifest = mix.Manifest;
         AnsiConsole.MarkupLine("Reading MIX... [green]done[/]");
 
