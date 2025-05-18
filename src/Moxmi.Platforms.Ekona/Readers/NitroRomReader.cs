@@ -9,7 +9,7 @@ public class NitroRomReader : ISoftwareReader
 {
     public Task<Node> OpenPathAsync(string softwarePath)
     {
-        Node node = NodeFactory.FromFile(softwarePath, FileOpenMode.Read)
+        Node node = NodeFactory.FromFile(softwarePath, "root", FileOpenMode.Read)
             .TransformWith<Binary2NitroRom>();
         return Task.FromResult(node);
     }
