@@ -6,7 +6,7 @@ using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Serialization;
 using System.Text.Json;
 
-public static class MixSerializer
+public static class MixManifestSerializer
 {
     private static readonly JsonSerializerOptions JsonOpts = new() {
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,

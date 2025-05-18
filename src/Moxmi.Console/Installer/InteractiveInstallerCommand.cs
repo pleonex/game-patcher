@@ -22,10 +22,11 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         var serviceProvider = new ModInstallerServiceProvider()
             .RegisterEkona();
 
-        MixManifest mix = ReadMix(settings.ModPath);
+        using MixPackage mix = ReadMix(settings.ModPath);
+        MixManifest manifest = mix.Manifest;
 
         AnsiConsole.WriteLine();
-        var product = await GetCompatibleProductAsync(mix, settings.SoftwarePath, serviceProvider);
+        var product = await GetCompatibleProductAsync(manifest, settings.SoftwarePath, serviceProvider);
         if (product is null) {
             return 1;
         }
@@ -37,7 +38,7 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         }
 
         AnsiConsole.WriteLine();
-        var features = await AskModFeaturesForProductAsync(mix, product);
+        var features = await AskModFeaturesForProductAsync(manifest, product);
 
         AnsiConsole.WriteLine();
         using Node? software = await ReadSoftwareAsync(settings.SoftwarePath, product, serviceProvider);
@@ -46,29 +47,29 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
         }
 
         AnsiConsole.WriteLine();
-        bool installSuccess = await ApplyModResourcesAsync(software, mix.Resources, features, serviceProvider);
+        bool installSuccess = await ApplyModResourcesAsync(software, mix, features, serviceProvider);
         if (!installSuccess) {
             return 4;
         }
 
         AnsiConsole.WriteLine();
         await Task.Delay(2_000);
-        AnsiConsole.MarkupLine("Creating bundle... [green]done[/]");
+        AnsiConsole.MarkupLine("Creating bundle... [green]TODO[/]");
 
         return 0;
     }
 
-    private static MixManifest ReadMix(string modPath)
+    private static MixPackage ReadMix(string modPath)
     {
-        AnsiConsole.WriteLine("Reading the mod installer");
-        using var mixData = File.OpenRead(modPath);
-        MixManifest mix = MixSerializer.DeserializeJson(mixData);
+        AnsiConsole.WriteLine("Reading MIX package");
+        MixPackage mix = MixPackageReader.OpenRead(modPath);
+        MixManifest manifest = mix.Manifest;
         AnsiConsole.MarkupLine("Reading MIX... [green]done[/]");
 
-        string panelContent = $"{mix.Mod.Description?.GetOrDefault("es_ES").EscapeMarkup()}\n"
-            + $"[italic gray]by\n{mix.Mod.Authors.EscapeMarkup()}[/]";
+        string panelContent = $"{manifest.Mod.Description?.GetOrDefault("es_ES").EscapeMarkup()}\n"
+            + $"[italic gray]by\n{manifest.Mod.Authors.EscapeMarkup()}[/]";
         var panel = new Panel(panelContent)
-            .Header($"[bold blue]{mix.Mod.Name} v{mix.Mod.Version}[/]");
+            .Header($"[bold blue]{manifest.Mod.Name} v{manifest.Mod.Version}[/]");
         AnsiConsole.Write(panel);
 
         return mix;
@@ -202,11 +203,11 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
 
     private static async Task<bool> ApplyModResourcesAsync(
         Node software,
-        Collection<Resource> resources,
+        MixPackage mix,
         InstallationFeatures features,
         ModInstallerServiceProvider serviceProvider)
     {
-        var filteredResources = resources
+        var filteredResources = mix.Manifest.Resources
             .Where(r => r.RequiredFeatures.All(f => features.ContainsKey(f.FeatureId)));
 
         foreach (var resource in filteredResources) {
@@ -218,9 +219,9 @@ internal class InteractiveInstallerCommand : AsyncCommand<InteractiveInstallerCo
                 return false;
             }
 
-            // TODO: get resource (need to implement MIX package)
+            using var resourceData = mix.GetResource(resource.Content.Source);
             AnsiConsole.MarkupLineInterpolated($"Applying resources: [gray]{resource.Name}[/]");
-            await installer.InstallResourceAsync(software, null, options);
+            await installer.InstallResourceAsync(software, resourceData, options);
         }
 
         AnsiConsole.MarkupLine("Mod resources... [green]applied[/]");
