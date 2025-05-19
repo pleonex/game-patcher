@@ -40,11 +40,11 @@ web applications.
 As .NET can't run everywhere, a second engine based on Rust may be created. Set
 of platforms planned to run the installer application(s).
 
-| Engine / OS | Windows | Linux | macOS | Android | iOS | 3DS | Switch |
-| ----------- | ------- | ----- | ----- | ------- | --- | --- | ------ |
-| .NET        | ✔️      | ✔️    | ✔️    | ✔️      | ❌  | ❌  | ❌     |
-| Web REST    | ✔️      | ✔️    | ✔️    | ✔️      | ✔️  | ❌  | ❌     |
-| Rust        | ❌      | ❌    | ❌    | ❌      | ❌  | ✔️  | ✔️     |
+| Engine / OS | Windows | Linux | macOS | Android | iOS | 3DS |
+| ----------- | ------- | ----- | ----- | ------- | --- | --- |
+| .NET        | ✔️      | ✔️    | ✔️    | ✔️      | ❌  | ❌  |
+| Web REST    | ✔️      | ✔️    | ✔️    | ✔️      | ✔️  | ❌  |
+| Rust        | ❌      | ❌    | ❌    | ❌      | ❌  | ✔️  |
 
 ![OS support diagram representing the same as the table](resources/design_installer_os_support.drawio.png)
 
@@ -55,15 +55,14 @@ platform. For instance, installing a mod for a DS game from an Android device.
 
 Set of target platforms planned to support on each engine.
 
-| Engine / Target platform | NDS | DSi | 3DS | Switch | Steam | PSX |
-| ------------------------ | --- | --- | --- | ------ | ----- | --- |
-| Windows (.NET)           | ✔️  | ✔️  | ✔️  | ✔️     | ✔️    | ✔️  |
-| Linux (.NET)             | ✔️  | ✔️  | ✔️  | ✔️     | ✔️    | ✔️  |
-| macOS (.NET)             | ✔️  | ✔️  | ✔️  | ✔️     | ❌    | ✔️  |
-| Android (.NET)           | ✔️  | ✔️  | ✔️  | ❌     | ❌    | ✔️  |
-| Web (REST)               | ✔️  | ✔️  | ✔️  | ❌     | ❌    | ❌  |
-| 3DS (rust)               | ✔️  | ✔️  | ✔️  | ❌     | ❌    | ❌  |
-| Switch (rust)            | ✔️  | ✔️  | ✔️  | ✔️     | ❌    | ✔️  |
+| Engine / Target platform | NDS | DSi | 3DS | Wii | Steam |
+| ------------------------ | --- | --- | --- | --- | ----- |
+| Windows (.NET)           | ✔️  | ✔️  | ✔️  | ✔️  | ✔️    |
+| Linux (.NET)             | ✔️  | ✔️  | ✔️  | ✔️  | ✔️    |
+| macOS (.NET)             | ✔️  | ✔️  | ✔️  | ✔️  | ❌    |
+| Android (.NET)           | ✔️  | ✔️  | ✔️  | ✔️  | ❌    |
+| Web (REST)               | ✔️  | ✔️  | ✔️  | ❌  | ❌    |
+| 3DS (rust)               | ✔️  | ✔️  | ✔️  | ❌  | ❌    |
 
 ## High level components
 
@@ -163,4 +162,4 @@ system. It will configure archiving policies to not have log files bigger than
 6. [ext-pc] Steam extensions
 7. [android] Mobile application for Android
 8. [rust] Port core libraries to Rust language
-9. [UI] 3DS and Switch homebrews based on Rust engine
+9. [UI] 3DS homebrew based on Rust engine

@@ -2,8 +2,7 @@ project:
   name: "Pokémon Conquest Spanish fan-translation"
   type: "translation"
   description: >
-      Traducción al español de España del juego de Nintendo DS "Pokémon
-      Conquest"
+      Traducción al español de España de "Pokémon Conquest"
   links:
     - name: "TraduSquare project"
       href: "https://tradusquare.es/proyectos/pokemon-conquest/"
@@ -39,14 +38,14 @@ products:
   - id: "PSL_EU_VPYP01_00"
     name: "Pokémon Conquest"
     company: "Tecmo Koei"
-    publisher: "Nintendo"
+    publisher: "Gran N"
     release_date: "27.07.2012"
     region: "europe"
     genre:
       - "tactical_rpg"
     platform: "nds"
     description: >
-        Pokémon Conquest para Nintendo DS es un spin-off de la saga Pokémon que
+        Pokémon Conquest es un spin-off de la saga Pokémon que
         ofrece una nueva modalidad de juego. Se desarrolla en un mundo feudal
         japonés llamado Ransei donde también habitan los Pokémon.
     linked_products:
@@ -69,7 +68,7 @@ products:
   - id: "PSL_E_VPYT01_00"
     name: "Pokémon Conquest"
     company: "Tecmo Koei"
-    publisher: "Nintendo"
+    publisher: "Gran N"
     release_date: "18.06.2012"
     region: "usa"
     genre:

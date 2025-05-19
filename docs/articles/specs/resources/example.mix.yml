@@ -2,10 +2,9 @@ project:
   name: "Pokémon Conquest Spanish fan-translation"
   type: translation
   description:
-    en: Spanish fan-translation of the Nintendo DS game "Pokémon Conquest"
+    en: Spanish fan-translation of the game "Pokémon Conquest"
     es_ES: >-
-      Traducción al español de España del juego de Nintendo DS "Pokémon
-      Conquest"
+      Traducción al español de España del juego "Pokémon Conquest"
   links:
     - name: "TraduSquare project"
       href: "https://tradusquare.es/proyectos/pokemon-conquest/"
