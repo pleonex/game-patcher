@@ -11,13 +11,13 @@
   <Design.DataContext>
     <local:MainViewModel />
   </Design.DataContext>
-  
+
     <fluent:NavigationView Name="mainNavigationView"
                            Classes="LargeAppNav"
                            IsBackButtonVisible="True"
                            IsBackEnabled="{Binding CanNavigateBack}"
                            IsSettingsVisible="False">
-      
+
         <fluent:NavigationView.MenuItems>
           <fluent:NavigationViewItem Classes="LargeAppNav"
                                      Content="Library"
@@ -35,7 +35,7 @@
 
       <fluent:NavigationView.Header>
          <ItemsControl ItemsSource="{Binding NavigationSegments}">
-           
+
            <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
               <StackPanel Spacing="4" Orientation="Horizontal" />
@@ -48,7 +48,7 @@
                  <fluent:SymbolIcon Symbol="ChevronRight"
                                     FontSize="18"
                                     VerticalAlignment="Center"/>
-                 
+
                  <Border Padding="4">
                    <TextBlock Text="{Binding .}"
                               VerticalAlignment="Center" />
@@ -58,9 +58,9 @@
              </DataTemplate>
            </ItemsControl.ItemTemplate>
           </ItemsControl>
-        
+
       </fluent:NavigationView.Header>
-      
+
       <fluent:Frame Name="mainNavigationFrame" Margin="8" />
     </fluent:NavigationView>
 </UserControl>

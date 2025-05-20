@@ -1,6 +1,9 @@
 ﻿namespace PleOps.Moxmi.ModdingProject;
 
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using YamlDotNet.Serialization;
 
 // TODO: use nullable reference without default values, required
 // and set attributes for validation
@@ -23,14 +26,26 @@ public class Project
     public string Credits { get; set; } = "";
     public Logo Logo { get; set; } = new();
     public string AdditionalInformation { get; set; } = "";
+    public string ReleaseDate { get; set; } = "";
     public string Changelog { get; set; } = "";
     public Update Update { get; set; } = new();
 }
 
 public class Logo
 {
-    public string Icon { get; set; } = "";
-    public string Large { get; set; } = "";
+    public Subresource? Icon { get; set; }
+    public Subresource? Large { get; set; }
+}
+
+public class Subresource
+{
+    [Required]
+    [YamlMember(Alias = "src")]
+    [JsonPropertyName("src")]
+    public string Source { get; set; } = "";
+
+    [Required]
+    public string Integrity { get; set; } = "";
 }
 
 public class Update
@@ -110,7 +125,13 @@ public class ModInfo
 
 public class Screenshot
 {
-    public string Href { get; set; } = "";
+    [Required]
+    [YamlMember(Alias = "src")]
+    [JsonPropertyName("src")]
+    public string Source { get; set; } = "";
+
+    [Required]
+    public string Integrity { get; set; } = "";
 
     public string Title { get; set; } = "";
 

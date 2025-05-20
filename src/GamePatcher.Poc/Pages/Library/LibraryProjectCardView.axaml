@@ -30,7 +30,7 @@
                 Height="64"
                 BorderThickness="1"
                 BorderBrush="{DynamicResource ControlElevationBorderBrush}">
-          <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Icon}"
+          <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Icon.Source}"
                  Stretch="Uniform"
                  StretchDirection="Both" />
         </Border>

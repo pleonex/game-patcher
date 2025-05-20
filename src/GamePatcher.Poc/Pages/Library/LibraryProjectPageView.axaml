@@ -50,7 +50,7 @@
                   BorderThickness="1"
                   BorderBrush="{DynamicResource ControlElevationBorderBrush}"
                   Background="White">
-            <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Icon}"
+            <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Icon.Source}"
                    Stretch="Uniform"
                    StretchDirection="Both" />
           </Border>
@@ -130,7 +130,7 @@
                     BorderBrush="{DynamicResource ControlElevationBorderBrush}"
                     Background="White"
                     CornerRadius="8">
-              <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Icon}"
+              <Image asyncImageLoader:ImageLoader.Source="{Binding ProjectInfo.Logo.Icon.Source}"
                      Stretch="Uniform"
                      StretchDirection="Both" />
             </Border>

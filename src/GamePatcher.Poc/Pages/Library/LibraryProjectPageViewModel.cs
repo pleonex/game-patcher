@@ -16,7 +16,9 @@ internal partial class LibraryProjectPageViewModel : ViewModelBase, IStackViewMo
 
         ViewName = "Project info";
         ProjectInfo = manifest.Project;
-        Images = [manifest.Project.Logo.Large, .. manifest.Mods.SelectMany(m => m.Screenshots.Select(s => s.Href))];
+        Images = [
+            manifest.Project.Logo.Large?.Source,
+            .. manifest.Mods.SelectMany(m => m.Screenshots.Select(s => s.Source))];
         Products = manifest.Products;
     }
 
