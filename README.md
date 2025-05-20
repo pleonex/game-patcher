@@ -51,3 +51,9 @@ dotnet run --project build/orchestrator -- --target=Bundle
 
 Create a new GitHub release with a tag `v{Version}` (e.g. `v2.4`) and that's it!
 This triggers a pipeline that builds and deploy the project.
+
+## Credits
+
+The PoC desktop application uses the following resources:
+
+- [Installer background](https://lottiefiles.com/free-animation/space-areal-7SSbLRDxnS)

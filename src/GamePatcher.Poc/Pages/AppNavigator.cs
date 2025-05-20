@@ -9,6 +9,7 @@ using PleOps.Moxmi.ModdingProject;
 using PleOps.GamePatcher.Poc.Pages.Designer;
 using PleOps.GamePatcher.Poc.Pages.Library;
 using PleOps.GamePatcher.Poc.Pages.ModdingProject;
+using PleOps.GamePatcher.Poc.Pages.Installer;
 
 internal partial class AppNavigator : ObservableObject
 {
@@ -82,6 +83,12 @@ internal partial class AppNavigator : ObservableObject
     public void NavigateToDesignerSelection()
     {
         NavigateTo(new DesignerSelectionViewModel(), true);
+    }
+
+    [RelayCommand]
+    public void NavigateToInstallerView()
+    {
+        NavigateTo(new ModInstallerLayoutViewModel(), true);
     }
 
     [RelayCommand]

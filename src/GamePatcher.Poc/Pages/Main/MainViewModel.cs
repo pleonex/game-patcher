@@ -31,6 +31,9 @@ internal partial class MainViewModel : ViewModelBase
             case "Designer":
                 AppNavigator.Instance.NavigateToDesignerSelection();
                 break;
+            case "Installer":
+                AppNavigator.Instance.NavigateToInstallerView();
+                break;
         }
     }
 

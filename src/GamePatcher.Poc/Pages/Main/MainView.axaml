@@ -24,8 +24,8 @@
                                      Tag="Library"
                                      IconSource="Library" />
           <fluent:NavigationViewItem Classes="LargeAppNav"
-                                     Content="Patcher"
-                                     Tag="Patcher"
+                                     Content="Installer"
+                                     Tag="Installer"
                                      IconSource="StarEmphasis" />
           <fluent:NavigationViewItem Classes="LargeAppNav"
                                      Content="Builder"

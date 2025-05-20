@@ -20,6 +20,9 @@
         <PackageReference Include="Avalonia.Desktop" Version="11.3.0" />
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.0" />
         <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.0" />
+        <PackageReference Include="Avalonia.Labs.Controls" Version="11.2.0" />
+        <PackageReference Include="Avalonia.Labs.Gif" Version="11.2.0" />
+        <PackageReference Include="Avalonia.Labs.Lottie" Version="11.2.0" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="FluentAvaloniaUI" Version="2.3.0" />
     </ItemGroup>

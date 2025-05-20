@@ -1,0 +1,115 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:lottie="clr-namespace:Avalonia.Labs.Lottie;assembly=Avalonia.Labs.Lottie"
+             xmlns:fluent="using:FluentAvalonia.UI.Controls"
+             xmlns:labs="clr-namespace:Avalonia.Labs.Controls;assembly=Avalonia.Labs.Controls"
+             xmlns:local="using:PleOps.GamePatcher.Poc.Pages.Installer"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="750"
+             x:Class="PleOps.GamePatcher.Poc.Pages.Installer.ModInstallerLayoutView"
+             x:DataType="local:ModInstallerLayoutViewModel">
+
+  <Design.DataContext>
+    <local:ModInstallerLayoutViewModel />
+  </Design.DataContext>
+
+  <fluent:NavigationView Name="installerNavigation"
+                         IsBackButtonVisible="True"
+                         IsBackEnabled="False"
+                         PaneTitle="Installation steps"
+                         IsPaneOpen="True"
+                         IsPaneToggleButtonVisible="False"
+                         IsSettingsVisible="False"
+                         OpenPaneLength="250"
+                         PaneDisplayMode="Left"
+                         MenuItemsSource="{Binding Steps}">
+
+    <fluent:NavigationView.MenuItemTemplate>
+      <DataTemplate DataType="local:ModInstallerStepInfo">
+        <fluent:NavigationViewItem IconSource="{Binding StepIcon}"
+                                   IsHitTestVisible="False">
+          <TextBlock>
+            <Run Text="{Binding Number}" />
+            <Run Text=". " />
+            <Run Text="{Binding StepName}" />
+          </TextBlock>
+        </fluent:NavigationViewItem>
+      </DataTemplate>
+    </fluent:NavigationView.MenuItemTemplate>
+
+    <DockPanel>
+      <Border DockPanel.Dock="Bottom"
+              BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+              BorderThickness="0.1">
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="16 16 16 8"
+                    Spacing="8">
+          <Button Content="Back"
+                  Width="150" />
+          <Button Content="Next"
+                  Width="150"
+                  Background="{DynamicResource AccentFillColorDefaultBrush}"
+                  Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />
+        </StackPanel>
+      </Border>
+
+      <fluent:Frame Name="installerFrame" Margin="16">
+        <StackPanel>
+          <labs:StepBar AnimationDuration="00:00:10"
+                        ItemsSource="{Binding Steps}"
+                        Dock="Top">
+            <labs:StepBar.ItemTemplate>
+              <DataTemplate DataType="local:ModInstallerStepInfo">
+                <StackPanel>
+                  <fluent:SymbolIcon Symbol="{Binding StepIcon}" />
+                  <!--<TextBlock FontSize="16" FontWeight="Bold" HorizontalAlignment="Center">
+                    <Run Text="Step"/>
+                    <Run Text=" "/>
+                    <Run Text="{Binding Number}"/>
+                  </TextBlock>-->
+                  <TextBlock Margin="0,4,0,0" Text="{Binding StepName}" MaxLines="2" TextWrapping="Wrap" TextAlignment="Center"/>
+                </StackPanel>
+              </DataTemplate>
+            </labs:StepBar.ItemTemplate>
+          </labs:StepBar>
+
+          <StackPanel Orientation="Horizontal">
+          <labs:StepBar AnimationDuration="00:00:10"
+                        ItemsSource="{Binding Steps}"
+                        Dock="Left">
+            <labs:StepBar.ItemTemplate>
+              <DataTemplate DataType="local:ModInstallerStepInfo">
+                <StackPanel>
+                  <TextBlock FontSize="16" FontWeight="Bold" HorizontalAlignment="Left">
+                    <Run Text="Step"/>
+                    <Run Text=" "/>
+                    <Run Text="{Binding Number}"/>
+                  </TextBlock>
+                  <TextBlock Margin="0,4,0,0" Text="{Binding StepName}"/>
+                </StackPanel>
+              </DataTemplate>
+            </labs:StepBar.ItemTemplate>
+          </labs:StepBar>
+          <lottie:Lottie Path="avares://PleOps.GamePatcher.Poc/Assets/space.lottie.json"
+                           RepeatCount="-1"
+                           Stretch="Uniform"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           MaxHeight="400"/>
+        </StackPanel>
+          <TextBlock Text="Drop a MIX mod here"
+                     HorizontalAlignment="Center"
+                     Theme="{StaticResource TitleTextBlockStyle}" />
+          <TextBlock Text="or press anywhere to select a file"
+                     HorizontalAlignment="Center"
+                     Theme="{StaticResource SubtitleTextBlockStyle}" />
+        </StackPanel>
+      </fluent:Frame>
+    </DockPanel>
+
+  </fluent:NavigationView>
+
+</UserControl>
