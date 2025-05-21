@@ -35,8 +35,20 @@ public partial class ModInstallerSelectionStepViewModel : ModInstallerStepViewMo
             return;
         }
 
+        await ReadMixPackageAsync(selectedFile);
+    }
+
+    [RelayCommand]
+    private async Task ReadMixPackageAsync(IStorageFile file)
+    {
+        string? path = file.TryGetLocalPath();
+        if (string.IsNullOrEmpty(path)) {
+            // TODO: log
+            return;
+        }
+
         try {
-            InputMix = MixPackage.FromZipFile(selectedFile.Path.AbsolutePath);
+            InputMix = MixPackage.FromZipFile(path);
             CanContinue = true;
         } catch (Exception ex) {
             // TODO: log

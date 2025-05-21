@@ -2,9 +2,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
@@ -76,7 +78,22 @@ public partial class ModInstallerSelectionStepView : UserControl
         });
     }
 
-    private void OnControlDoubleTapped(object? sender, Avalonia.Input.TappedEventArgs e)
+    private void OnControlDrop(object sender, DragEventArgs e)
+    {
+        if (DataContext is not ModInstallerSelectionStepViewModel viewModel) {
+            return;
+        }
+
+        var files = e.Data.GetFiles();
+        if (files is null) {
+            return;
+        }
+
+        // TODO: show error if multiple
+        viewModel.ReadMixPackageCommand.Execute(files.First());
+    }
+
+    private void OnControlDoubleTapped(object? sender, TappedEventArgs e)
     {
         if (DataContext is not ModInstallerSelectionStepViewModel viewModel) {
             return;

@@ -4,13 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:lottie="clr-namespace:Avalonia.Labs.Lottie;assembly=Avalonia.Labs.Lottie"
              xmlns:local="using:PleOps.GamePatcher.Poc.Pages.Installer"
-             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="500"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="700"
              x:Class="PleOps.GamePatcher.Poc.Pages.Installer.ModInstallerSelectionStepView">
 
   <Border Background="Transparent"
-          DoubleTapped="OnControlDoubleTapped">
+          DoubleTapped="OnControlDoubleTapped"
+          DragDrop.AllowDrop="True"
+          DragDrop.Drop="OnControlDrop">
   <StackPanel Orientation="Vertical"
               HorizontalAlignment="Center"
+              VerticalAlignment="Center"
               IsHitTestVisible="True">
 
     <lottie:Lottie Path="avares://PleOps.GamePatcher.Poc/Assets/space.lottie.json"
