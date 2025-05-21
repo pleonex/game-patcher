@@ -20,7 +20,8 @@
                   Margin="0 0 0 8"
                   AnimationDuration="00:00:01"
                   ItemsSource="{Binding Steps}"
-                  Dock="Top">
+                  Dock="Top"
+                  SelectedIndex="{Binding CurrentStepIndex}">
       <labs:StepBar.ItemTemplate>
         <DataTemplate DataType="local:ModInstallerStepInfo">
           <StackPanel ToolTip.Tip="{Binding StepName}">
@@ -46,7 +47,8 @@
                            IsSettingsVisible="False"
                            OpenPaneLength="250"
                            PaneDisplayMode="Left"
-                           MenuItemsSource="{Binding Steps}">
+                           MenuItemsSource="{Binding Steps}"
+                           SelectedItem="{Binding CurrentStepInfo}">
 
       <fluent:NavigationView.MenuItemTemplate>
         <DataTemplate DataType="local:ModInstallerStepInfo">
@@ -71,8 +73,10 @@
                       Margin="16 16 16 8"
                       Spacing="8">
             <Button Content="Back"
+                    Command="{Binding GoBackStepCommand}"
                     Width="150" />
             <Button Content="Next"
+                    Command="{Binding ContinueStepCommand}"
                     Width="150"
                     Background="{DynamicResource AccentFillColorDefaultBrush}"
                     Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}" />

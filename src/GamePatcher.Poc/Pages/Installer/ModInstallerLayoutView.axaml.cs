@@ -1,10 +1,8 @@
 ﻿namespace PleOps.GamePatcher.Poc.Pages.Installer;
 
 using System;
-using Avalonia;
+using System.ComponentModel;
 using Avalonia.Controls;
-using FluentAvalonia.Core;
-using FluentAvalonia.UI.Controls;
 
 public partial class ModInstallerLayoutView : UserControl
 {
@@ -13,21 +11,33 @@ public partial class ModInstallerLayoutView : UserControl
         InitializeComponent();
 
         installerFrame.NavigationPageFactory = new ViewLocator();
-        installerNavigation.SelectionChanged += OnNavigationSelectionChanged;
     }
 
-    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    protected override void OnDataContextChanged(EventArgs e)
     {
-        installerNavigation.SelectedItem = installerNavigation.MenuItemsSource.ElementAt(0);
-        base.OnAttachedToVisualTree(e);
-    }
+        base.OnDataContextChanged(e);
 
-    private void OnNavigationSelectionChanged(object? sender, NavigationViewSelectionChangedEventArgs e)
-    {
-        if (e.SelectedItem is not ModInstallerStepInfo stepInfo) {
+        if (DataContext is not ModInstallerLayoutViewModel viewModel) {
             return;
         }
 
-        installerFrame.NavigateFromObject(stepInfo.ViewModel);
+        viewModel.PropertyChanged += OnViewModelPropertyChanged;
+        NavigateToStep(viewModel.CurrentStep);
+    }
+
+    private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (sender is not ModInstallerLayoutViewModel viewModel) {
+            return;
+        }
+
+        if (e.PropertyName == nameof(ModInstallerLayoutViewModel.CurrentStep)) {
+            NavigateToStep(viewModel.CurrentStep);
+        }
+    }
+
+    private void NavigateToStep(ModInstallerStepViewModelBase stepViewModel)
+    {
+        installerFrame.NavigateFromObject(stepViewModel);
     }
 }

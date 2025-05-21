@@ -8,14 +8,8 @@ using CommunityToolkit.Mvvm.Input;
 using PleOps.GamePatcher.Poc.Mvvm;
 using PleOps.Moxmi.ModInstallerExtensible;
 
-public partial class ModInstallerSelectionStepViewModel : ViewModelBase
+public partial class ModInstallerSelectionStepViewModel : ModInstallerStepViewModelBase
 {
-    [ObservableProperty]
-    private bool canContinue;
-
-    [ObservableProperty]
-    private bool canGoBack;
-
     [ObservableProperty]
     private MixPackage? inputMix;
 
