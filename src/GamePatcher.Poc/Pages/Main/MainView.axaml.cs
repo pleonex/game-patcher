@@ -17,7 +17,7 @@ public partial class MainView : UserControl
 
         mainNavigationView.BackRequested += OnNavigateBackButtonPressed;
         mainNavigationView.SelectionChanged += OnMainNavigationItemChange;
-        mainNavigationView.SelectedItem = mainNavigationView.MenuItems[0];
+        mainNavigationView.SelectedItem = mainNavigationView.MenuItems[1];
     }
 
     private void OnNavigateBackButtonPressed(object? sender, NavigationViewBackRequestedEventArgs e)

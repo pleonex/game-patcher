@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lottie="clr-namespace:Avalonia.Labs.Lottie;assembly=Avalonia.Labs.Lottie"
+             xmlns:local="using:PleOps.GamePatcher.Poc.Pages.Installer"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="500"
+             x:Class="PleOps.GamePatcher.Poc.Pages.Installer.ModInstallerSelectionStepView">
+
+  <Border Background="Transparent"
+          DoubleTapped="OnControlDoubleTapped">
+  <StackPanel Orientation="Vertical"
+              HorizontalAlignment="Center"
+              IsHitTestVisible="True">
+
+    <lottie:Lottie Path="avares://PleOps.GamePatcher.Poc/Assets/space.lottie.json"
+                   RepeatCount="-1"
+                   Stretch="Uniform"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   IsHitTestVisible="True"
+                   MaxHeight="400"/>
+
+    <TextBlock Text="Drop a MIX mod here"
+               HorizontalAlignment="Center"
+               Theme="{StaticResource TitleTextBlockStyle}" />
+
+    <TextBlock Text="or press anywhere to select a file"
+               HorizontalAlignment="Center"
+               Theme="{StaticResource SubtitleTextBlockStyle}" />
+
+  </StackPanel>
+  </Border>
+
+</UserControl>

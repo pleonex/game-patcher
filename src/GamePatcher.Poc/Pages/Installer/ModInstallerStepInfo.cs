@@ -23,5 +23,7 @@ public class ModInstallerStepInfo
 
     public required Symbol StepIcon { get; init; }
 
+    public ViewModelBase? ViewModel { get; set; }
+
     public bool IsEnabled { get; set; }
 }

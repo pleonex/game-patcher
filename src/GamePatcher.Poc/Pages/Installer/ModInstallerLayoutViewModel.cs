@@ -9,18 +9,16 @@ public class ModInstallerLayoutViewModel : ViewModelBase, IStackViewModel
     public ModInstallerLayoutViewModel()
     {
         Steps = new List<ModInstallerStepInfo>() {
-            new(1, "MIX package selection", Symbol.ZipFolder),
-            new(2, "Mod information", Symbol.Checkmark),
-            new(3, "Game selection", Symbol.Games),
-            new(4, "Game compatibility", Symbol.Zoom),
-            new(5, "Hardware compatibility", Symbol.XboxConsole),
-            new(6, "Parameters", Symbol.Setting),
-            new(7, "Installation", Symbol.Repair),
-            new(8, "Bundle", Symbol.FolderFilled),
+            new(1, "Mod info", Symbol.ZipFolder) { ViewModel = new ModInstallerSelectionStepViewModel() },
+            new(2, "Game compatibility", Symbol.Checkmark),
+            new(3, "Hardware compatibility", Symbol.XboxConsole),
+            new(4, "Parameters", Symbol.Setting),
+            new(5, "Installation", Symbol.Repair),
+            new(6, "Bundle", Symbol.FolderFilled),
         }.AsReadOnly();
     }
 
-    public string ViewName => "Mod installer";
+    public string ViewName => "!!POC!! MOXMI Universal Patcher";
 
     public ReadOnlyCollection<ModInstallerStepInfo> Steps { get; }
 }
