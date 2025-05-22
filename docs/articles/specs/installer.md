@@ -40,6 +40,18 @@ Container data:
 The container has a [manifest](#manifest) file with the installation information
 and a set of resources with the text or binary diffs.
 
+### Version
+
+The package contains a separate file indicating the version and format of the
+file. This file should be read before the manifest, to ensure the processing
+software has the capacity to support the MIX file. The file name is
+`version.json`. It has the following structure:
+
+- `format`: must be `mix`
+- `version`: must be `1.0`
+
+Future versions of the specification may allow other values.
+
 ### Manifest
 
 The manifest contains information of the mod, product compatibility and
